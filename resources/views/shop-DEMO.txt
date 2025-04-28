@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sabrosa</title>
-  @vite(['resources/css/app.css', 'resources/js/app.js']) 
+  @vite(['resources/css/app.css', 'resources/css/app.css', 'resources/js/app.js']) 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden">
@@ -48,40 +49,63 @@
   </div>
 
   <!-- Shop Slider -->
-  <div class="max-w-[1200px] mx-auto px-4 py-10">
-    <div class="flex justify-between items-center mb-12">
-      <h4 class="text-4xl font-bold text-[#1F27A6] text-left font-poppins">Cookies</h4>
-      <div class="flex gap-4">
-        <button class="text-4xl" onclick="leftArrow()">&#10094;</button>
-        <button class="text-4xl" onclick="scrollRight()">&#10095;</button>
-      </div>
+  <div class="relative overflow-hidden max-w-[2220px] mx-auto pt-[50px] px-[100px] pb-0 mb-[100px]">
+  <div class="flex items-center mb-5">
+    <h4 class="text-4xl font-bold text-[#1F27A6] mb-2 text-left font-[Poppins]">Cookies</h4>
+    <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer z-10 ml-[1060px]" onclick="leftArrow()">&#10094;</button>
+    <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer z-10 ml-[30px]" onclick="rightArrow()">&#10095;</button>
+  </div>
+
+  <div id="slider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide">
+    
+  <div class="bg-[#FDC0D0] border-2 border-[#E55182] rounded-[20px] w-[312px] h-[360px] p-[10px] flex flex-col justify-between">
+    
+    <div class="w-full h-[180px] overflow-hidden mt-[10px]">
+      <img src="{{ asset('images/product/tropical.png') }}" alt="Tropical Mango & Passionfruit Cookie" class="w-full h-full object-cover object-center">
     </div>
-
-    <div id="slider" class="flex overflow-x-auto gap-6 scroll-smooth">
-      
-      <!-- Example Product Card -->
-      <div class="flex flex-col bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px] p-3 justify-between hover:shadow-lg transition-transform duration-300">
-        <div class="w-full h-44 overflow-hidden rounded-lg">
-          <img src="{{ asset('images/product/tropical.png') }}" alt="Tropical Cookie" class="object-cover w-full h-full">
-        </div>
-
-        <img src="{{ asset('images/brands/byronbay.png') }}" alt="Byron Bay Logo" class="w-24 mt-4 ml-5">
-
-        <div class="flex justify-between items-end px-2">
-          <div class="text-left">
-            <p class="text-xl font-barlow font-semibold text-white">Tropical Mango & Passionfruit Cookie</p>
-          </div>
-          <a href="{{ route('tropical.show') }}" class="bg-teal-400 text-white font-bold text-lg w-32 h-16 flex justify-center items-center rounded-md">P85</a>
-        </div>
+    <img src="{{ asset('images/brands/byronbay.png') }}" alt="Byron Bay Logo" class="w-[90px] h-auto mt-[15px] ml-[20px]">
+    <div class="flex justify-between items-end px-[5px] py-[10px]">
+      <div class="text-left">
+        <p class="text-white text-[1.5rem] leading-[1.1] font-normal font-['Barlow'] m-[2px_0_0_0] px-[15px]">
+          Tropical Mango & Passionfruit Cookie
+        </p>
       </div>
-
-      <!-- Other product placeholders -->
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 2</div>
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 3</div>
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 4</div>
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 5</div>
-
+      <a href="{{ route('tropical.show') }}" class="bg-[#31c6b1] text-white font-semibold text-[1.2rem] w-[155px] h-[75px] flex items-center justify-center rounded-[6px] mr-[10px] whitespace-nowrap">
+        P85
+      </a>
     </div>
+  </div>
+
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 2
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 3
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 4
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 5
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 1
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 2
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 3
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 4
+    </div>
+    <div class="min-w-[200px] h-[250px] bg-white rounded-[12px] shadow-md flex items-center justify-center font-bold flex-shrink-0">
+      Product 5
+    </div>
+  </div>
+</div>
+
   </div>
 
   <!-- Footer -->

@@ -1,102 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sabrosa</title>
-  @vite(['resources/css/app.css', 'resources/js/app.js']) 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabrosa</title>
+    @vite(['resources/css/index.css', 'resources/js/index.js'])
+    <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
 </head>
-<body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden">
+<body class="bg-cover bg-center transition-opacity duration-500 ease-in-out opacity-0">
+    <header>
+        <nav class="navbar flex justify-between items-center p-10 bg-[#FFEBF0] text-white shadow-md fixed top-0 left-0 w-full z-10">
+            <ul class="nav-links">
+                <li><a href="about.html">Shop</a></li>
+                <li><a href="contact.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="logo"><a href="index.html"><img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="logo-apollo"></a></div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook"></a>
+                <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram"></a>
+                <a href="https://www.linkedin.com/in/austindatan/" class="linkedin" target="_blank"><img src="{{ asset('images/linkedin.png') }}" alt="Email"></a>
+            </div>
+        </nav>
+    </header>
 
-  <!-- Navbar -->
-  <header>
-    <nav class="flex justify-between items-center p-10 bg-pink-100 text-[#1F27A6] shadow-md fixed top-0 left-0 w-full z-10 font-poppins font-medium">
-      <!-- Left: Menu -->
-      <button class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute left-5 top-5 md:hidden" aria-label="Toggle menu">
-        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
-        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
-        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
-      </button>
-
-      <!-- Center: Logo -->
-      <div class="absolute left-1/2 transform -translate-x-1/2">
-        <a href="index.html">
-          <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-[270px] h-[100px] hover:underline">
-        </a>
-      </div>
-
-      <!-- Nav Links -->
-      <ul class="hidden md:flex gap-12 pl-20">
-        <li><a href="about.html" class="hover:underline text-lg">Shop</a></li>
-        <li><a href="contact.html" class="hover:underline text-lg">About</a></li>
-        <li><a href="contact.html" class="hover:underline text-lg">Contact</a></li>
-      </ul>
-
-      <!-- Social Icons -->
-      <div class="hidden md:flex gap-6 pr-20 ml-auto">
-        <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook" class="w-6 h-6 invert"></a>
-        <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram" class="w-6 h-6 invert"></a>
-        <a href="https://www.linkedin.com/in/austindatan/" target="_blank"><img src="{{ asset('images/linkedin.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Header Banner -->
-  <div class="w-full mt-[80px]">
-    <img src="{{ asset('images/shop_banner.png') }}" alt="Header Image" class="w-full h-auto">
-  </div>
-
-  <!-- Shop Slider -->
-  <div class="max-w-[1200px] mx-auto px-4 py-10">
-    <div class="flex justify-between items-center mb-12">
-      <h4 class="text-4xl font-bold text-[#1F27A6] text-left font-poppins">Cookies</h4>
-      <div class="flex gap-4">
-        <button class="text-4xl" onclick="leftArrow()">&#10094;</button>
-        <button class="text-4xl" onclick="scrollRight()">&#10095;</button>
-      </div>
+    <div class="header-image w-full">
+        <img src="{{ asset('images/hero_banner.png') }}" alt="Header Image" class="w-full h-auto">
     </div>
 
-    <div id="slider" class="flex overflow-x-auto gap-6 scroll-smooth">
-      
-      <!-- Example Product Card -->
-      <div class="flex flex-col bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px] p-3 justify-between hover:shadow-lg transition-transform duration-300">
-        <div class="w-full h-44 overflow-hidden rounded-lg">
-          <img src="{{ asset('images/product/tropical.png') }}" alt="Tropical Cookie" class="object-cover w-full h-full">
-        </div>
-
-        <img src="{{ asset('images/brands/byronbay.png') }}" alt="Byron Bay Logo" class="w-24 mt-4 ml-5">
-
-        <div class="flex justify-between items-end px-2">
-          <div class="text-left">
-            <p class="text-xl font-barlow font-semibold text-white">Tropical Mango & Passionfruit Cookie</p>
+    <section class="treats-section">
+      <div class="treats-header">
+          <h4  class="text-4xl font-bold text-[#1F27A6] mb-12 text-left font-[Poppins]">Tasty Treats</h4>
+          <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="treats-logo">
+      </div>
+        <div class="treats-carousel">
+          <div class="treat-card">
+            <div class="image-wrapper">
+              <img src="{{ asset('images/treats_donut.png') }}" alt="Donuts">
+            </div>
+            <div class="card-footer">
+              <p>Donuts</p>
+              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
+            </div>
           </div>
-          <a href="{{ route('tropical.show') }}" class="bg-teal-400 text-white font-bold text-lg w-32 h-16 flex justify-center items-center rounded-md">P85</a>
+          <div class="treat-card">
+            <div class="image-wrapper">
+              <img src="{{ asset('images/treats_cookies.png') }}" alt="Cookies">
+            </div>
+            <div class="card-footer">
+              <p>Cookies</p>
+              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
+            </div>
+          </div>
+          <div class="treat-card">
+            <div class="image-wrapper">
+              <img src="{{ asset('images/treats_drinks.png') }}" alt="Drinks">
+            </div>
+            <div class="card-footer">
+              <p>Drinks</p>
+              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
+            </div>
+          </div>
+          <div class="treat-card">
+            <div class="image-wrapper">
+              <img src="{{ asset('images/treats_meals.png') }}" alt="Meals">
+            </div>
+            <div class="card-footer">
+              <p>Meals</p>
+              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="product-section flex items-center justify-center">
+
+        <div class="product-header flex flex-col items-center text-center">
+            <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="product-logo mx-auto">
+            <h5 class="text-2xl font-bold text-[#E55182] font-[Poppins]">Featured Items</h5>
+            <p class="text-black font-[DM Sans]">Explore our signature items, crafted to perfection and bursting with flavors that will leave you craving more. Discover your new favorites today!</p>
+        </div>
+        </section>
+
+        <div class="displayed-products flex justify-center items-center mt-10">
+
+          <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/tropical.png') }}" alt="Tropical Mango & Passionfruit Cookie">
+            </div>
+            <img src="{{ asset('images/brands/byronbay.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>Tropical Mango & Passionfruit Cookie</p>
+              </div>
+              <a href="{{ route('tropical.show') }}" class="price-badge">P85</a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/don.png') }}" alt="Complimentary Pairs Sabrosa Original">
+            </div>
+            <img src="{{ asset('images/brands/sabrosa.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>Complimentary Pairs Sabrosa Originals</p>
+              </div>
+              <a href="{{ route('don.show') }}" class="price-badge">P515</a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/barbie.png') }}" alt="Tropical Mango & Passionfruit Cookie">
+            </div>
+            <img src="{{ asset('images/brands/olipop.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>BARBIE Peaches & Cream Soda</p>
+              </div>
+              <a href="{{ route('barbie.show') }}" class="price-badge">P85</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="displayed-products-below flex justify-center items-center mt-10">
+
+          <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/bun.png') }}" alt="Tropical Mango & Passionfruit Cookie">
+            </div>
+            <img src="{{ asset('images/brands/sweetsparadise.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>Way of the Strong Special Mixed Yakisoba</p>
+              </div>
+              <a href="{{ route('bun.show') }}" class="price-badge">P145</a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/tea.png') }}" alt="Complimentary Pairs Sabrosa Original">
+            </div>
+            <img src="{{ asset('images/brands/teaforte.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>Tea Chest Jubilee Petite Pyramid </p>
+              </div>
+              <a href="{{ route('tea.show') }}" class="price-badge">P635</a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/smores.png') }}" alt="Tropical Mango & Passionfruit Cookie">
+            </div>
+            <img src="{{ asset('images/brands/chobani.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>Chobani Flip S'more S'mores</p>
+              </div>
+              <a href="{{ route('smores.show') }}" class="price-badge">P125</a>
+            </div>
+          </div>
+        </div>
+
+      <div class="about-image flex justify-center items-center mt-32 mb-16 gap-12 px-10" style="margin-top: 120px; margin-bottom: 70px;">
+        <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image" class="w-[300px] h-auto align-middle">
+
+        <div class="max-w-xl">
+          <h4 class="text-4xl font-bold text-[#1F27A6] mb-6 text-left font-[Poppins]">
+            Our Story, Your Flavor Journey
+          </h4>
+          <p class="text-black text-lg font-[Poppins] leading-relaxed text-left">
+            At <span class="text-[#1F27A6] font-semibold">Sabrosa</span>, we believe that snacks should be more than just a quick bite; they should be a moment of joy. <br><br>
+            Our journey began with a simple yet exciting idea: to craft snacks that elevate your snacking experience with bold flavors, creativity, and quality. Whether you're looking for something savory, sweet, or a little bit of both, we’ve got something to satisfy every craving.
+          </p>
         </div>
       </div>
 
-      <!-- Other product placeholders -->
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 2</div>
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 3</div>
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 4</div>
-      <div class="flex items-center justify-center bg-pink-300 border-2 border-pink-500 rounded-2xl w-72 h-[360px]">Product 5</div>
+    <footer class="bg-cover bg-center" style="background-image: url('{{ asset('images/footer.png') }}'); background-size: cover;">
+        <div class="footer-content flex px-8">
+        <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="product-logo w-auto h-12 left-0">
+          <ul class="socials flex space-x-4">
+            <li><a href="#"><img src="{{ asset('images/facebok.png') }}" alt="Facebook Logo" class="w-8 h-auto"></a></li>
+            <li><a href="#"><img src="{{ asset('images/twitter.png') }}" alt="Twitter Logo" class="w-8 h-auto"></a></li>
+            <li><a href="#"><img src="{{ asset('images/insta.png') }}" alt="Google Plus Logo" class="w-8 h-auto"></a></li>
+            <li><a href="#"><img src="{{ asset('images/yt.png') }}" alt="YouTube Logo" class="w-8 h-auto"></a></li>
+          </ul>
+        </div>
+    </footer>
 
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-cover bg-center" style="background-image: url('{{ asset('images/footer.png') }}');">
-    <div class="flex justify-between items-center px-8 py-6">
-      <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-auto h-12">
-      <ul class="flex gap-4">
-        <li><a href="#"><img src="{{ asset('images/facebok.png') }}" alt="Facebook Logo" class="w-8 h-auto"></a></li>
-        <li><a href="#"><img src="{{ asset('images/twitter.png') }}" alt="Twitter Logo" class="w-8 h-auto"></a></li>
-        <li><a href="#"><img src="{{ asset('images/insta.png') }}" alt="Instagram Logo" class="w-8 h-auto"></a></li>
-        <li><a href="#"><img src="{{ asset('images/yt.png') }}" alt="YouTube Logo" class="w-8 h-auto"></a></li>
-      </ul>
-    </div>
-  </footer>
 
 </body>
 </html>
