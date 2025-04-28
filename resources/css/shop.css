@@ -1,0 +1,59 @@
+.shop-slider-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 2220px;
+    margin: 0 auto;
+    padding: 50px 100px 0 100px;
+    margin-bottom: 100px;
+  }
+  
+  .shop-slider {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+  }
+  .shop-slider::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
+  
+  .shop-treats-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .shop-card {
+    min-width: 200px;
+    height: 250px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .arrow {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .arrow.left {
+    margin-left: 1060px;
+  }
+  
+  .arrow.right {
+    margin-left: 30px;
+  }
+  

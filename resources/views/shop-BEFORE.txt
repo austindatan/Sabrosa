@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabrosa</title>
+    @vite(['resources/css/index.css', 'resources/css/shop.css', 'resources/js/index.js'])
+    <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
+</head>
+<body class="bg-cover bg-center transition-opacity duration-500 ease-in-out opacity-0">
+    <header>
+        <nav class="navbar flex justify-between items-center p-10 bg-[#FFEBF0] text-white shadow-md fixed top-0 left-0 w-full z-10">
+            <ul class="nav-links">
+                <li><a href="about.html">Shop</a></li>
+                <li><a href="contact.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="logo"><a href="index.html"><img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="logo-apollo"></a></div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook"></a>
+                <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram"></a>
+                <a href="https://www.linkedin.com/in/austindatan/" class="linkedin" target="_blank"><img src="{{ asset('images/linkedin.png') }}" alt="Email"></a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="header-image w-full">
+        <img src="{{ asset('images/shop_banner.png') }}" alt="Header Image" class="w-full h-auto">
+    </div>
+    
+    <div class="shop-slider-container">
+      <div class="shop-treats-header">
+            <h4  class="text-4xl font-bold text-[#1F27A6] mb-12 text-left font-[Poppins]">Cookies</h4>
+            <button class="arrow left" onclick="leftArrow()">&#10094;</button>
+            <button class="arrow right" onclick="scrollRight()">&#10095;</button>
+      </div>
+      
+      <div class="shop-slider" id="slider">
+        <div class="product-card">
+            <div class="product-wrapper">
+              <img src="{{ asset('images/product/tropical.png') }}" alt="Tropical Mango & Passionfruit Cookie">
+            </div>
+              <img src="{{ asset('images/brands/byronbay.png') }}" alt="Byron Bay Logo" class="brand-logo">
+
+            <div class="product-footer">
+              <div class="product-info">
+                <p>Tropical Mango & Passionfruit Cookie</p>
+              </div>
+              <a href="{{ route('tropical.show') }}" class="price-badge">P85</a>
+            </div>
+        </div>
+
+        <div class="shop-card">Product 2</div>
+        <div class="shop-card">Product 3</div>
+        <div class="shop-card">Product 4</div>
+        <div class="shop-card">Product 5</div>
+        <div class="shop-card">Product 1</div>
+        <div class="shop-card">Product 2</div>
+        <div class="shop-card">Product 3</div>
+        <div class="shop-card">Product 4</div>
+        <div class="shop-card">Product 5</div>
+      </div>
+    </div>
+
+    <footer class="bg-cover bg-center" style="background-image: url('{{ asset('images/footer.png') }}'); background-size: cover;">
+        <div class="footer-content flex px-8">
+        <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="product-logo w-auto h-12 left-0">
+          <ul class="socials flex space-x-4">
+            <li><a href="#"><img src="{{ asset('images/facebok.png') }}" alt="Facebook Logo" class="w-8 h-auto"></a></li>
+            <li><a href="#"><img src="{{ asset('images/twitter.png') }}" alt="Twitter Logo" class="w-8 h-auto"></a></li>
+            <li><a href="#"><img src="{{ asset('images/insta.png') }}" alt="Google Plus Logo" class="w-8 h-auto"></a></li>
+            <li><a href="#"><img src="{{ asset('images/yt.png') }}" alt="YouTube Logo" class="w-8 h-auto"></a></li>
+          </ul>
+        </div>
+    </footer>
+</body>
+</html>
