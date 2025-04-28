@@ -37,7 +37,7 @@
       <div class="shop-treats-header">
             <h4  class="text-4xl font-bold text-[#1F27A6] mb-12 text-left font-[Poppins]">Cookies</h4>
             <button class="arrow left" onclick="leftArrow()">&#10094;</button>
-            <button class="arrow right" onclick="scrollRight()">&#10095;</button>
+            <button class="arrow right" onclick="rightArrow()">&#10095;</button>
       </div>
       
       <div class="shop-slider" id="slider">

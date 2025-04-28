@@ -106,3 +106,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+window.leftArrow = function () {
+    document.getElementById('slider').scrollBy({
+      left: -300,
+      behavior: 'smooth'
+    });
+  }
+  
+window.rightArrow = function () {
+    document.getElementById('slider').scrollBy({
+      left: 300,
+      behavior: 'smooth'
+    });
+}
+  
