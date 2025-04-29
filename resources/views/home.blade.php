@@ -10,31 +10,26 @@
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden">
 
-  <!-- Navbar -->
   <header>
     <nav class="flex justify-between items-center p-10 bg-pink-100 text-[#1F27A6] shadow-md fixed top-0 left-0 w-full z-10 font-poppins font-medium">
-      <!-- Left: Menu -->
       <button class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute left-5 top-5 md:hidden" aria-label="Toggle menu">
         <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
         <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
         <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
       </button>
 
-      <!-- Center: Logo -->
       <div class="absolute left-1/2 transform -translate-x-1/2">
         <a href="index.html">
           <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-[270px] h-[100px] hover:underline">
         </a>
       </div>
 
-      <!-- Nav Links -->
       <ul class="hidden md:flex gap-12 pl-20">
         <li><a href="about.html" class="hover:underline text-lg">Shop</a></li>
         <li><a href="contact.html" class="hover:underline text-lg">About</a></li>
         <li><a href="contact.html" class="hover:underline text-lg">Contact</a></li>
       </ul>
 
-      <!-- Social Icons -->
       <div class="hidden md:flex gap-6 pr-20 ml-auto">
         <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook" class="w-6 h-6 invert"></a>
         <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram" class="w-6 h-6 invert"></a>
@@ -43,80 +38,363 @@
     </nav>
   </header>
 
-  <div class="flex flex-col lg:flex-row gap-10 px-10 py-10 max-w-[1440px] mx-auto mt-[100px]">
-    <div class="flex-1 flex flex-col gap-4">
-        <img src="{{ asset('images/product/product display/straw.png') }}" alt="Strawberry Bar" className="h-[450px] object-contain">
-    </div>
+  <div class="w-full mt-[80px]">
+    <img src="{{ asset('images/shop_banner.png') }}" alt="Header Image" class="w-full h-auto">
+  </div>
 
-    <!-- Right: Product Info -->
-    <div class="flex-1 flex flex-col gap-2">
-      <div class="flex items-center justify-start gap-2 border-2 border-pink-300 rounded-full px-4 py-1 w-fit bg-white">
-        <span class="text-pink-500 text-xl">★★★★★</span>
-        <span class="text-gray-700 font-semibold">(778)</span>
-      </div>
+  <div class="relative overflow-hidden max-w-[2220px] mx-auto pt-[50px] px-[100px] pb-0 mb-[100px]">
 
-      <div class="flex justify-between items-stretch w-full mt-4 gap-4">
-        <div class="flex-1">
-          <h2 class="text-4xl font-bold text-gray-900 leading-tight h-full flex text-left font-dm-sans">
-            Strawberry Shortcake<br>Strawberry Bar
-          </h2>
-        </div>
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Cookies</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cookiesleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cookiesrightArrow()">&#10095;</button>
+    </div>  </div>
 
-        <div class="bg-pink-400 text-white text-2xl px-6 py-4 rounded-2xl flex items-center justify-center font-barlow">
-          P115
-        </div>
-      </div>
+  <div id="cookiesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]"> 
+    <x-product-card 
+      name="Tropical Mango & Passionfruit Cookie" 
+      image="images/product/product sprites/Tropical Mango  & Passionfruit Cookie.png" 
+      price="P85" 
+      :route="route('tropical.show')" 
+      brand="images/brands/byronbay.png"
+    />
 
-      <div class="flex items-stretch gap-4 mt-6">
-        <div class="w-40 flex items-center border-2 border-pink-300 rounded-xl overflow-hidden text-lg font-semibold bg-white">
-          <button class="w-1/3 py-2 text-gray-600 hover:bg-gray-200">−</button>
-          <span class="w-1/3 text-center py-2">1</span>
-          <button class="w-1/3 py-2 text-gray-600 hover:bg-gray-200">+</button>
-        </div>
+    <x-product-card 
+      name="Granola, Blueberry  & Chia Cookie" 
+      image="images/product/product sprites/Granola, Blueberry  & Chia Cookie.png" 
+      price="P85" 
+      :route="route('tropical.show')" 
+      brand="images/brands/byronbay.png"
+    />
 
-        <button class="flex-1 bg-pink-400 text-white text-lg font-semibold px-8 py-3 rounded-xl hover:bg-pink-500 transition">
-          Add to Shopping Cart
-        </button>
+    <x-product-card 
+      name="Blueberry Muffin Cookie" 
+      image="images/product/product sprites/Blueberry Muffin Cookie.png" 
+      price="P85" 
+      :route="route('tropical.show')" 
+      brand="images/brands/byronbay.png"
+    />
 
-      </div>
+    <x-product-card 
+      name="Toasted Coconut & White Cookie Bites" 
+      image="images/product/product sprites/Toasted Coconut & White Cookie Bites.png" 
+      price="P55" 
+      :route="route('tropical.show')" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="Vegan Gluten Maple & Pecan Cookie Jar" 
+      image="images/product/product sprites/Vegan Gluten Maple & Pecan Cookie Jar.png" 
+      price="P675" 
+      :route="route('tropical.show')" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="12 Pack Mixed Cookie Box" 
+      image="images/product/product sprites/12 Pack Mixed Cookie Box.png" 
+      price="P675" 
+      :route="route('tropical.show')" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card
+      name="2024 Pride Cookie Limiteds"
+      image="images/product/product sprites/2024 Pride Cookie Limiteds.png"
+      price="P115"
+      :route="route('tropical.show')"
+	  brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card
+      name="Traditional Shortbread"
+      image="images/product/product sprites/Traditional Shortbread.png"
+      price="P105"
+      :route="route('tropical.show')"
+	  brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card
+      name="Cherry Bakewell Oak Boosts"
+      image="images/product/product sprites/Cherry Bakewell Oak Boosts.png"
+      price="P105"
+      :route="route('tropical.show')"
+	  brand="images/brands/graze.png"
+    />
+
+    <x-product-card
+      name="Laduree x Bridgerton Macaron Box"
+      image="images/product/product sprites/Laduree x Bridgerton Macaron Box.png"
+      price="P475"
+      :route="route('tropical.show')"
+	  brand="images/brands/laduree.png"
+    />
 
 
-      <div>
-        <h3 class="text-lg font-semibold mt-4 mb-2">Description</h3>
-        <p class="text-gray-700 leading-relaxed">
-          Compartés Strawberry Shortcake white chocolate bar, is packed full of strawberries and chunks of airy homemade shortcake. It's a chocolate bar that tastes like absolute heaven in every bite! Wrapped up in Compartés hand-drawn strawberry graphics. Handmade in our Los Angeles chocolate kitchens.
-        </p>
-      </div>
+    <x-product-card
+      name="Macaron Pyramid SABROSA Originals"
+      image="images/product/product sprites/Macaron Pyramid SPICE Originals.png"
+      price="P1175"
+      :route="route('tropical.show')"
+	  brand="images/brands/sabrosa.png"
+    />
+  </div>
 
-      <!-- Ingredients -->
-      <div>
-        <h3 class="text-lg font-semibold mt-4 mb-2">Ingredients</h3>
-        <p class="text-gray-700 text-sm">
-          White Chocolate (Sugar, Cocoa Butter, Whole Milk, Soy Lecithin as an Emulsifier, Vanilla), Strawberries, Shortcake (Wheat Flour, Butter, Sugar, Wheat Starch, Salt)
-        </p>
-      </div>
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Donuts</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="donutsleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="donutsrightArrow()">&#10095;</button>
     </div>
   </div>
 
-  <!-- Related Products -->
-  <div class="px-10 pb-10 max-w-[1440px] mx-auto">
-    <h3 class="text-2xl font-semibold mb-4">Pairs Well With</h3>
-    <div class="flex gap-6 overflow-x-auto">
-      <div class="bg-white p-4 rounded-lg shadow-md w-[180px] flex flex-col items-center">
-        <img src="https://via.placeholder.com/100" class="mb-2">
-        <p class="text-sm text-center mb-1">Strawberry Shortcake Donut Bites</p>
-        <span class="bg-[#FF6C9B] text-white px-3 py-1 rounded-md font-semibold">P475</span>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-md w-[180px] flex flex-col items-center">
-        <img src="https://via.placeholder.com/100" class="mb-2">
-        <p class="text-sm text-center mb-1">Cherry Vanilla Soda</p>
-        <span class="bg-[#FF6C9B] text-white px-3 py-1 rounded-md font-semibold">P85</span>
-      </div>
+  <div id="donutsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]"> 
+    <x-product-card 
+      name="Strawberry Shortcake Donut Bites" 
+      image="images/product/product sprites/Strawberry Shortcake Donut Bites.png" 
+      price="P475" 
+      :route="route('tropical.show')" 
+      brand="images/brands/bluestar.png"
+    />
+
+    <x-product-card 
+      name="Party Bites! Donut Bites" 
+      image="images/product/product sprites/Party Bites! Donut Bites.png" 
+      price="P475" 
+      :route="route('tropical.show')" 
+      brand="images/brands/bluestar.png"
+    />
+
+    <x-product-card 
+      name="Orange Dreamsicle Donut Bites" 
+      image="images/product/product sprites/Orange Dreamsicle Donut Bites.png" 
+      price="P475" 
+      :route="route('tropical.show')" 
+      brand="images/brands/bluestar.png"
+    />
+
+    <x-product-card 
+      name="Maple Glazed Donut Bites" 
+      image="images/product/product sprites/Maple Glazed Donut ites.png" 
+      price="P475" 
+      :route="route('tropical.show')" 
+      brand="images/brands/bluestar.png"
+    />
+
+    <x-product-card 
+      name="Lemon Poppy Donut Bites" 
+      image="images/product/product sprites/Lemon Poppy Donut Bites.png" 
+      price="P475" 
+      :route="route('tropical.show')" 
+      brand="images/brands/bluestar.png"
+    />
+
+    <x-product-card 
+      name="Chocolate Truffle Donut Bites" 
+      image="images/product/product sprites/Chocolate Truffle Donut Bites.png" 
+      price="P475" 
+      :route="route('tropical.show')" 
+      brand="images/brands/bluestar.png"
+    />
+
+    <x-product-card
+      name="1 Dozen Original Glazed Donuts"
+      image="images/product/product sprites/1 Dozen Original Glazed Donuts.png"
+      price="P449"
+      :route="route('tropical.show')"
+	  brand="images/brands/krispykreme.png"
+    />
+
+    <x-product-card
+      name="PARTY Box SABROSA Originals"
+      image="images/product/product sprites/PARTY Box SPICE Originals.png"
+      price="P515"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Complimentary Pairs SABROSA Originals"
+      image="images/product/product sprites/Complimentary Pairs SPICE Originals.png"
+      price="P515"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Brioche Box SABROSA Originals"
+      image="images/product/product sprites/Brioche Box SPICE Originals.png"
+      price="P515"
+      :route="route('tropical.show')"
+	  brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Cake-it-Easy Box SABROSA Originals"
+      image="images/product/product sprites/Cake-it-Easy Box SPICE Originals.png"
+      price="P515"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Brunch Box SABROSA Originals"
+      image="images/product/product sprites/Brunch Box SPICE Originals.png"
+      price="P515"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Disney INSIDE OUT 2 Donut Box"
+      image="images/product/product sprites/Disney INSIDE OUT 2 Donut Box.png"
+      price="P485"
+      :route="route('tropical.show')"
+	    brand="images/brands/krispykreme.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Cakes & Chocolates</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cakesleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cakesrightArrow()">&#10095;</button>
     </div>
   </div>
 
+  <div id="cakesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]">
+    <x-product-card
+      name="Luxury Gourmet Chocolate Mix"
+      image="images/product/product sprites/Luxury Gourmet Chocolate Mix.png"
+      price="P815"
+      :route="route('tropical.show')"
+	    brand="images/brands/compartes.png"
+    />
+
+    <x-product-card
+      name="Chobani Flip S`more S`mores"
+      image="images/product/product sprites/Chobani Flip S`more S`mores.png"
+      price="P125"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+
+    <x-product-card
+      name="Strawberry Shortcake Chocolate Bar"
+      image="images/product/product sprites/Strawberry Shortcake Chocolate Bar.png"
+      price="P115"
+      :route="route('tropical.show')"
+	    brand="images/brands/compartes.png"
+    />
+
+
+    <x-product-card
+      name="Lavender Chocolate Bar"
+      image="images/product/product sprites/Lavender Chocolate Bar.png"
+      price="P115"
+      :route="route('tropical.show')"
+	    brand="images/brands/compartes.png"
+    />
+
+
+    <x-product-card
+      name="Campfire S’mores Chocolate Bar"
+      image="images/product/product sprites/Campfire S’mores Chocolate Bar.png"
+      price="P115"
+      :route="route('tropical.show')"
+	    brand="images/brands/compartes.png"
+    />
+
+
+    <x-product-card
+      name="California Love Pretzel Chocolate Bar"
+      image="images/product/product sprites/California Love Pretzel Chocolate Bar.png"
+      price="P115"
+      :route="route('tropical.show')"
+	    brand="images/brands/compartes.png"
+    />
+
+
+    <x-product-card
+      name="Cereal Bowl Gourmet Chocolate Bar"
+      image="images/product/product sprites/Cereal Bowl Gourmet Chocolate Bar.png"
+      price="P115"
+      :route="route('tropical.show')"
+	    brand="images/brands/compartes.png"
+    />
+
+    <x-product-card
+      name="Bucket Glazed Cake Bites"
+      image="images/product/product sprites/Bucket Glazed Cake Bites.png"
+      price="P339"
+      :route="route('tropical.show')"
+	    brand="images/brands/krispykreme.png"
+    />
+
+    <x-product-card
+      name="Hollywood x sugarfina Candy Cove"
+      image="images/product/product sprites/Hollywood x sugarfina Candy Cove.png"
+      price="P675"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Red Velvet Cake SABROSA Originals"
+      image="images/product/product sprites/Red Velvet Cake SPICE Originals.png"
+      price="P675"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Cake Framboise SABROSA Originals"
+      image="images/product/product sprites/Cake Framboise SPICE Originals.png"
+      price="P675"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Cake Confetti SABROSA Originals"
+      image="images/product/product sprites/Cake Confetti SPICE Originals.png"
+      price="P675"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Chocolate Caramel SABROSA Originals"
+      image="images/product/product sprites/Chocolate Caramel SPICE Originals.png"
+      price="P675"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Bridesmaid Cake SABROSA Originals"
+      image="images/product/product sprites/Bridesmaid Cake SPICE Originals.png"
+      price="P1175"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Chobani Creations Cherry Cheesecake"
+      image="images/product/product sprites/Chobani Creations Cherry Cheesecake.png"
+      price="P435"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+  </div>
+
+</div>
 
   </div>
+
   <footer class="bg-cover bg-center" style="background-image: url('{{ asset('images/footer.png') }}');">
     <div class="flex justify-between items-center px-8 py-6">
       <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-auto h-12">

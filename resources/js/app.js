@@ -40,5 +40,25 @@ if (typeof window !== 'undefined') {
         });
       }
     }
+
+    window.cakesleftArrow = function () {
+      const cakesslider = document.getElementById('cakesslider');
+      if (cakesslider) {
+        cakesslider.scrollBy({
+          left: -300,
+          behavior: 'smooth'
+        });
+      }
+    }
+  
+    window.cakesrightArrow = function () {
+      const cakesslider = document.getElementById('cakesslider');
+      if (cakesslider) {
+        cakesslider.scrollBy({
+          left: 300,
+          behavior: 'smooth'
+        });
+      }
+    }
   }
   
