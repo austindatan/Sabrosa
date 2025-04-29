@@ -1,20 +1,40 @@
 import './bootstrap';
 
 if (typeof window !== 'undefined') {
-    window.leftArrow = function () {
-      const slider = document.getElementById('slider');
-      if (slider) {
-        slider.scrollBy({
+    window.cookiesleftArrow = function () {
+      const cookiesslider = document.getElementById('cookiesslider');
+      if (cookiesslider) {
+        cookiesslider.scrollBy({
           left: -300,
           behavior: 'smooth'
         });
       }
     }
   
-    window.rightArrow = function () {
-      const slider = document.getElementById('slider');
-      if (slider) {
-        slider.scrollBy({
+    window.cookiesrightArrow = function () {
+      const cookiesslider = document.getElementById('cookiesslider');
+      if (cookiesslider) {
+        cookiesslider.scrollBy({
+          left: 300,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    window.donutsleftArrow = function () {
+      const donutsslider = document.getElementById('donutsslider');
+      if (donutsslider) {
+        donutsslider.scrollBy({
+          left: -300,
+          behavior: 'smooth'
+        });
+      }
+    }
+  
+    window.donutsrightArrow = function () {
+      const donutsslider = document.getElementById('donutsslider');
+      if (donutsslider) {
+        donutsslider.scrollBy({
           left: 300,
           behavior: 'smooth'
         });
