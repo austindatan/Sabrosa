@@ -60,5 +60,65 @@ if (typeof window !== 'undefined') {
         });
       }
     }
+
+    window.drinksAndTealeftArrow = function () {
+      const drinksAndTeaslider = document.getElementById('drinksAndTeaslider');
+      if (drinksAndTeaslider) {
+      drinksAndTeaslider.scrollBy({
+        left: -300,
+        behavior: 'smooth'
+      });
+      }
+    }
+    
+    window.drinksAndTearightArrow = function () {
+      const drinksAndTeaslider = document.getElementById('drinksAndTeaslider');
+      if (drinksAndTeaslider) {
+      drinksAndTeaslider.scrollBy({
+        left: 300,
+        behavior: 'smooth'
+      });
+      }
+    }
+
+    window.mealsleftArrow = function () {
+      const mealsslider = document.getElementById('mealsslider');
+      if (mealsslider) {
+      mealsslider.scrollBy({
+      left: -300,
+      behavior: 'smooth'
+      });
+      }
+    }
+    
+    window.mealsrightArrow = function () {
+      const mealsslider = document.getElementById('mealsslider');
+      if (mealsslider) {
+      mealsslider.scrollBy({
+      left: 300,
+      behavior: 'smooth'
+      });
+      }
+    }
+
+    window.MICleftArrow = function () {
+      const MICslider = document.getElementById('MICslider');
+      if (MICslider) {
+      MICslider.scrollBy({
+        left: -300,
+        behavior: 'smooth'
+      });
+      }
+    }
+    
+    window.MICrightArrow = function () {
+      const MICslider = document.getElementById('MICslider');
+      if (MICslider) {
+      MICslider.scrollBy({
+        left: 300,
+        behavior: 'smooth'
+      });
+      }
+    }
   }
   

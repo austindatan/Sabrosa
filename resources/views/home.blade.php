@@ -391,6 +391,359 @@
     />
   </div>
 
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Drinks & Tea</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="drinksAndTealeftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="drinksAndTearightArrow()">&#10095;</button>
+    </div>
+  </div>
+  <div id="drinksAndTeaslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]">
+    <x-product-card
+      name="Stunning Strategem Flurry Cocktail Mix"
+      image="images/product/product sprites/Stunning Strategem Flurry Cocktail Mix.png"
+      price="P55"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Caramel Choco Boba Milk Tea"
+      image="images/product/product sprites/Caramel Choco Boba Milk Tea.png"
+      price="P80"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="BARBIE Peaches & Cream Soda"
+      image="images/product/product sprites/BARBIE Peaches & Cream Soda.png"
+      price="P85"
+      :route="route('tropical.show')"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Crisp Apple Soda"
+      image="images/product/product sprites/Crisp Apple Soda.png"
+      price="P85"
+      :route="route('tropical.show')"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Cherry Vanilla Soda"
+      image="images/product/product sprites/Cherry Vanilla Soda.png"
+      price="P85"
+      :route="route('tropical.show')"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Banana Cream Soda"
+      image="images/product/product sprites/Banana Cream Soda.png"
+      price="P85"
+      :route="route('tropical.show')"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Ruby Mini  Petite Pyramid "
+      image="images/product/product sprites/Ruby Mini  Petite Pyramid.png"
+      price="P435"
+      :route="route('tropical.show')"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Herbal Retreat Pyramid Tea Box"
+      image="images/product/product sprites/Herbal Retreat Pyramid Tea Box.png"
+      price="P635"
+      :route="route('tropical.show')"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Chai Lovers Petite Pyramid "
+      image="images/product/product sprites/Chai Lovers Petite Pyramid.png"
+      price="P535"
+      :route="route('tropical.show')"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Tea Chest Jubilee Petite Pyramid "
+      image="images/product/product sprites/Tea Chest Jubilee Petite Pyramid.png"
+      price="P635"
+      :route="route('tropical.show')"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Champagne Bears"
+      image="images/product/product sprites/Champagne Bears.png"
+      price="P875"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Chobani Oatmilk Zero Sugar Original"
+      image="images/product/product sprites/Chobani Oatmilk Zero Sugar Original.png"
+      price="P265"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Chobani  Oatmilk Vanilla"
+      image="images/product/product sprites/Chobani  Oatmilk Vanilla.png"
+      price="P315"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+
+    <x-product-card
+      name="Peppermint Mocha  Coffee Creamer"
+      image="images/product/product sprites/Peppermint Mocha  Coffee Creamer.png"
+      price="P385"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Chobani Oatmilk Barista Original"
+      image="images/product/product sprites/Chobani Oatmilk Barista Original.png"
+      price="P315"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Chobani Oatmilk Extra Creamy"
+      image="images/product/product sprites/Chobani Oatmilk Extra Creamy.png"
+      price="P315"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Zero Sugar Greek Yogurt Strawberry"
+      image="images/product/product sprites/Zero Sugar Greek Yogurt Strawberry.png"
+      price="P155"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Zero Sugar Greek Yogurt Mixed Berry"
+      image="images/product/product sprites/Zero Sugar Greek Yogurt Mixed Berry.png"
+      price="P345"
+      :route="route('tropical.show')"
+	    brand="images/brands/chobani.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Meals</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="mealsleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="mealsrightArrow()">&#10095;</button>
+    </div>
+  </div>
+  <div id="mealsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]">
+
+    <x-product-card
+      name="Le Haut Special Steak Plate"
+      image="images/product/product sprites/Le Haut Special Steak Plate.png"
+      price="P435"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Perfect Puddling a la Moode"
+      image="images/product/product sprites/Perfect Puddling a la Moode.png"
+      price="P235"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Sutera’s Pot-au-Feu"
+      image="images/product/product sprites/Sutera’s Pot-au-Feu.png"
+      price="P115"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Nyan Milk Set for a Special Time"
+      image="images/product/product sprites/Nyan Milk Set for a Special Time.png"
+      price="P55"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Dragon Noodles & Sausage"
+      image="images/product/product sprites/Dragon Noodles & Sausage Combo.png"
+      price="P235"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Fiendarce Steak Platter"
+      image="images/product/product sprites/Fiendarce Steak Platter.png"
+      price="P145"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Sauteed  Grudge Chunks"
+      image="images/product/product sprites/Sauteed  Grudge Chunks.png"
+      price="P325"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Evoker Nier Tea Set"
+      image="images/product/product sprites/Evoker Nier Tea Set.png"
+      price="P125"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="FFFries Off, Tempura Plate"
+      image="images/product/product sprites/FFFries Off, Tempura Plate.png"
+      price="P119"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Auguste  Fisheries"
+      image="images/product/product sprites/Auguste  Fisheries.png"
+      price="P145"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Garlic Vegetables  Tsukemen "
+      image="images/product/product sprites/Garlic Vegetables  Tsukemen.png"
+      price="P165"
+      :route="route('tropical.show')"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="All Weather Beauty"
+      image="images/product/product sprites/All Weather Beauty.png"
+      price="P235"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Way of the Strong  Special Mixed Yakisoba"
+      image="images/product/product sprites/Way of the Strong  Special Mixed Yakisoba.png"
+      price="P145"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Victorious Legend Tonkotsu Ramen"
+      image="images/product/product sprites/Victorious Legend Tonkotsu Ramen.png"
+      price="P155"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Hot Pot Assortments Platter"
+      image="images/product/product sprites/Hot Pot Assortments Platter.png"
+      price="P85"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+
+    <x-product-card
+      name="Summer  Festival Fish"
+      image="images/product/product sprites/Summer  Festival Fish.png"
+      price="P85"
+      :route="route('tropical.show')"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+
+    <x-product-card
+      name="Maple Drizzle  & Chopped-Bacon"
+      image="images/product/product sprites/Maple Drizzle  & Chopped-Bacon.png"
+      price="P145"
+      :route="route('tropical.show')"
+	    brand="images/brands/sabrosa.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">We also have!</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="MICleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="MICrightArrow()">&#10095;</button>
+    </div>
+  </div>
+  <div id="MICslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide">
+
+    <x-product-card
+      name="Luxury Candy  Cubes Gift Box"
+      image="images/product/product sprites/Luxury Candy  Cubes Gift Box.png"
+      price="P515"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Vacation Vibes Candy Cubes"
+      image="images/product/product sprites/Vacation Vibes Candy Cubes.png"
+      price="P315"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="5 Assortment Candy Cubes"
+      image="images/product/product sprites/5 Assortment Candy Cubes.png"
+      price="P225"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Candy  Bento Box"
+      image="images/product/product sprites/Candy  Bento Box.png"
+      price="P745"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+
+
+    <x-product-card
+      name="Bridesmaid Party Candy Cubes"
+      image="images/product/product sprites/Bridesmaid Party Candy Cubes.png"
+      price="P315"
+      :route="route('tropical.show')"
+	    brand="images/brands/sugarfina.png"
+    />
+  </div>
+
 </div>
 
   </div>
