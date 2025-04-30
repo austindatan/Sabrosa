@@ -1,208 +1,764 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabrosa</title>
-    @vite(['resources/css/index.css', 'resources/js/index.js'])
-    <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sabrosa</title>
+  @vite(['resources/css/app.css', 'resources/css/app.css', 'resources/js/app.js']) 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
 </head>
-<body class="bg-cover bg-center transition-opacity duration-500 ease-in-out opacity-0">
-    <header>
-        <nav class="navbar flex justify-between items-center p-10 bg-[#FFEBF0] text-white shadow-md fixed top-0 left-0 w-full z-10">
-            <ul class="nav-links">
-                <li><a href="about.html">Shop</a></li>
-                <li><a href="contact.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <button class="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="logo"><a href="index.html"><img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="logo-apollo"></a></div>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook"></a>
-                <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram"></a>
-                <a href="https://www.linkedin.com/in/austindatan/" class="linkedin" target="_blank"><img src="{{ asset('images/linkedin.png') }}" alt="Email"></a>
-            </div>
-        </nav>
-    </header>
+<body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden">
 
-    <div class="header-image w-full">
-        <img src="{{ asset('images/hero_banner.png') }}" alt="Header Image" class="w-full h-auto">
+  <header>
+    <nav class="flex justify-between items-center p-10 bg-pink-100 text-[#1F27A6] shadow-md fixed top-0 left-0 w-full z-10 font-poppins font-medium">
+      <button class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute left-5 top-5 md:hidden" aria-label="Toggle menu">
+        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+      </button>
+
+      <div class="absolute left-1/2 transform -translate-x-1/2">
+        <a href="{{ route('home') }}">
+          <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-[270px] h-[100px] hover:underline">
+        </a>
+      </div>
+
+      <ul class="hidden md:flex gap-12 pl-20">
+        <li><a href="{{ route('home') }}" class="hover:underline text-lg">Shop</a></li>
+        <li><a href="{{ route('home') }}" class="hover:underline text-lg">About</a></li>
+        <li><a href="{{ route('home') }}" class="hover:underline text-lg">Contact</a></li>
+      </ul>
+
+      <div class="hidden md:flex gap-6 pr-20 ml-auto">
+        <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook" class="w-6 h-6 invert"></a>
+        <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram" class="w-6 h-6 invert"></a>
+        <a href="https://www.linkedin.com/in/austindatan/" target="_blank"><img src="{{ asset('images/linkedin.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="w-full mt-[80px]">
+    <img src="{{ asset('images/shop_banner.png') }}" alt="Header Image" class="w-full h-auto">
+  </div>
+
+  <div class="relative overflow-hidden max-w-[2220px] mx-auto pt-[50px] px-[100px] pb-0 mb-[100px]">
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Cookies</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cookiesleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cookiesrightArrow()">&#10095;</button>
+    </div>  </div>
+
+  <div id="cookiesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]"> 
+    <x-product-card 
+      name="Tropical Mango & Passionfruit Cookie" 
+      image="images/product/product_sprites/Tropical Mango  & Passionfruit Cookie.png" 
+      price="P85" 
+      :route="route('product.show', ['product' => 1])" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="Granola, Blueberry  & Chia Cookie" 
+      image="images/product/product_sprites/Granola, Blueberry  & Chia Cookie.png" 
+      price="P85" 
+      :route="route('product.show', ['product' => 2])" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="Blueberry Muffin Cookie" 
+      image="images/product/product_sprites/Blueberry Muffin Cookie.png" 
+      price="P85" 
+      :route="route('product.show', ['product' => 3])" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="Toasted Coconut & White Cookie Bites" 
+      image="images/product/product_sprites/Toasted Coconut & White Cookie Bites.png" 
+      price="P55" 
+      :route="route('product.show', ['product' => 4])" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="Vegan Gluten Maple & Pecan Cookie Jar" 
+      image="images/product/product_sprites/Vegan Gluten Maple & Pecan Cookie Jar.png" 
+      price="P675" 
+      :route="route('product.show', ['product' => 5])" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card 
+      name="12 Pack Mixed Cookie Box" 
+      image="images/product/product_sprites/12 Pack Mixed Cookie Box.png" 
+      price="P675" 
+      :route="route('product.show', ['product' => 6])" 
+      brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card
+      name="2024 Pride Cookie Limiteds"
+      image="images/product/product_sprites/2024 Pride Cookie Limiteds.png"
+      price="P115"
+      :route="route('product.show', ['product' => 7])"
+	  brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card
+      name="Traditional Shortbread"
+      image="images/product/product_sprites/Traditional Shortbread.png"
+      price="P105"
+      :route="route('product.show', ['product' => 8])"
+	  brand="images/brands/byronbay.png"
+    />
+
+    <x-product-card
+      name="Cherry Bakewell Oak Boosts"
+      image="images/product/product_sprites/Cherry Bakewell Oak Boosts.png"
+      price="P105"
+      :route="route('product.show', ['product' => 9])"
+	  brand="images/brands/graze.png"
+    />
+
+    <x-product-card
+      name="Laduree x Bridgerton Macaron Box"
+      image="images/product/product_sprites/Laduree x Bridgerton Macaron Box.png"
+      price="P475"
+      :route="route('product.show', ['product' => 10])"
+	  brand="images/brands/laduree.png"
+    />
+
+
+    <x-product-card
+      name="Macaron Pyramid SABROSA Originals"
+      image="images/product/product_sprites/Macaron Pyramid SABROSA Originals.png"
+      price="P1175"
+      :route="route('product.show', ['product' => 11])"
+	  brand="images/brands/sabrosa.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Donuts</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="donutsleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="donutsrightArrow()">&#10095;</button>
     </div>
+  </div>
 
-    <section class="treats-section">
-      <div class="treats-header">
-          <h4  class="text-4xl font-bold text-[#1F27A6] mb-12 text-left font-[Poppins]">Tasty Treats</h4>
-          <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="treats-logo">
-      </div>
-        <div class="treats-carousel">
-          <div class="treat-card">
-            <div class="image-wrapper">
-              <img src="{{ asset('images/treats_donut.png') }}" alt="Donuts">
-            </div>
-            <div class="card-footer">
-              <p>Donuts</p>
-              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
-            </div>
-          </div>
-          <div class="treat-card">
-            <div class="image-wrapper">
-              <img src="{{ asset('images/treats_cookies.png') }}" alt="Cookies">
-            </div>
-            <div class="card-footer">
-              <p>Cookies</p>
-              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
-            </div>
-          </div>
-          <div class="treat-card">
-            <div class="image-wrapper">
-              <img src="{{ asset('images/treats_drinks.png') }}" alt="Drinks">
-            </div>
-            <div class="card-footer">
-              <p>Drinks</p>
-              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
-            </div>
-          </div>
-          <div class="treat-card">
-            <div class="image-wrapper">
-              <img src="{{ asset('images/treats_meals.png') }}" alt="Meals">
-            </div>
-            <div class="card-footer">
-              <p>Meals</p>
-              <div class="dot"><img src="{{ asset('images/arrow.png') }}"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <div id="donutsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]"> 
+    <x-product-card 
+      name="Strawberry Shortcake Donut Bites" 
+      image="images/product/product_sprites/Strawberry Shortcake Donut Bites.png" 
+      price="P475" 
+      :route="route('product.show', ['product' => 12])" 
+      brand="images/brands/bluestar.png"
+    />
 
-      <section class="product-section flex items-center justify-center">
+    <x-product-card 
+      name="Party Bites! Donut Bites" 
+      image="images/product/product_sprites/Party Bites! Donut Bites.png" 
+      price="P475" 
+      :route="route('product.show', ['product' => 13])" 
+      brand="images/brands/bluestar.png"
+    />
 
-        <div class="product-header flex flex-col items-center text-center">
-            <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="product-logo mx-auto">
-            <h5 class="text-2xl font-bold text-[#E55182] font-[Poppins]">Featured Items</h5>
-            <p class="text-black font-[DM Sans]">Explore our signature items, crafted to perfection and bursting with flavors that will leave you craving more. Discover your new favorites today!</p>
-        </div>
-        </section>
+    <x-product-card 
+      name="Orange Dreamsicle Donut Bites" 
+      image="images/product/product_sprites/Orange Dreamsicle Donut Bites.png" 
+      price="P475" 
+      :route="route('product.show', ['product' => 14])" 
+      brand="images/brands/bluestar.png"
+    />
 
-        <div class="displayed-products flex justify-center items-center mt-10">
+    <x-product-card 
+      name="Maple Glazed Donut Bites" 
+      image="images/product/product_sprites/Maple Glazed Donut Bites.png" 
+      price="P475" 
+      :route="route('product.show', ['product' => 15])" 
+      brand="images/brands/bluestar.png"
+    />
 
-          <div class="product-card">
-            <div class="product-wrapper">
-              <img src="{{ asset('images/product/tropical.png') }}" alt="Tropical Mango & Passionfruit Cookie">
-            </div>
-            <img src="{{ asset('images/brands/byronbay.png') }}" alt="Byron Bay Logo" class="brand-logo">
+    <x-product-card 
+      name="Lemon Poppy Donut Bites" 
+      image="images/product/product_sprites/Lemon Poppy Donut Bites.png" 
+      price="P475" 
+      :route="route('product.show', ['product' => 16])" 
+      brand="images/brands/bluestar.png"
+    />
 
-            <div class="product-footer">
-              <div class="product-info">
-                <p>Tropical Mango & Passionfruit Cookie</p>
-              </div>
-              <a href="{{ route('tropical.show') }}" class="price-badge">P85</a>
-            </div>
-          </div>
+    <x-product-card 
+      name="Chocolate Truffle Donut Bites" 
+      image="images/product/product_sprites/Chocolate Truffle Donut Bites.png" 
+      price="P475" 
+      :route="route('product.show', ['product' => 17])" 
+      brand="images/brands/bluestar.png"
+    />
 
-          <div class="product-card">
-            <div class="product-wrapper">
-              <img src="{{ asset('images/product/don.png') }}" alt="Complimentary Pairs Sabrosa Original">
-            </div>
-            <img src="{{ asset('images/brands/sabrosa.png') }}" alt="Byron Bay Logo" class="brand-logo">
+    <x-product-card
+      name="1 Dozen Original Glazed Donuts"
+      image="images/product/product_sprites/1 Dozen Original Glazed Donuts.png"
+      price="P449"
+      :route="route('product.show', ['product' => 18])"
+	  brand="images/brands/krispykreme.png"
+    />
 
-            <div class="product-footer">
-              <div class="product-info">
-                <p>Complimentary Pairs Sabrosa Originals</p>
-              </div>
-              <a href="{{ route('don.show') }}" class="price-badge">P515</a>
-            </div>
-          </div>
+    <x-product-card
+      name="PARTY Box SABROSA Originals"
+      image="images/product/product_sprites/PARTY Box SABROSA Originals.png"
+      price="P515"
+      :route="route('product.show', ['product' => 19])"
+	    brand="images/brands/sabrosa.png"
+    />
 
-          <div class="product-card">
-            <div class="product-wrapper">
-              <img src="{{ asset('images/product/barbie.png') }}" alt="Tropical Mango & Passionfruit Cookie">
-            </div>
-            <img src="{{ asset('images/brands/olipop.png') }}" alt="Byron Bay Logo" class="brand-logo">
+    <x-product-card
+      name="Complimentary Pairs SABROSA Originals"
+      image="images/product/product_sprites/Complimentary Pairs SABROSA Originals.png"
+      price="P515"
+      :route="route('product.show', ['product' => 20])"
+	    brand="images/brands/sabrosa.png"
+    />
 
-            <div class="product-footer">
-              <div class="product-info">
-                <p>BARBIE Peaches & Cream Soda</p>
-              </div>
-              <a href="{{ route('barbie.show') }}" class="price-badge">P85</a>
-            </div>
-          </div>
-        </div>
+    <x-product-card
+      name="Brioche Box SABROSA Originals"
+      image="images/product/product_sprites/Brioche Box SABROSA Originals.png"
+      price="P515"
+      :route="route('product.show', ['product' => 21])"
+	  brand="images/brands/sabrosa.png"
+    />
 
-        <div class="displayed-products-below flex justify-center items-center mt-10">
+    <x-product-card
+      name="Cake-it-Easy Box SABROSA Originals"
+      image="images/product/product_sprites/Cake-it-Easy Box SABROSA Originals.png"
+      price="P515"
+      :route="route('product.show', ['product' => 22])"
+	    brand="images/brands/sabrosa.png"
+    />
 
-          <div class="product-card">
-            <div class="product-wrapper">
-              <img src="{{ asset('images/product/bun.png') }}" alt="Tropical Mango & Passionfruit Cookie">
-            </div>
-            <img src="{{ asset('images/brands/sweetsparadise.png') }}" alt="Byron Bay Logo" class="brand-logo">
+    <x-product-card
+      name="Brunch Box SABROSA Originals"
+      image="images/product/product_sprites/Brunch Box SABROSA Originals.png"
+      price="P515"
+      :route="route('product.show', ['product' => 23])"
+	    brand="images/brands/sabrosa.png"
+    />
 
-            <div class="product-footer">
-              <div class="product-info">
-                <p>Way of the Strong Special Mixed Yakisoba</p>
-              </div>
-              <a href="{{ route('bun.show') }}" class="price-badge">P145</a>
-            </div>
-          </div>
+    <x-product-card
+      name="Disney INSIDE OUT 2 Donut Box"
+      image="images/product/product_sprites/Disney INSIDE OUT 2 Donut Box.png"
+      price="P485"
+      :route="route('product.show', ['product' => 24])"
+	    brand="images/brands/krispykreme.png"
+    />
+  </div>
 
-          <div class="product-card">
-            <div class="product-wrapper">
-              <img src="{{ asset('images/product/tea.png') }}" alt="Complimentary Pairs Sabrosa Original">
-            </div>
-            <img src="{{ asset('images/brands/teaforte.png') }}" alt="Byron Bay Logo" class="brand-logo">
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Cakes & Chocolates</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cakesleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cakesrightArrow()">&#10095;</button>
+    </div>
+  </div>
 
-            <div class="product-footer">
-              <div class="product-info">
-                <p>Tea Chest Jubilee Petite Pyramid </p>
-              </div>
-              <a href="{{ route('tea.show') }}" class="price-badge">P635</a>
-            </div>
-          </div>
+  <div id="cakesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]">
+    <x-product-card
+      name="Luxury Gourmet Chocolate Mix"
+      image="images/product/product_sprites/Luxury Gourmet Chocolate Mix.png"
+      price="P815"
+      :route="route('product.show', ['product' => 25])"
+	    brand="images/brands/compartes.png"
+    />
 
-          <div class="product-card">
-            <div class="product-wrapper">
-              <img src="{{ asset('images/product/smores.png') }}" alt="Tropical Mango & Passionfruit Cookie">
-            </div>
-            <img src="{{ asset('images/brands/chobani.png') }}" alt="Byron Bay Logo" class="brand-logo">
+    <x-product-card
+      name="Chobani Flip S`more S`mores"
+      image="images/product/product_sprites/Chobani Flip S`more S`mores.png"
+      price="P125"
+      :route="route('product.show', ['product' => 26])"
+	    brand="images/brands/chobani.png"
+    />
 
-            <div class="product-footer">
-              <div class="product-info">
-                <p>Chobani Flip S'more S'mores</p>
-              </div>
-              <a href="{{ route('smores.show') }}" class="price-badge">P125</a>
-            </div>
-          </div>
-        </div>
 
-      <div class="about-image flex justify-center items-center mt-32 mb-16 gap-12 px-10" style="margin-top: 120px; margin-bottom: 70px;">
-        <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image" class="w-[300px] h-auto align-middle">
+    <x-product-card 
+    name="Strawberry Shortcake Chocolate Bar"
+    image="images/product/product_sprites/Strawberry Shortcake Chocolate Bar.png"
+    price="P115"
+    :route="route('product.show', ['product' => 27])"
+    brand="images/brands/compartes.png"
+    />
 
-        <div class="max-w-xl">
-          <h4 class="text-4xl font-bold text-[#1F27A6] mb-6 text-left font-[Poppins]">
-            Our Story, Your Flavor Journey
-          </h4>
-          <p class="text-black text-lg font-[Poppins] leading-relaxed text-left">
-            At <span class="text-[#1F27A6] font-semibold">Sabrosa</span>, we believe that snacks should be more than just a quick bite; they should be a moment of joy. <br><br>
-            Our journey began with a simple yet exciting idea: to craft snacks that elevate your snacking experience with bold flavors, creativity, and quality. Whether you're looking for something savory, sweet, or a little bit of both, we’ve got something to satisfy every craving.
-          </p>
-        </div>
-      </div>
 
-    <footer class="bg-cover bg-center" style="background-image: url('{{ asset('images/footer.png') }}'); background-size: cover;">
-        <div class="footer-content flex px-8">
-        <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="product-logo w-auto h-12 left-0">
-          <ul class="socials flex space-x-4">
-            <li><a href="#"><img src="{{ asset('images/facebok.png') }}" alt="Facebook Logo" class="w-8 h-auto"></a></li>
-            <li><a href="#"><img src="{{ asset('images/twitter.png') }}" alt="Twitter Logo" class="w-8 h-auto"></a></li>
-            <li><a href="#"><img src="{{ asset('images/insta.png') }}" alt="Google Plus Logo" class="w-8 h-auto"></a></li>
-            <li><a href="#"><img src="{{ asset('images/yt.png') }}" alt="YouTube Logo" class="w-8 h-auto"></a></li>
-          </ul>
-        </div>
-    </footer>
+    <x-product-card
+      name="Lavender Chocolate Bar"
+      image="images/product/product_sprites/Lavender Chocolate Bar.png"
+      price="P115"
+      :route="route('product.show', ['product' => 28])"
+	    brand="images/brands/compartes.png"
+    />
 
+
+    <x-product-card
+      name="Campfire S’mores Chocolate Bar"
+      image="images/product/product_sprites/Campfire S’mores Chocolate Bar.png"
+      price="P115"
+      :route="route('product.show', ['product' => 28])"
+	    brand="images/brands/compartes.png"
+    />
+
+
+    <x-product-card
+      name="California Love Pretzel Chocolate Bar"
+      image="images/product/product_sprites/California Love Pretzel Chocolate Bar.png"
+      price="P115"
+      :route="route('product.show', ['product' => 30])"
+	    brand="images/brands/compartes.png"
+    />
+
+
+    <x-product-card
+      name="Cereal Bowl Gourmet Chocolate Bar"
+      image="images/product/product_sprites/Cereal Bowl Gourmet Chocolate Bar.png"
+      price="P115"
+      :route="route('product.show', ['product' => 31])"
+	    brand="images/brands/compartes.png"
+    />
+
+    <x-product-card
+      name="Bucket Glazed Cake Bites"
+      image="images/product/product_sprites/Bucket Glazed Cake Bites.png"
+      price="P339"
+      :route="route('product.show', ['product' => 32])"
+	    brand="images/brands/krispykreme.png"
+    />
+
+    <x-product-card
+      name="Hollywood x sugarfina Candy Cove"
+      image="images/product/product_sprites/Hollywood x sugarfina Candy Cove.png"
+      price="P675"
+      :route="route('product.show', ['product' => 33])"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Red Velvet Cake SABROSA Originals"
+      image="images/product/product_sprites/Red Velvet Cake SPICE Originals.png"
+      price="P675"
+      :route="route('product.show', ['product' => 34])"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Cake Framboise SABROSA Originals"
+      image="images/product/product_sprites/Cake Framboise SPICE Originals.png"
+      price="P675"
+      :route="route('product.show', ['product' => 35])"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Cake Confetti SABROSA Originals"
+      image="images/product/product_sprites/Cake Confetti SPICE Originals.png"
+      price="P675"
+      :route="route('product.show', ['product' => 36])"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Chocolate Caramel SABROSA Originals"
+      image="images/product/product_sprites/Chocolate Caramel SPICE Originals.png"
+      price="P675"
+      :route="route('product.show', ['product' => 37])"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Bridesmaid Cake SABROSA Originals"
+      image="images/product/product_sprites/Bridesmaid Cake SPICE Originals.png"
+      price="P1175"
+      :route="route('product.show', ['product' => 38])"
+	    brand="images/brands/sabrosa.png"
+    />
+
+    <x-product-card
+      name="Chobani Creations Cherry Cheesecake"
+      image="images/product/product_sprites/Chobani Creations Cherry Cheesecake.png"
+      price="P435"
+      :route="route('product.show', ['product' => 39])"
+	    brand="images/brands/chobani.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Drinks & Tea</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="drinksAndTealeftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="drinksAndTearightArrow()">&#10095;</button>
+    </div>
+  </div>
+  <div id="drinksAndTeaslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]">
+    <x-product-card
+      name="Stunning Strategem Flurry Cocktail Mix"
+      image="images/product/product_sprites/Stunning Strategem Flurry Cocktail Mix.png"
+      price="P55"
+      :route="route('product.show', ['product' => 40])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Caramel Choco Boba Milk Tea"
+      image="images/product/product_sprites/Caramel Choco Boba Milk Tea.png"
+      price="P80"
+      :route="route('product.show', ['product' => 41])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="BARBIE Peaches & Cream Soda"
+      image="images/product/product_sprites/BARBIE Peaches & Cream Soda.png"
+      price="P85"
+      :route="route('product.show', ['product' => 42])"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Crisp Apple Soda"
+      image="images/product/product_sprites/Crisp Apple Soda.png"
+      price="P85"
+      :route="route('product.show', ['product' => 43])"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Cherry Vanilla Soda"
+      image="images/product/product_sprites/Cherry Vanilla Soda.png"
+      price="P85"
+      :route="route('product.show', ['product' => 44])"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Banana Cream Soda"
+      image="images/product/product_sprites/Banana Cream Soda.png"
+      price="P85"
+      :route="route('product.show', ['product' => 45])"
+	    brand="images/brands/olipop.png"
+    />
+
+    <x-product-card
+      name="Ruby Mini  Petite Pyramid "
+      image="images/product/product_sprites/Ruby Mini  Petite Pyramid.png"
+      price="P435"
+      :route="route('product.show', ['product' => 46])"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Herbal Retreat Pyramid Tea Box"
+      image="images/product/product_sprites/Herbal Retreat Pyramid Tea Box.png"
+      price="P635"
+      :route="route('product.show', ['product' => 47])"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Chai Lovers Petite Pyramid "
+      image="images/product/product_sprites/Chai Lovers Petite Pyramid.png"
+      price="P535"
+      :route="route('product.show', ['product' => 48])"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Tea Chest Jubilee Petite Pyramid "
+      image="images/product/product_sprites/Tea Chest Jubilee Petite Pyramid.png"
+      price="P635"
+      :route="route('product.show', ['product' => 49])"
+	    brand="images/brands/teaforte.png"
+    />
+
+    <x-product-card
+      name="Champagne Bears"
+      image="images/product/product_sprites/Champagne Bears.png"
+      price="P875"
+      :route="route('product.show', ['product' => 50])"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Chobani Oatmilk Zero Sugar Original"
+      image="images/product/product_sprites/Chobani Oatmilk Zero Sugar Original.png"
+      price="P265"
+      :route="route('product.show', ['product' => 51])"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Chobani  Oatmilk Vanilla"
+      image="images/product/product_sprites/Chobani  Oatmilk Vanilla.png"
+      price="P315"
+      :route="route('product.show', ['product' => 52])"
+	    brand="images/brands/chobani.png"
+    />
+
+
+    <x-product-card
+      name="Peppermint Mocha  Coffee Creamer"
+      image="images/product/product_sprites/Peppermint Mocha  Coffee Creamer.png"
+      price="P385"
+      :route="route('product.show', ['product' => 53])"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Chobani Oatmilk Barista Original"
+      image="images/product/product_sprites/Chobani Oatmilk Barista Original.png"
+      price="P315"
+      :route="route('product.show', ['product' => 54])"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Chobani Oatmilk Extra Creamy"
+      image="images/product/product_sprites/Chobani Oatmilk Extra Creamy.png"
+      price="P315"
+      :route="route('product.show', ['product' => 55])"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Zero Sugar Greek Yogurt Strawberry"
+      image="images/product/product_sprites/Zero Sugar Greek Yogurt Strawberry.png"
+      price="P155"
+      :route="route('product.show', ['product' => 56])"
+	    brand="images/brands/chobani.png"
+    />
+
+    <x-product-card
+      name="Zero Sugar Greek Yogurt Mixed Berry"
+      image="images/product/product_sprites/Zero Sugar Greek Yogurt Mixed Berry.png"
+      price="P345"
+      :route="route('product.show', ['product' => 57])"
+	    brand="images/brands/chobani.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">Meals</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="mealsleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="mealsrightArrow()">&#10095;</button>
+    </div>
+  </div>
+  <div id="mealsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide mb-[32px]">
+
+    <x-product-card
+      name="Le Haut Special Steak Plate"
+      image="images/product/product_sprites/Le Haut Special Steak Plate.png"
+      price="P435"
+      :route="route('product.show', ['product' => 58])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Perfect Puddling a la Moode"
+      image="images/product/product_sprites/Perfect Puddling a la Moode.png"
+      price="P235"
+      :route="route('product.show', ['product' => 59])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Sutera’s Pot-au-Feu"
+      image="images/product/product_sprites/Sutera’s Pot-au-Feu.png"
+      price="P115"
+      :route="route('product.show', ['product' => 60])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Nyan Milk Set for a Special Time"
+      image="images/product/product_sprites/Nyan Milk Set for a Special Time.png"
+      price="P55"
+      :route="route('product.show', ['product' => 61])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Dragon Noodles & Sausage"
+      image="images/product/product_sprites/Dragon Noodles & Sausage Combo.png"
+      price="P235"
+      :route="route('product.show', ['product' => 62])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Fiendarce Steak Platter"
+      image="images/product/product_sprites/Fiendarce Steak Platter.png"
+      price="P145"
+      :route="route('product.show', ['product' => 63])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Sauteed  Grudge Chunks"
+      image="images/product/product_sprites/Sauteed  Grudge Chunks.png"
+      price="P325"
+      :route="route('product.show', ['product' => 64])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Evoker Nier Tea Set"
+      image="images/product/product_sprites/Evoker Nier Tea Set.png"
+      price="P125"
+      :route="route('product.show', ['product' => 65])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="FFFries Off, Tempura Plate"
+      image="images/product/product_sprites/FFFries Off, Tempura Plate.png"
+      price="P119"
+      :route="route('product.show', ['product' => 66])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Auguste  Fisheries"
+      image="images/product/product_sprites/Auguste  Fisheries.png"
+      price="P145"
+      :route="route('product.show', ['product' => 67])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="Garlic Vegetables  Tsukemen "
+      image="images/product/product_sprites/Garlic Vegetables  Tsukemen.png"
+      price="P165"
+      :route="route('product.show', ['product' => 68])"
+	    brand="images/brands/granbluekitchen.png"
+    />
+
+    <x-product-card
+      name="All Weather Beauty"
+      image="images/product/product_sprites/All Weather Beauty.png"
+      price="P235"
+      :route="route('product.show', ['product' => 69])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Way of the Strong  Special Mixed Yakisoba"
+      image="images/product/product_sprites/Way of the Strong  Special Mixed Yakisoba.png"
+      price="P145"
+      :route="route('product.show', ['product' => 70])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Victorious Legend Tonkotsu Ramen"
+      image="images/product/product_sprites/Victorious Legend Tonkotsu Ramen.png"
+      price="P155"
+      :route="route('product.show', ['product' => 71])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+    <x-product-card
+      name="Hot Pot Assortments Platter"
+      image="images/product/product_sprites/Hot Pot Assortments Platter.png"
+      price="P85"
+      :route="route('product.show', ['product' => 72])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+
+    <x-product-card
+      name="Summer  Festival Fish"
+      image="images/product/product_sprites/Summer  Festival Fish.png"
+      price="P85"
+      :route="route('product.show', ['product' => 73])"
+	    brand="images/brands/sweetsparadise.png"
+    />
+
+
+    <x-product-card
+      name="Maple Drizzle  & Chopped-Bacon"
+      image="images/product/product_sprites/Maple Drizzle  & Chopped-Bacon.png"
+      price="P145"
+      :route="route('product.show', ['product' => 74])"
+	    brand="images/brands/sabrosa.png"
+    />
+  </div>
+
+  <div class="flex items-center justify-between mb-5">
+    <h4 class="text-4xl font-bold text-[#FF6C9B] mb-2 text-left font-[Poppins]">We also have!</h4>
+    <div class="flex gap-4">
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="MICleftArrow()">&#10094;</button>
+      <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="MICrightArrow()">&#10095;</button>
+    </div>
+  </div>
+  <div id="MICslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide">
+
+    <x-product-card
+      name="Luxury Candy  Cubes Gift Box"
+      image="images/product/product_sprites/Luxury Candy  Cubes Gift Box.png"
+      price="P515"
+      :route="route('product.show', ['product' => 75])"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Vacation Vibes Candy Cubes"
+      image="images/product/product_sprites/Vacation Vibes Candy Cubes.png"
+      price="P315"
+      :route="route('product.show', ['product' => 76])"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="5 Assortment Candy Cubes"
+      image="images/product/product_sprites/5 Assortment Candy Cubes.png"
+      price="P225"
+      :route="route('product.show', ['product' => 77])"
+	    brand="images/brands/sugarfina.png"
+    />
+
+    <x-product-card
+      name="Candy  Bento Box"
+      image="images/product/product_sprites/Candy  Bento Box.png"
+      price="P745"
+      :route="route('product.show', ['product' => 78])"
+	    brand="images/brands/sugarfina.png"
+    />
+
+
+    <x-product-card
+      name="Bridesmaid Party Candy Cubes"
+      image="images/product/product_sprites/Bridesmaid Party Candy Cubes.png"
+      price="P315"
+      :route="route('product.show', ['product' => 79])"
+	    brand="images/brands/sugarfina.png"
+    />
+  </div>
+
+</div>
+
+  </div>
+
+  <footer class="bg-cover bg-center" style="background-image: url('{{ asset('images/footer.png') }}');">
+    <div class="flex justify-between items-center px-8 py-6">
+      <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-auto h-12">
+      <ul class="flex gap-4">
+        <li><a href="#"><img src="{{ asset('images/facebok.png') }}" alt="Facebook Logo" class="w-8 h-auto"></a></li>
+        <li><a href="#"><img src="{{ asset('images/twitter.png') }}" alt="Twitter Logo" class="w-8 h-auto"></a></li>
+        <li><a href="#"><img src="{{ asset('images/insta.png') }}" alt="Instagram Logo" class="w-8 h-auto"></a></li>
+        <li><a href="#"><img src="{{ asset('images/yt.png') }}" alt="YouTube Logo" class="w-8 h-auto"></a></li>
+      </ul>
+    </div>
+  </footer>
 
 </body>
 </html>

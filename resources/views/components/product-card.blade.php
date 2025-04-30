@@ -1,4 +1,4 @@
-<div class="bg-[white] border-2 border-[#E55182] rounded-[20px] w-[312px] h-[360px] p-[10px] flex flex-col justify-between">
+<a href="{{ $route }}" class="bg-[white] border-2 border-[#E55182] rounded-[20px] w-[312px] h-[360px] p-[10px] flex flex-col justify-between">
     <div class="w-full h-[180px] overflow-hidden mt-[10px]">
         <img src="{{ asset($image) }}" alt="{{ $name }}" class="w-full h-full object-cover object-center">
     </div>
@@ -9,8 +9,8 @@
                 {{ $name }}
             </p>
         </div>
-        <a href="{{ $route }}" class="bg-[#FF6C9B] text-white font-semibold text-[1.2rem] w-[155px] h-[75px] flex items-center justify-center rounded-[6px] mr-[10px] whitespace-nowrap">
+        <div class="bg-[#FF6C9B] text-white font-semibold text-[1.2rem] w-[155px] h-[75px] flex items-center justify-center rounded-[6px] mr-[10px] whitespace-nowrap">
             {{ $price }}
-        </a>
+        </div>
     </div>
-</div>
+</a>
