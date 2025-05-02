@@ -1,4 +1,4 @@
-<a href="{{ $route }}" class="bg-white border-2 border-[#E55182] rounded-[20px] w-full max-w-[312px] h-auto sm:h-[360px] p-4 flex flex-col justify-between transition duration-300 ease-in-out hover:shadow-md">
+<a href="{{ $route }}" class="bg-white border-2 border-[#E55182] rounded-[20px] w-full max-w-[312px] h-auto sm:h-[360px] p-4 flex flex-col justify-between">
     <div class="w-full h-[180px] sm:h-[180px] overflow-hidden mt-2">
         <img src="{{ asset($image) }}" alt="{{ $name }}" class="w-full h-full object-cover object-center">
     </div>

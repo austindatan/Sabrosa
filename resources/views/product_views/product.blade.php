@@ -44,7 +44,7 @@
   <main class="flex-1">
     <div class="flex flex-col lg:flex-row gap-10 px-10 py-10 max-w-[1440px] mx-auto mt-[100px]">
       <div class="flex-1 flex flex-col gap-4">
-        <img src="{{ asset($product->image_URL) }}" alt="{{ $product->name }}" className="h-[450px] object-contain">
+        <img src="{{ asset($product->image_display) }}" alt="{{ $product->name }}" className="h-[450px] object-contain">
       </div>
 
       <!-- Right: Product Info -->
@@ -62,7 +62,7 @@
 
         <div class="flex justify-between items-stretch w-full mt-4 gap-4">
           <div class="flex-1">
-            <h2 class="text-4xl font-bold text-gray-900 leading-tight h-full flex text-left font-dm-sans w-[500px]">
+            <h2 class="text-4xl font-bold text-gray-900 leading-tight h-full flex text-left font-dm-sans w-[350px]">
               {{ $product->name }}
             </h2>
           </div>
@@ -86,7 +86,7 @@
 
         <div class="gap-16">
           <h3 class="text-lg font-semibold mt-4 mb-2 text-left italic font-dm-sans">Description</h3>
-          <p class="text-gray-700 leading-5 font-dm-sans text-justify">
+          <p class="text-gray-700 leading-5 font-dm-sans text-justify w-[650px]">
           {!! nl2br(e($product->description)) !!}
           </p>
         </div>

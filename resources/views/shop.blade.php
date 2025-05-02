@@ -135,7 +135,7 @@
 
     <x-product-card
       name="Macaron Pyramid SABROSA Originals"
-      image="images/product/product_sprites/Macaron Pyramid SABROSA Originals.png"
+      image="images/product/product_sprites/Macaron Pyramid SPICE Originals.png"
       price="P1175"
       :route="route('product.show', ['product' => 11])"
 	  brand="images/brands/sabrosa.png"
@@ -209,7 +209,7 @@
 
     <x-product-card
       name="PARTY Box SABROSA Originals"
-      image="images/product/product_sprites/PARTY Box SABROSA Originals.png"
+      image="images/product/product_sprites/PARTY Box SPICE Originals.png"
       price="P515"
       :route="route('product.show', ['product' => 19])"
 	    brand="images/brands/sabrosa.png"
@@ -217,7 +217,7 @@
 
     <x-product-card
       name="Complimentary Pairs SABROSA Originals"
-      image="images/product/product_sprites/Complimentary Pairs SABROSA Originals.png"
+      image="images/product/product_sprites/Complimentary Pairs SPICE Originals.png"
       price="P515"
       :route="route('product.show', ['product' => 20])"
 	    brand="images/brands/sabrosa.png"
@@ -225,7 +225,7 @@
 
     <x-product-card
       name="Brioche Box SABROSA Originals"
-      image="images/product/product_sprites/Brioche Box SABROSA Originals.png"
+      image="images/product/product_sprites/Brioche Box SPICE Originals.png"
       price="P515"
       :route="route('product.show', ['product' => 21])"
 	  brand="images/brands/sabrosa.png"
@@ -233,7 +233,7 @@
 
     <x-product-card
       name="Cake-it-Easy Box SABROSA Originals"
-      image="images/product/product_sprites/Cake-it-Easy Box SABROSA Originals.png"
+      image="images/product/product_sprites/Cake-it-Easy Box SPICE Originals.png"
       price="P515"
       :route="route('product.show', ['product' => 22])"
 	    brand="images/brands/sabrosa.png"
@@ -241,7 +241,7 @@
 
     <x-product-card
       name="Brunch Box SABROSA Originals"
-      image="images/product/product_sprites/Brunch Box SABROSA Originals.png"
+      image="images/product/product_sprites/Brunch Box SPICE Originals.png"
       price="P515"
       :route="route('product.show', ['product' => 23])"
 	    brand="images/brands/sabrosa.png"
