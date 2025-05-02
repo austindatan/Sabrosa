@@ -42,7 +42,7 @@
     </div>
 
     <div class="about-image flex justify-center items-center mt-25 mb-16 gap-12 px-10" style="margin-top: 120px; margin-bottom: 70px;">
-        <img src="{{ asset('images/sabrosa_card_white.png') }}" alt="Header Image" class="w-[300px] h-auto align-middle">
+        <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image" class="w-[300px] h-auto align-middle">
 
         <div class="max-w-xl">
           <h4 class="text-4xl font-bold text-[#1F27A6] mb-6 text-left font-[Poppins]">
