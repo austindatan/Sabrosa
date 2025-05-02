@@ -11,7 +11,14 @@
         <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-sm mx-4">
             <h2 class="text-2xl font-bold mb-6 text-center text-white">Welcome Back</h2>
 
-            <form method="POST" action="{{ route('login') }}">
+            <!-- Display error message if login fails -->
+            @if($errors->has('login'))
+                <div class="text-red-500 text-center mb-4">
+                    {{ $errors->first('login') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
 
                 <div class="mb-4">
