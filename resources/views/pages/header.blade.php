@@ -24,16 +24,15 @@
       </div>
 
       <ul class="hidden md:flex gap-12 pl-20">
-        <li><a href="about.html" class="hover:underline text-lg">Shop</a></li>
-        <li><a href="contact.html" class="hover:underline text-lg">About</a></li>
-        <li><a href="contact.html" class="hover:underline text-lg">Contact</a></li>
+        <li><a href="{{ route('home') }}" class="hover:underline text-lg">Shop</a></li>
+        <li><a href="{{ route('home') }}" class="hover:underline text-lg">About</a></li>
+        <li><a href="{{ route('home') }}" class="hover:underline text-lg">Contact</a></li>
       </ul>
 
       <div class="hidden md:flex gap-6 pr-20 ml-auto">
-        <a href="https://www.facebook.com/austin.datan/" target="_blank"><img src="{{ asset('images/fb_logo.png') }}" alt="Facebook" class="w-6 h-6 invert"></a>
-        <a href="https://www.instagram.com/dilan_06p5/" target="_blank"><img src="{{ asset('images/instagram_logo.png') }}" alt="Instagram" class="w-6 h-6 invert"></a>
-        <a href="https://www.linkedin.com/in/austindatan/" target="_blank"><img src="{{ asset('images/linkedin.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
-        <a href="{{ route('register') }}" target="_blank"><img src="{{ asset('images/account_logo.png') }}" alt="Account" class="w-6 h-6"></a>
+        <a href="{{ route('register') }}" target="_blank"><img src="{{ asset('images/search_logo.png') }}" alt="Account" class="h-6 w-auto"></a>
+        <a href="{{ route('register') }}" target="_blank"><img src="{{ asset('images/profile_logo.png') }}" alt="Account" class="h-6 w-auto"></a>
+        <a href="{{ route('home') }}" target="_blank"><img src="{{ asset('images/cart_logo.png') }}" alt="Account" class="h-6 w-auto"></a>
       </div>
     </nav>
   </header>
