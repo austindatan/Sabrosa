@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OwnerDashboardController;
+use App\Http\Controllers\ManageUserController;
 
 // Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -18,7 +20,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Role-Based Dashboards
+// Role-Based Dashboards (Authenticated Users Only)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return match (auth()->user()->role) {
@@ -30,8 +32,13 @@ Route::middleware(['auth'])->group(function () {
         };
     })->name('dashboard');
 
-    Route::get('/owner/dashboard', fn() => view('pages.ownerdashboard'))->name('owner.dashboard');
+    // Dashboard Routes
+    Route::get('/owner/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
     Route::get('/admin/dashboard', fn() => view('pages.admindashboard'))->name('admin.dashboard');
     Route::get('/employee/dashboard', fn() => view('pages.employeedashboard'))->name('employee.dashboard');
     Route::get('/user/dashboard', fn() => view('pages.userdashboard'))->name('user.dashboard');
 });
+
+// Role Management Routes - Owners Can Update User Roles Directly
+Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
+Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
