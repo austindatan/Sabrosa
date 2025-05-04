@@ -52,6 +52,14 @@
   <p class="text-right text-sm text-gray-500 mt-1 font-dm-sans">
   Taxes included. Discounts and shipping calculated at checkout.
   </p>
+
+  <div class="flex justify-end mt-4">
+    <a href="..." class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold text-sm px-6 py-2 rounded transition duration-200">
+      Continue to Checkout
+    </a>
+  </div>
+
+
 </main>
 
   @include('pages.footer')
