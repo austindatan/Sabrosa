@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Sabrosa | Your Cart </title>
   @include('pages.head')
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
@@ -41,7 +42,7 @@
   />
 
   <div class="mt-8">
-    <a href="{{ route('home') }}" class="text-gray-700 underline text-base hover:text-black font-dm-sans">← Continue shopping</a>
+    <a href="{{ route('shop') }}" class="text-gray-700 underline text-base hover:text-black font-dm-sans">← Continue shopping</a>
   </div>
 
   <div class="mt-6 text-right text-xl sm:text-2xl font-bold font-poppins">
