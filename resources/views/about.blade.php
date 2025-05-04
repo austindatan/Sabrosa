@@ -51,7 +51,7 @@
         </p>
 
         <button class="bg-[#1F27A6] text-white text-lg font-dm-sans px-8 py-3 rounded-xl hover:bg-pink-500 transition mt-4">
-            <a href="{{ route('home') }}" class="block font-dm-sans">Shop Now</a>
+            <a href="{{ route('shop') }}" class="block font-dm-sans">Shop Now</a>
         </button>
       </div>
 
