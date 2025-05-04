@@ -12,6 +12,16 @@ class ProductController extends Controller
     {
         return view('home');
     }
+
+    public function showAbout(): View
+    {
+        return view('about');
+    }
+
+    public function showContact(): View
+    {
+        return view('contact');
+    }
     
     public function show(Product $product): View
     {

@@ -18,15 +18,15 @@
       </button>
 
       <div class="absolute left-1/2 transform -translate-x-1/2">
-        <a href="index.html">
+        <a href="{{ route('home') }}">
           <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-[270px] h-[100px] hover:underline">
         </a>
       </div>
 
       <ul class="hidden md:flex gap-12 pl-20">
         <li><a href="{{ route('home') }}" class="hover:underline text-lg">Shop</a></li>
-        <li><a href="{{ route('home') }}" class="hover:underline text-lg">About</a></li>
-        <li><a href="{{ route('home') }}" class="hover:underline text-lg">Contact</a></li>
+        <li><a href="{{ route('about') }}" class="hover:underline text-lg">About</a></li>
+        <li><a href="{{ route('contact') }}" class="hover:underline text-lg">Contact</a></li>
       </ul>
 
       <div class="hidden md:flex gap-6 pr-20 ml-auto">
