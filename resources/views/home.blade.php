@@ -42,7 +42,7 @@
           <span class="font-semibold text-[#1F27A6] uppercase font-poppins">Sabrosa</span> joins hand in hand with your favorite sweet and savory brands to bring you a mouth-watering shopping experience like no other. From indulgent treats to crave-worthy snacks, we curate only the best delivered straight to your door, one delicious bite at a time.
         </p>
         <button class="bg-[#1F27A6] text-white text-lg font-dm-sans px-8 py-3 rounded-xl hover:bg-pink-500 transition mt-4">
-          <a href="{{ route('home') }}" class="block font-dm-sans">Shop Now</a>
+          <a href="{{ route('shop') }}" class="block font-dm-sans">Shop Now</a>
         </button>
       </div>
 
