@@ -10,4 +10,13 @@ class Product extends Model
     protected $primaryKey = 'product_ID';
     public $timestamps = false; 
     protected $dateFormat = 'Y-m-d'; 
+
+    public function productDetail()
+    {
+        return $this->hasOne(ProductDetail::class, 'product_ID', 'product_ID');
+    }
+    
 }
+
+
+
