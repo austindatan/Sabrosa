@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('pages.head')
+  <title>Sabrosa | {{ $product->name }} </title>
+  @include('pages.head')
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
 

@@ -121,4 +121,38 @@ if (typeof window !== 'undefined') {
       }
     }
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const openBtn = document.getElementById('open-menu');
+    const closeBtn = document.getElementById('close-menu');
+    const menu = document.getElementById('mobile-slide-menu');
+    const overlay = document.getElementById('overlay');
   
+    // Open menu
+    openBtn.addEventListener('click', () => {
+      menu.classList.remove('-translate-x-full');
+      menu.classList.add('translate-x-0');
+      overlay.classList.remove('hidden');
+    });
+  
+    // Close menu
+    const closeMenu = () => {
+      menu.classList.add('-translate-x-full');
+      menu.classList.remove('translate-x-0');
+      overlay.classList.add('hidden');
+    };
+  
+    closeBtn.addEventListener('click', closeMenu);
+  
+    // Close when clicking outside (on overlay)
+    overlay.addEventListener('click', closeMenu);
+  
+    // Optional: Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+  });
+  
+

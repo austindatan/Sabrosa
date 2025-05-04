@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Sabrosa | About</title>
   @include('pages.head')
 </head>
 
@@ -39,11 +40,11 @@
 
     <div class="about-image flex flex-col lg:flex-row justify-center items-center mt-20 mb-16 gap-12 px-6 md:px-10">
 
-      <img src="{{ asset('images/about_meals.png') }}" alt="Header Image" class="w-64 md:w-80 lg:w-[300px] h-auto align-middle" />
+      <img src="{{ asset('images/about_mealsv2.png') }}" alt="Header Image" class="hidden md:block w-64 md:w-80 lg:w-[300px] h-auto align-middle" />
 
       <div class="max-w-xl text-center lg:text-left">
 
-        <img src="{{ asset('images/about donuts.png') }}" alt="Header Image" class="w-64 md:w-80 lg:w-[300px] h-auto align-middle" />
+        <img src="{{ asset('images/about donuts.png') }}" alt="Header Image" class="hidden md:block w-64 md:w-80 lg:w-[300px] h-auto align-middle" />
 
         <p class="text-black text-base md:text-lg font-dm-sans leading-relaxed text-justify w-[350px] md:w-[500px] lg:w-[600px] mx-auto lg:mx-0">
           <span class="span class="text-[#1F27A6] font-semibold">Sabrosa</span> joins hand in hand with your favorite sweet and savory brands to bring you a mouth-watering shopping experience like no other. From indulgent treats to crave-worthy snacks, we curate only the best delivered straight to your door, one delicious bite at a time.

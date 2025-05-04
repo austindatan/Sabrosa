@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  @vite(['resources/css/app.css', 'resources/js/app.js']) 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
+</head>
+<body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
+  <header>
+    <nav class="flex justify-between items-center p-10 bg-pink-100 text-[#1F27A6] shadow-md fixed top-0 left-0 w-full z-10 font-poppins font-medium">
+      <button class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute left-5 top-1/2 -translate-y-1/2 md:hidden" aria-label="Toggle menu">
+        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+        <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+      </button>
+
+      <div class="absolute left-1/2 transform -translate-x-1/2">
+        <a href="{{ route('home') }}">
+        <img 
+          src="{{ asset('images/sabrosa_logo.png') }}" 
+          alt="Sabrosa Logo" 
+          class="w-[180px] h-[70px] sm:w-[200px] sm:h-[80px] md:w-[270px] md:h-[100px] hover:underline transition-all duration-300"
+        />
+
+        </a>
+      </div>
+
+      <ul id="mobile-menu" class="hidden md:flex flex-col md:flex-row gap-6 md:gap-12 pl-6 md:pl-20 absolute md:static top-full left-0 w-full bg-pink-100 md:bg-transparent shadow-md md:shadow-none z-10 md:z-auto">
+        <li><a href="{{ route('shop') }}" class="hover:underline text-lg">Shop</a></li>
+        <li><a href="{{ route('about') }}" class="hover:underline text-lg">About</a></li>
+        <li><a href="{{ route('contact') }}" class="hover:underline text-lg">Contact</a></li>
+      </ul>
+
+      <!-- Mobile Slide-In Menu -->
+    <div id="mobile-slide-menu" class="fixed top-0 left-0 w-full h-full bg-[#1F27A6] text-white flex flex-col gap-6 p-10 transform -translate-x-full transition-transform duration-300 z-40 md:hidden">
+      <button id="close-menu" class="self-end text-white text-3xl font-bold">&times;</button>
+
+      <a href="{{ route('shop') }}" class="text-xl hover:underline">Shop</a>
+      <a href="{{ route('about') }}" class="text-xl hover:underline">About</a>
+      <a href="{{ route('contact') }}" class="text-xl hover:underline">Contact</a>
+      <a href="{{ route('register') }}" class="text-xl hover:underline">Register</a>
+    </div>
+
+    </nav>
+  </header>
+</body>
+</html>

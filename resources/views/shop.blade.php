@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Sabrosa | Shop</title>
   @include('pages.head')
 </head>
 
