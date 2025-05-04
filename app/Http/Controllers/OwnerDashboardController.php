@@ -9,7 +9,7 @@ class OwnerDashboardController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id', 'asc')->get();
+        $users = User::orderBy('user_account_ID', 'asc')->get();
         return view('pages.ownerdashboard', compact('users'));
     }
 }

@@ -9,58 +9,51 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Handle login request
     public function login(Request $request)
     {
-        // Validate input
         $request->validate([
-            'login' => 'required', // Can be either username or email
+            'login' => 'required',
             'password' => 'required',
         ]);
 
-        // Attempt to find user by email or username
+        // Update to match the 'user_account' table
         $user = User::where('email', $request->login)
                     ->orWhere('username', $request->login)
                     ->first();
 
-        // Validate user and password
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors(['login' => 'Invalid credentials']);
         }
 
-        // Authenticate user
         Auth::login($user);
-        $request->session()->regenerate(); // Regenerates session for security
+        $request->session()->regenerate();
 
-        // Redirect based on role
         return redirect()->route($user->role . '.dashboard');
     }
 
     public function register(Request $request)
     {
-        // Validate registration data
         $request->validate([
-            'username' => 'required|unique:users|max:255',
-            'email' => 'required|email|unique:users|max:255',
+            'username' => 'required|unique:user_account|max:255',
+            'email' => 'required|email|unique:user_account|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
 
-        // Create user with default role as 'user'
+        // Update to match the 'user_account' table
         $user = User::create([
-            'username' => $request->username, // This stores the entered username
-            'name' => $request->username, // Assign the username to 'name' as well if needed
+            'username' => $request->username, 
+            'name' => $request->username, // You can adjust this if 'name' isn't intended to be the username
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Hash the password securely
-            'role' => 'user', // Default role
+            'password' => Hash::make($request->password),
+            'role' => 'user', // You can change the default role if needed
         ]);
 
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('user.dashboard'); // Redirect new users to the user dashboard
+        return redirect()->route('user.dashboard'); 
     }
 
-    // Handle logout request
     public function logout(Request $request)
     {
         Auth::logout();
@@ -69,4 +62,4 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
-} 
+}

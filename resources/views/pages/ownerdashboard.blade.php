@@ -18,7 +18,6 @@
                 <table class="w-full text-left border-collapse bg-gray-700 text-white rounded-lg shadow-md">
                     <thead>
                         <tr class="bg-gray-900">
-                            <th class="p-3">ID</th>
                             <th class="p-3">Username</th>
                             <th class="p-3">Email</th>
                             <th class="p-3">Role</th>
@@ -28,11 +27,11 @@
                     <tbody>
                         @foreach ($users as $user)
                         <tr class="border-t border-gray-600">
-                            <td class="p-3">{{ $user->id }}</td>
+                            <td class="p-3">{{ $user->user_account_ID }}</td>
                             <td class="p-3">{{ $user->username }}</td>
                             <td class="p-3">{{ $user->email }}</td>
                             <td class="p-3">
-                                <form method="POST" action="{{ route('update.role', $user->id) }}" class="flex">
+                                <form method="POST" action="{{ route('update.role', $user->user_account_ID) }}" class="flex">
                                     @csrf
                                     @method('PUT')
                                     <select name="role" class="px-3 py-1 bg-gray-800 border border-gray-600 rounded-lg text-white">
@@ -47,7 +46,7 @@
                                 </form>
                             </td>
                             <td class="p-3 text-center">
-                                <form method="POST" action="{{ route('delete.user', $user->id) }}">
+                                <form method="POST" action="{{ route('delete.user', $user->user_account_ID) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold">
