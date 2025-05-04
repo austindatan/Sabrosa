@@ -58,6 +58,11 @@ class ProductController extends Controller
         return view('contact');
     }
 
+    public function showCart(): View
+    {
+        return view('cart');
+    }
+
     public function show(Product $product): View
     {
         $recommended = Product::where('product_ID', '!=', $product->product_ID) // exclude current
