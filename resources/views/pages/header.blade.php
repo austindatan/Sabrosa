@@ -43,11 +43,12 @@
       <div id="mobile-slide-menu" class="fixed top-0 left-0 h-full bg-pink-100 text-white transform -translate-x-full transition-transform duration-300 z-40 flex flex-col w-full md:w-1/4 z-50">
 
       <div class="flex justify-between items-center p-6">
-        <!-- Logo -->
+        <a href="{{ route('home') }}">
         <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-40 h-auto">
+        </a>
         
         <!-- Close button -->
-        <button id="close-menu" class="text-white text-3xl font-bold">&times;</button>
+        <button id="close-menu" class="text-[#1F27A6] text-3xl font-bold">&times;</button>
       </div>
 
       <!-- Nav Links -->
@@ -65,9 +66,10 @@
       <div class="px-6 pb-8 flex flex-col items-start gap-4">
 
         <div class="flex gap-4 mt-2 px-6">
-          <a href="#" target="_blank"><img src="{{ asset('images/insta.png') }}" alt="TikTok" class="h-6 w-6"></a>
-          <a href="#" target="_blank"><img src="{{ asset('images/facebok.png') }}" alt="Facebook" class="h-6 w-6"></a>
-          <a href="#" target="_blank"><img src="{{ asset('images/twitter.png') }}" alt="Twitter" class="h-6 w-6"></a>
+          <a href="#" target="_blank"><img src="{{ asset('images/facebok.png') }}" alt="TikTok" class="h-6 w-6"></a>
+          <a href="#" target="_blank"><img src="{{ asset('images/twitter.png') }}" alt="Facebook" class="h-6 w-6"></a>
+          <a href="#" target="_blank"><img src="{{ asset('images/insta.png') }}" alt="Twitter" class="h-6 w-6"></a>
+          <a href="#" target="_blank"><img src="{{ asset('images/yt.png') }}" alt="Twitter" class="h-6 w-6"></a>
         </div>
       </div>
 
