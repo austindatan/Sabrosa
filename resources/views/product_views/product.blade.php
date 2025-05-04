@@ -59,24 +59,19 @@
         </div>
 
         <!-- Pairs Well With Section remains unchanged unless you want that dynamic too -->
-        <div class="mt-10">
-          <h3 class="text-lg font-semibold mb-4 text-left font-dm-sans">Pairs Well With</h3>
-          <div class="flex gap-6 overflow-x-auto">
-            <x-product-card 
-              name="Granola, Blueberry  & Chia Cookie" 
-              image="images/product/product_sprites/Granola, Blueberry  & Chia Cookie.png" 
-              price="P85" 
-              :route="route('product.show', ['product' => 1])"  
-              brand="images/brands/byronbay.png"
-            />
-
-            <x-product-card
-              name="Le Haut Special Steak Plate"
-              image="images/product/product_sprites/Le Haut Special Steak Plate.png"
-              price="P435"
-              :route="route('product.show', ['product' => 1])" 
-              brand="images/brands/granbluekitchen.png"
-            />
+          <div class="mt-10">
+            <h3 class="text-lg font-semibold mb-4 text-left font-dm-sans">Pairs Well With</h3>
+            <div class="flex gap-6 overflow-x-auto">
+              @foreach ($recommended as $item)
+                <x-product-card 
+                  :name="$item->name" 
+                  :image="$item->image_URL" 
+                  :price="'P' . $item->price" 
+                  :route="route('product.show', ['product' => $item->product_ID])" 
+                  :brand="optional($item->productDetail->store)->image_url ?? 'images/brands/default.png'"
+                />
+              @endforeach
+            </div>
           </div>
         </div>
       </div>

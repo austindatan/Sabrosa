@@ -60,6 +60,12 @@ class ProductController extends Controller
 
     public function show(Product $product): View
     {
-        return view('product_views.product', compact('product'));
+        $recommended = Product::where('product_ID', '!=', $product->product_ID) // exclude current
+                        ->inRandomOrder()
+                        ->limit(2)
+                        ->with('productDetail.store')
+                        ->get();
+
+        return view('product_views.product', compact('product', 'recommended'));
     }
 }
