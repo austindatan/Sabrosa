@@ -35,7 +35,7 @@
 
       <div class="hidden md:flex gap-6 pr-20 ml-auto">
         <a href="{{ route('register') }}" target="_blank"><img src="{{ asset('images/search_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
-        <a href="{{ route('register') }}" target="_blank"><img src="{{ asset('images/profile_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
+        <a href="{{ Auth::check() ? route(auth()->user()->role . '.dashboard') : route('register') }}"><img src="{{ asset('images/profile_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
         <a href="{{ route('home') }}" target="_blank"><img src="{{ asset('images/cart_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
       </div>
 
@@ -55,7 +55,7 @@
         <a href="{{ route('shop') }}" class="hover:underline text-[#1F27A6]">Shop</a>
         <a href="{{ route('about') }}" class="hover:underline text-[#1F27A6]">About</a>
         <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Contact</a>
-        <a href="{{ route('register') }}" class="hover:underline text-[#1F27A6]">Account</a>
+        <a href="{{ Auth::check() ? route('dashboard') : route('register') }}" target="_blank" class="hover:underline text-[#1F27A6]">Account</a>
       </nav>
 
       <!-- Spacer -->
