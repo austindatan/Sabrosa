@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fddde6;
+    color: #4d2c3d;
+  }
+  
+  .app {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f8c9d8;
+    padding: 20px;
+  }
+  
+  .logo {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar nav a {
+    display: block;
+    margin: 10px 0;
+    color: #30051b;
+    text-decoration: none;
+  }
+
+  .collapsible {
+    background: none;
+    border: none;
+    color: #30051b;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+    padding: 10px 0;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .submenu {
+    display: none;
+    padding-left: 10px;
+  }
+  
+  .submenu a {
+    font-size: 13px;
+  }
+  
+
+  .menu-group {
+    margin-top: 15px;
+  }
+  
+  .menu-group strong {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 14px;
+    color: #4d2c3d;
+    text-transform: uppercase;
+  }
+  
+  
+  .dashboard {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header input[type="search"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    width: 250px;
+  }
+  
+  .profile {
+    text-align: right;
+    font-size: 14px;
+  }
+  
+  .charts {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .chart-box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1;
+  }
+  
+  canvas {
+    width: 100% !important;
+    height: 300px !important;
+  }
+  
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .metric {
+    background-color: #f8c9d8;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  canvas {
+    width: 100% !important;
+    height: 300px !important;
+    background-color: white;
+    border-radius: 10px;
+  }
+  

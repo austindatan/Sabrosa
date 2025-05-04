@@ -102,23 +102,25 @@
       />
     </div>
 
+    <div class="about-image flex flex-col lg:flex-row justify-center items-center mt-20 mb-16 gap-12 px-6 md:px-10">
 
-      <div class="about-image flex justify-center items-center mt-25 mb-16 gap-12 px-10" style="margin-top: 120px; margin-bottom: 70px;">
-        <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image" class="w-[300px] h-auto align-middle">
+      <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image"
+        class="w-64 md:w-80 lg:w-[300px] h-auto align-middle" />
 
-        <div class="max-w-xl">
-          <h4 class="text-4xl font-bold text-[#1F27A6] mb-6 text-left font-[Poppins]">
-            Our Story, Your Flavor Journey
-          </h4>
-          <p class="text-black text-lg font-[Poppins] leading-relaxed text-left">
-            At <span class="text-[#1F27A6] font-semibold">Sabrosa</span>, we believe that snacks should be more than just a quick bite; they should be a moment of joy. <br><br>
-            Our journey began with a simple yet exciting idea: to craft snacks that elevate your snacking experience with bold flavors, creativity, and quality. Whether you're looking for something savory, sweet, or a little bit of both, we’ve got something to satisfy every craving.
-          </p>
-        </div>
+      <div class="max-w-xl text-center lg:text-left">
+        <h4 class="text-2xl md:text-3xl lg:text-2x1 font-bold text-[#1F27A6] mb-6 font-[Poppins] w-[350px] md:w-[450px] lg:w-[550px] mx-auto lg:mx-0">
+          Our Story, Your Flavor Journey
+        </h4>
+        <p class="text-black text-base md:text-lg font-[Poppins] leading-relaxed text-justify w-[350px] md:w-[500px] lg:w-[600px] mx-auto lg:mx-0">
+          At <span class="text-[#1F27A6] font-semibold">Sabrosa</span>, we believe that snacks should be more than just a quick bite; they should be a moment of joy.
+          <br><br>
+          Our journey began with a simple yet exciting idea: to craft snacks that elevate your snacking experience with bold flavors, creativity, and quality. Whether you're looking for something savory, sweet, or a little bit of both, we’ve got something to satisfy every craving.
+        </p>
       </div>
 
-      @include('pages.footer')
+    </div>
 
+      @include('pages.footer')
 
 </body>
 </html>
