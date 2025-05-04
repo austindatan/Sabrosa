@@ -13,6 +13,11 @@ class ProductController extends Controller
         return view('home');
     }
 
+    public function showShop(): View
+    {
+        return view('shop');
+    }
+
     public function showAbout(): View
     {
         return view('about');
