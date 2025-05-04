@@ -58,7 +58,7 @@
           </p>
         </div>
 
-        <!-- Pairs Well With Section remains unchanged unless you want that dynamic too -->
+        <!-- Pairs Well With Section -->
           <div class="mt-10">
             <h3 class="text-lg font-semibold mb-4 text-left font-dm-sans">Pairs Well With</h3>
             <div class="flex gap-6 overflow-x-auto">

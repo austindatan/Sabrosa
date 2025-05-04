@@ -58,10 +58,13 @@ class ProductController extends Controller
         return view('contact');
     }
 
-    public function showCart(): View
+    public function showCart()
     {
-        return view('cart');
+        $cartItems = session('cart', []);
+
+        return view('cart', compact('cartItems'));
     }
+
 
     public function show(Product $product): View
     {

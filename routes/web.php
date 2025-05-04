@@ -12,16 +12,18 @@ Route::get('/shop', [ProductController::class, 'showShop'])->name('shop');
 Route::get('/about', [ProductController::class, 'showAbout'])->name('about');
 Route::get('/contact', [ProductController::class, 'showContact'])->name('contact');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
-Route::get('/cart', [ProductController::class, 'showCart'])->name('cart');
 
-// Authentication Routes
+Route::middleware('auth')->get('/cart', [ProductController::class, 'showCart'])->name('cart');
+Route::get('/cart-not-logged-in', function () {
+    return view('pages.cart_not_logged_in'); 
+})->name('cart.not_logged_in');
+
 Route::view('/register', 'authentication.register')->name('register');
 Route::view('/login', 'authentication.login')->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Role-Based Dashboards (Authenticated Users Only)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return match (auth()->user()->role) {
@@ -33,16 +35,11 @@ Route::middleware(['auth'])->group(function () {
         };
     })->name('dashboard');
 
-    // Dashboard Routes
     Route::get('/owner/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
     Route::get('/admin/dashboard', fn() => view('pages.admindashboard'))->name('admin.dashboard');
     Route::get('/employee/dashboard', fn() => view('pages.employeedashboard'))->name('employee.dashboard');
     Route::get('/user/dashboard', fn() => view('pages.userdashboard'))->name('user.dashboard');
-
-    
 });
 
-// Role Management Routes - Owners Can Update User Roles Directly
 Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
 Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
-
