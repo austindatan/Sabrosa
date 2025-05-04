@@ -47,11 +47,9 @@
         <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-40 h-auto">
         </a>
         
-        <!-- Close button -->
         <button id="close-menu" class="text-[#1F27A6] text-3xl font-bold">&times;</button>
       </div>
 
-      <!-- Nav Links -->
       <nav class="flex flex-col gap-6 px-12 text-xl mt-6 text-left">
         <a href="{{ route('shop') }}" class="hover:underline text-[#1F27A6]">Shop</a>
         <a href="{{ route('about') }}" class="hover:underline text-[#1F27A6]">About</a>
@@ -59,10 +57,8 @@
         <a href="{{ Auth::check() ? route('dashboard') : route('register') }}" target="_blank" class="hover:underline text-[#1F27A6]">Account</a>
       </nav>
 
-      <!-- Spacer -->
       <div class="flex-grow"></div>
 
-      <!-- CTA + Social Links -->
       <div class="px-6 pb-8 flex flex-col items-start gap-4">
 
         <div class="flex gap-4 mt-2 px-6">
