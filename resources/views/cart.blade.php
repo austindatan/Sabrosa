@@ -41,7 +41,7 @@
   />
 
   <div class="mt-8">
-    <a href="/shop" class="text-gray-700 underline text-base hover:text-black font-dm-sans">← Continue shopping</a>
+    <a href="{{ route('home') }}" class="text-gray-700 underline text-base hover:text-black font-dm-sans">← Continue shopping</a>
   </div>
 
   <div class="mt-6 text-right text-xl sm:text-2xl font-bold font-poppins">
