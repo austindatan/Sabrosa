@@ -23,7 +23,7 @@
           </div>
 
           <div>
-            <img src="{{ asset('images/brands/byronbay.png') }}" class="w-[100px] object-contain invert">
+            <img src="{{ asset(optional($product->productDetail->store)->image_url ?? 'images/brands/default.png') }}" class="w-[100px] object-contain invert">
           </div>
         </div>
 

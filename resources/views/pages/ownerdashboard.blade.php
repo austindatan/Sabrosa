@@ -27,7 +27,6 @@
                     <tbody>
                         @foreach ($users as $user)
                         <tr class="border-t border-gray-600">
-                            <td class="p-3">{{ $user->user_account_ID }}</td>
                             <td class="p-3">{{ $user->username }}</td>
                             <td class="p-3">{{ $user->email }}</td>
                             <td class="p-3">
