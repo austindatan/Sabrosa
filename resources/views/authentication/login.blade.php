@@ -21,10 +21,12 @@
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
 
+                <!-- Updated Login Field: Accepts Email or Username -->
                 <div class="mb-4">
-                    <label for="username" class="block text-sm mb-1 text-white">Username</label>
-                    <input type="text" id="username" name="username" required
-                        class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white">
+                    <label for="login" class="block text-sm mb-1 text-white">Email or Username</label>
+                    <input type="text" id="login" name="login" required
+                        class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white"
+                        placeholder="Enter your email or username">
                 </div>
 
                 <div class="mb-6">
@@ -40,7 +42,7 @@
             </form>
 
             <p class="mt-6 text-sm text-center text-gray-400">
-                Dont have an account?
+                Don't have an account?
                 <a href="{{ route('register') }}" class="text-indigo-400 hover:underline">Create one</a>
             </p>
         </div>
