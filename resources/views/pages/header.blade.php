@@ -36,7 +36,7 @@
       <div class="hidden md:flex gap-6 pr-20 ml-auto">
         <a href="{{ route('register') }}" target="_blank"><img src="{{ asset('images/search_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
         <a href="{{ Auth::check() ? route(auth()->user()->role . '.dashboard') : route('register') }}"><img src="{{ asset('images/profile_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
-        <a href="{{ route('home') }}" target="_blank"><img src="{{ asset('images/cart_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
+        <a href="{{ route('cart') }}" target="_blank"><img src="{{ asset('images/cart_logo.png') }}" alt="Account" class="w-7 h-auto"></a>
       </div>
 
       <div id="overlay" class="fixed inset-0 z-30 hidden"></div>
