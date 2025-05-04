@@ -35,7 +35,7 @@
           </div>
 
           <div class="bg-pink-400 text-white text-2xl px-6 py-4 rounded-2xl flex items-center justify-center font-barlow">
-            P{{ $product->price }}
+            ₱{{ $product->price }}
           </div>
         </div>
 

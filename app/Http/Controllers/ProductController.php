@@ -9,7 +9,12 @@ class ProductController extends Controller
 {
     public function showHome(): View
     {
-        return view('home');
+        $featured = Product::inRandomOrder()
+                    ->with('productDetail.store')
+                    ->take(6)
+                    ->get();
+
+        return view('home', compact('featured'));
     }
 
     public function showShop(): View
@@ -61,14 +66,12 @@ class ProductController extends Controller
     public function showCart()
     {
         $cartItems = session('cart', []);
-
         return view('cart', compact('cartItems'));
     }
 
-
     public function show(Product $product): View
     {
-        $recommended = Product::where('product_ID', '!=', $product->product_ID) // exclude current
+        $recommended = Product::where('product_ID', '!=', $product->product_ID)
                         ->inRandomOrder()
                         ->limit(2)
                         ->with('productDetail.store')
