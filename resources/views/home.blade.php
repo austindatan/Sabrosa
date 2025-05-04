@@ -53,7 +53,7 @@
     <div class="displayed-products flex flex-wrap justify-center items-center mt-10 gap-6 px-4">
       <x-home-card 
         name="Tropical Mango & Passionfruit Cookie" 
-        image="images/product/product_sprites/Tropical Mango  & Passionfruit Cookie.png" 
+        image="images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png" 
         price="P85" 
         :route="route('product.show', ['product' => 1])" 
         brand="images/brands/byronbay.png"
