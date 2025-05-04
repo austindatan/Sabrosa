@@ -7,19 +7,12 @@ use App\Models\User;
 
 class ManageUserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); // Ensure the user is logged in
-    }
-
     public function updateRole(Request $request, $id)
     {
-        // Validate role selection
         $request->validate([
             'role' => 'required|in:user,employee,admin,owner',
         ]);
 
-        // Find user and update role
         $user = User::findOrFail($id);
         $user->role = $request->role;
         $user->save();
@@ -29,7 +22,6 @@ class ManageUserController extends Controller
 
     public function deleteUser($id)
     {
-        // Find user and delete
         $user = User::findOrFail($id);
         $user->delete();
 

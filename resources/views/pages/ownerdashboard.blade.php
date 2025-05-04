@@ -61,6 +61,14 @@
                 </table>
             </div>
 
+            @if (session('success'))
+                <div class="mt-6 text-center">
+                    <p class="text-green-400 font-semibold bg-green-900 bg-opacity-50 px-4 py-2 rounded-lg inline-block">
+                        {{ session('success') }}
+                    </p>
+                </div>
+            @endif
+
             <!-- Logout Button -->
             <form method="POST" action="{{ route('logout') }}" class="mt-6 text-center">
                 @csrf

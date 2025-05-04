@@ -12,7 +12,13 @@
             <h2 class="text-2xl font-bold mb-6 text-center text-white">Admin Dashboard</h2>
 
             <p class="text-white">Welcome to the Admin Dashboard</p>
-            <!-- Add your admin dashboard content here -->
+            
+            <form method="POST" action="{{ route('logout') }}" class="mt-6 text-center">
+                @csrf
+                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition">
+                    Logout
+                </button>
+            </form>
         </div>
     </main>
 

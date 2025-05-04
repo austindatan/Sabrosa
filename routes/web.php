@@ -37,8 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', fn() => view('pages.admindashboard'))->name('admin.dashboard');
     Route::get('/employee/dashboard', fn() => view('pages.employeedashboard'))->name('employee.dashboard');
     Route::get('/user/dashboard', fn() => view('pages.userdashboard'))->name('user.dashboard');
+
+    // Role Management Routes - Owners Can Update User Roles Directly
+    Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
+    Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
 
-// Role Management Routes - Owners Can Update User Roles Directly
-Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
-Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
