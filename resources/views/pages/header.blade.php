@@ -24,7 +24,7 @@
       </div>
 
       <ul class="hidden md:flex gap-12 pl-20">
-        <li><a href="{{ route('home') }}" class="hover:underline text-lg">Shop</a></li>
+        <li><a href="{{ route('shop') }}" class="hover:underline text-lg">Shop</a></li>
         <li><a href="{{ route('about') }}" class="hover:underline text-lg">About</a></li>
         <li><a href="{{ route('contact') }}" class="hover:underline text-lg">Contact</a></li>
       </ul>
