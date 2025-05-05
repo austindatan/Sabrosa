@@ -154,41 +154,5 @@ if (typeof window !== 'undefined') {
       }
     });
   });
-
-  const menu = document.getElementById('mobile-slide-menu');
-  const openMenu = document.getElementById('open-menu');
-  const closeMenu = document.getElementById('close-menu');
-
-  openMenu.addEventListener('click', () => {
-    menu.classList.remove('-translate-x-full');
-    openMenu.classList.add('hidden'); // hide hamburger
-  });
-
-  closeMenu.addEventListener('click', () => {
-    menu.classList.add('-translate-x-full');
-    openMenu.classList.remove('hidden'); // show hamburger again
-  });
   
-    document.addEventListener("DOMContentLoaded", function () {
-      const toggleBtn = document.getElementById("toggle-search");
-      const searchBox = document.getElementById("search-box");
-      const searchLogo = document.getElementById("search-logo");
 
-      toggleBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        // Toggle the search bar visibility
-        searchBox.classList.toggle("show");
-        // Move the search logo to the left
-        searchLogo.classList.toggle("move");
-        if (searchBox.classList.contains("show")) {
-          searchBox.querySelector("input").focus();
-        }
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
-          searchBox.classList.remove("show");
-          searchLogo.classList.remove("move");
-        }
-      });
-    });
