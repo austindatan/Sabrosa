@@ -24,6 +24,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// ✅ Forgot Password Routes
+Route::get('/forgot', fn() => view('authentication.forgot'))->name('forgot');
+Route::post('/forgot', [AuthController::class, 'resetPassword'])->name('forgot.submit');
+
 // ✅ Cart Routes (Requires Auth)
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'show'])->name('cart');
@@ -78,3 +82,6 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
+
+// ✅ Delivery Route (Loads `delivery.blade.php`)
+Route::get('/delivery', fn() => view('pages.delivery'))->name('delivery');

@@ -111,9 +111,7 @@
         </div>
 
 
-        <a href="/checkout" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">
-          Complete Purchase
-        </a>
+        <a href="{{ route('delivery') }}" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</a>
       </div>
 
       {{-- RIGHT SIDE: Order Summary --}}
