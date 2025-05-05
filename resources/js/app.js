@@ -154,5 +154,19 @@ if (typeof window !== 'undefined') {
       }
     });
   });
+
+  const menu = document.getElementById('mobile-slide-menu');
+  const openMenu = document.getElementById('open-menu');
+  const closeMenu = document.getElementById('close-menu');
+
+  openMenu.addEventListener('click', () => {
+    menu.classList.remove('-translate-x-full');
+    openMenu.classList.add('hidden'); // hide hamburger
+  });
+
+  closeMenu.addEventListener('click', () => {
+    menu.classList.add('-translate-x-full');
+    openMenu.classList.remove('hidden'); // show hamburger again
+  });
   
 
