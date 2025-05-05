@@ -61,4 +61,27 @@ class CartController extends Controller
         // Ensure cartItems is always treated as a Collection
         return view('cart', ['cartItems' => collect($cartItems)]);
     }
+
+    /**
+     * Update the quantity of a cart item.
+     */
+    public function update(Request $request, CartItem $cartItem, $action)
+    {
+        if ($action === 'increase') {
+            $cartItem->increment('quantity');
+        } elseif ($action === 'decrease' && $cartItem->quantity > 1) {
+            $cartItem->decrement('quantity');
+        }
+
+        return redirect()->back()->with('success', 'Cart updated successfully.');
+    }
+
+    /**
+     * Remove an item from the cart.
+     */
+    public function remove(CartItem $cartItem)
+    {
+        $cartItem->delete();
+        return redirect()->back()->with('success', 'Item removed from cart.');
+    }
 }
