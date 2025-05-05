@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
     @vite(['resources/css/admin_style.css', 'resources/js/dashboard_script.js']) 
-    <title>Web Analytics Dashboard</title>
+    <title>Sabrosa Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @include('pages.head')
   </head>
-  <body>
-  @include('pages.adminheader')
-    <div class="app"> 
-      <aside class="sidebar w-[80px] bg-white pd-[20px]"></aside>
+  <body class="bg-pink-50">
 
-      <main class="dashboard">
-        <h2 class="font-poppins font-bold text-3xl text-left">SABROSA Dashboard</h2>
+  <div class="app min-h-screen flex flex-col md:flex-row">
+
+  @include('admin_side.sidebar')
+
+    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
+      <h2 class="font-poppins font-bold text-3xl text-left">SABROSA Dashboard</h2>
         <div class="charts">
           <div class="chart-box">
             <canvas id="lineChart"></canvas>
@@ -33,8 +34,10 @@
           <div class="metric">User Engagement<br /><strong>21m 41s</strong></div>
           <div class="metric">Conversions<br /><strong>931</strong></div>
         </div>
-      </main>
-    </div>
 
-  </body>
+    </main>
+
+  </div>
+</body>
+
 </html>

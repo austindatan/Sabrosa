@@ -20,9 +20,10 @@
     <div class="flex gap-4">
       <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cookiesleftArrow()">&#10094;</button>
       <button class="bg-pink-400 text-white rounded-full w-10 h-10 text-2xl cursor-pointer" onclick="cookiesrightArrow()">&#10095;</button>
-    </div>  </div>
+    </div> 
+  </div>
 
-    <div id="cookiesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-8 py-4">
+    <div id="cookiesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-4 py-2 mb-12">
       @foreach ($cookieProducts as $product)
       <div class="transition-transform duration-300 transform hover:scale-105">
         <x-product-card 
@@ -44,7 +45,7 @@
     </div>
   </div>
 
-  <div id="donutsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-8 py-4">
+  <div id="donutsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-4 py-2 mb-12">
       @foreach ($donutProducts as $product)
       <div class="transition-transform duration-300 transform hover:scale-105">
         <x-product-card 
@@ -66,7 +67,7 @@
     </div>
   </div>
 
-  <div id="cakesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-8 py-4">
+  <div id="cakesslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-4 py-2 mb-12">
     @foreach ($cakeProducts as $product)
     <div class="transition-transform duration-300 transform hover:scale-105">
       <x-product-card 
@@ -88,7 +89,7 @@
     </div>
   </div>
 
-  <div id="drinksAndTeaslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-8 py-4">
+  <div id="drinksAndTeaslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-4 py-2 mb-12">
     @foreach ($drinksProducts as $product)
     <div class="transition-transform duration-300 transform hover:scale-105">
       <x-product-card 
@@ -110,7 +111,7 @@
     </div>
   </div>
 
-  <div id="mealsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-8 py-4">
+  <div id="mealsslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-4 py-2 mb-12">
     @foreach ($mealProducts as $product)
     <div class="transition-transform duration-300 transform hover:scale-105">
       <x-product-card 
@@ -132,7 +133,7 @@
     </div>
   </div>
 
-  <div id="MICslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-8 py-4">
+  <div id="MICslider" class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide my-4 py-2">
     @foreach ($micProducts as $product)
     <div class="transition-transform duration-300 transform hover:scale-105">
       <x-product-card 
