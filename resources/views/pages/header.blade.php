@@ -82,7 +82,7 @@
           <img src="{{ asset('images/cart_logo.png') }}" alt="Cart" class="w-7 h-auto">
         </a>
       </div>
-      <div id="overlay" class="fixed inset-0 z-30 hidden"></div>
+  <div id="overlay" class="fixed inset-0 z-30 hidden"></div>
       <div id="mobile-slide-menu" class="fixed top-0 left-0 h-full bg-pink-100 text-white transform -translate-x-full transition-transform duration-300 z-40 flex flex-col w-full md:w-1/4 z-50">
 
       <div class="flex justify-between items-center p-6">
