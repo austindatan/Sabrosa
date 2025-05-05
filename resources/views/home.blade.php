@@ -66,7 +66,6 @@
       @endforeach
     </div>
 
-
     <div class="about-image flex flex-col lg:flex-row justify-center items-center mt-20 mb-16 gap-12 px-6 md:px-10">
 
       <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image"

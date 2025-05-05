@@ -21,17 +21,19 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @foreach (['Donuts' => 'treats_donut.png', 'Cookies' => 'treats_cookies.png', 'Drinks' => 'treats_drinks.png', 'Meals' => 'treats_meals.png'] as $title => $image)
-        <div class="bg-[#FDC0D0] border-2 border-[#E55182] rounded-[20px] flex flex-col justify-between transition duration-300 ease-in-out hover:shadow-md">
-          <div class="aspect-[3/2] overflow-hidden rounded-t-[20px]">
-            <img src="{{ asset('images/' . $image) }}" alt="{{ $title }}" class="w-full h-full object-cover">
-          </div>
-          <div class="bg-white p-4 flex items-center justify-between rounded-b-[20px]">
-            <p class="font-[Barlow] text-sm sm:text-base text-black font-medium ml-[5px]">{{ $title }}</p>
-            <div class="w-[20px] h-[20px] rounded-full flex items-center justify-center mr-[3px]">
-              <img src="{{ asset('images/arrow.png') }}" class="w-[17px] h-[17px]">
+          <a href="{{ route('shop') }}" class="block">
+            <div class="bg-[#FDC0D0] border-2 border-[#E55182] rounded-[20px] flex flex-col justify-between transition duration-300 ease-in-out hover:shadow-md hover:scale-[1.02]">
+              <div class="aspect-[3/2] overflow-hidden rounded-t-[20px]">
+                <img src="{{ asset('images/' . $image) }}" alt="{{ $title }}" class="w-full h-full object-cover">
+              </div>
+              <div class="bg-white p-4 flex items-center justify-between rounded-b-[20px]">
+                <p class="font-[Barlow] text-sm sm:text-base text-black font-medium ml-[5px]">{{ $title }}</p>
+                <div class="w-[20px] h-[20px] rounded-full flex items-center justify-center mr-[3px]">
+                  <img src="{{ asset('images/arrow.png') }}" class="w-[17px] h-[17px]">
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </a>
         @endforeach
       </div>
     </section>
@@ -50,57 +52,20 @@
       </div>
     </section>
 
-    <div class="displayed-products flex flex-wrap justify-center items-center mt-10 gap-6 px-4">
-      <x-home-card 
-        name="Tropical Mango & Passionfruit Cookie" 
-        image="images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png" 
-        price="P85" 
-        :route="route('product.show', ['product' => 1])" 
-        brand="images/brands/byronbay.png"
-      />
-
-      <x-home-card
-        name="Complimentary Pairs SABROSA Originals"
-        image="images/product/product_sprites/Complimentary Pairs SPICE Originals.png"
-        price="P515"
-        :route="route('product.show', ['product' => 20])"
-        brand="images/brands/sabrosa.png"
-      />
-
-      <x-home-card
-        name="BARBIE Peaches & Cream Soda"
-        image="images/product/product_sprites/BARBIE Peaches & Cream Soda.png"
-        price="P85"
-        :route="route('product.show', ['product' => 42])"
-        brand="images/brands/olipop.png"
-      />
+    <div class="displayed-products flex flex-wrap justify-center mt-10 gap-6 px-4 max-w-[1100px] mx-auto">
+      @foreach ($featured as $item)
+      <div class="transition-transform duration-300 transform hover:scale-105">
+        <x-home-card 
+          :name="$item->name" 
+          :image="$item->image_URL" 
+          :price="'₱' . $item->price" 
+          :route="route('product.show', ['product' => $item->product_ID])" 
+          :brand="optional($item->productDetail->store)->image_url ?? 'images/brands/default.png'"
+        />
+      </div>
+      @endforeach
     </div>
 
-    <div class="displayed-products flex flex-wrap justify-center items-center mt-10 gap-6 px-4">
-      <x-home-card
-        name="Way of the Strong  Special Mixed Yakisoba"
-        image="images/product/product_sprites/Way of the Strong  Special Mixed Yakisoba.png"
-        price="P145"
-        :route="route('product.show', ['product' => 70])"
-        brand="images/brands/sweetsparadise.png"
-      />
-
-      <x-home-card
-        name="Tea Chest Jubilee Petite Pyramid"
-        image="images/product/product_sprites/Tea Chest Jubilee Petite Pyramid.png"
-        price="P635"
-        :route="route('product.show', ['product' => 49])"
-        brand="images/brands/teaforte.png"
-      />
-
-      <x-home-card
-        name="Chobani Flip S`more S`mores"
-        image="images/product/product_sprites/Chobani Flip S`more S`mores.png"
-        price="P125"
-        :route="route('product.show', ['product' => 26])"
-        brand="images/brands/chobani.png"
-      />
-    </div>
 
     <div class="about-image flex flex-col lg:flex-row justify-center items-center mt-20 mb-16 gap-12 px-6 md:px-10">
 
