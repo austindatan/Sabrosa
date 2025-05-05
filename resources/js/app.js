@@ -155,4 +155,26 @@ if (typeof window !== 'undefined') {
     });
   });
   
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.getElementById("toggle-search");
+      const searchBox = document.getElementById("search-box");
+      const searchLogo = document.getElementById("search-logo");
 
+      toggleBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        // Toggle the search bar visibility
+        searchBox.classList.toggle("show");
+        // Move the search logo to the left
+        searchLogo.classList.toggle("move");
+        if (searchBox.classList.contains("show")) {
+          searchBox.querySelector("input").focus();
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
+          searchBox.classList.remove("show");
+          searchLogo.classList.remove("move");
+        }
+      });
+    });

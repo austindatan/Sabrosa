@@ -4,56 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <link rel ="stylesheet" href="{{ asset('css/app.css') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}" />
-  <style>
-    .search-box-slide {
-      position: absolute;
-      left: -55%;
-      top: 50%;
-      transform: translate(-50%, -50%) translateX(100%);
-      opacity: 0;
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .search-box-slide.show {
-      transform: translate(-50%, -50%) translateX(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Move the search logo to the left */
-    .search-logo.move {
-      transform: translateX(-100px);
-      transition: transform 0.4s ease;
-    }
-  </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const toggleBtn = document.getElementById("toggle-search");
-      const searchBox = document.getElementById("search-box");
-      const searchLogo = document.getElementById("search-logo");
-
-      toggleBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        // Toggle the search bar visibility
-        searchBox.classList.toggle("show");
-        // Move the search logo to the left
-        searchLogo.classList.toggle("move");
-        if (searchBox.classList.contains("show")) {
-          searchBox.querySelector("input").focus();
-        }
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
-          searchBox.classList.remove("show");
-          searchLogo.classList.remove("move");
-        }
-      });
-    });
-  </script>
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
   <header>
