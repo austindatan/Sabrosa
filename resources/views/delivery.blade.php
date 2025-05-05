@@ -7,7 +7,7 @@
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
   @include('pages.header')
 
-  <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white/80 rounded-lg shadow-lg">
+  <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {{-- LEFT SIDE: Delivery --}}
       <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">

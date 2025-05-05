@@ -7,62 +7,75 @@
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
   @include('pages.header')
 
-  <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
+  <main class="flex-1 px-4 sm:px-6 py-6 max-w-full sm:max-w-3xl lg:max-w-6xl mx-auto mt-20 sm:mt-[200px] mb-12 sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {{-- LEFT SIDE: Delivery --}}
       <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-2xl font-bold text-right font-poppins">Review and Pay</h2>
+          <h2 class="text-2xl font-bold text-right font-poppins">Profile</h2>
         </div>
 
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
-            <p class="col-span-3 text-lg text-gray-500 text-left">Email</p>
-            <p class="col-span-9 text-lg font-medium text-gray-800 text-left">austindatan@gmail.com</p>
+          <div class="flex items-center justify-between mb-4 gap-60">
+            <h2 class="text-lg font-semibold text-left">Account Information</h2>
+            <button class="text-sm text-blue-600 hover:underline"><svg class="h-6 w-6 text-gray-950"  fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
           </div>
-        </div>
-
-        <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
-            <p class="col-span-3 text-lg text-gray-500 text-left">Ship to</p>
-            <div class="col-span-9">
-              <p class="text-lg font-medium text-gray-800 text-left">#59 A. Villarin St.</p>
-              <p class="text-base text-gray-400 text-left">Carmen, Cagayan de Oro City</p>
+            
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-600">Name</span>
+              <div class="flex items-center gap-2">
+              <span class="text-gray-900 font-medium">Austin Datan</span>
             </div>
           </div>
-        </div>
+          
+          <div class="flex items-center justify-between">
+            <span class="text-gray-600">Email</span>
+            <span class="text-gray-900 font-medium">austindatan@gmail.com</span>
+          </div>
 
-        <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
-            <p class="col-span-3 text-lg text-gray-500 text-left">Delivery</p>
-            <div class="col-span-9">
-              <p class="text-lg font-medium text-gray-800 text-left">Standard Shipping</p>
-              <p class="text-base text-gray-400 text-left">5 to 7 days</p>
-            </div>
+          <div class="flex items-center justify-between">
+            <span class="text-gray-600">Phone Number</span>
+            <span class="text-gray-900 font-medium">09262103722</span>
+          </div>
           </div>
         </div>
 
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
-            <p class="col-span-3 text-lg text-gray-500 text-left">Payment<br />Method</p>
-            <div class="col-span-9">
-              <p class="text-lg font-medium text-gray-800 text-left">Cash on Delivery</p>
-              <p class="text-base text-gray-400 text-left">Austin Datan - 0926103722</p>
-            </div>
+
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-md font-semibold">Addresses</h3>
+            <button class="text-sm text-blue-600 hover:underline font-medium">+ Add</button>
+          </div>
+
+          <div class="border border-dashed border-gray-300 p-4 rounded-md text-gray-500 flex items-center gap-2">
+            <span>ℹ️</span>
+            <span>No addresses added</span>
           </div>
         </div>
 
-        <a href="/checkout" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">
-          Complete Purchase
-        </a>
-
+        <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-left">Account Settings</h2>
+         </div>
+            
+          <div class="space-y-4 mb-3">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-600">Change Password</span>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <span class="text-red-600">Delete Accouunt</span>
+          </div>
+        </div>
       </div>
 
       {{-- SMALL SCREENS NI SHAAAA--}}
       <div class="mobile block lg:hidden bg-gray-100 rounded-md overflow-hidden text-sm text-center ">
 
         <details class="p-6 space-y-4">
-          <summary class="text-xl cursor-pointer mt-4 text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></summary>
+          <summary class="text-xl cursor-pointer mt-4 text-left font-poppins text-semibold">Order History</summary>
 
           <div class="space-y-4 font-dm-sans">
 
@@ -98,33 +111,12 @@
               </div>
               <p class="text-sm font-semibold">P85</p>
             </div>
-
           </div>
-
-          <div class="border-t pt-4 space-y-2">
-            <div class="flex justify-between">
-              <span class="font-poppins">Subtotal</span>
-              <span class="font-dm-sans">P1500</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="font-poppins">Shipping</span>
-              <span class="font-dm-sans text-gray-500">183</span>
-            </div>
-          </div>
-
-          <div class="flex justify-between text-lg font-bold border-t pt-4">
-            <span class="font-poppins">Total</span>
-            <span class="font-poppins">P1683</span>
-          </div>
-
-          <p class="text-sm text-gray-500 text-right font-dm-sans">
-            Taxes included.
-          </p>
         </details>
       </div>
 
       <div class="hidden lg:block lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2">
-        <h2 class="text-xl font-dm-sans text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></h2>
+        <h2 class="text-xl font-poppins text-semibold text-left">Order History</h2>
 
         <div class="space-y-4 font-dm-sans">
 
@@ -162,26 +154,6 @@
           </div>
 
         </div>
-
-        <div class="border-t pt-4 space-y-2">
-          <div class="flex justify-between">
-            <span class="font-poppins">Subtotal</span>
-            <span class="font-dm-sans">P1500</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-poppins">Shipping</span>
-            <span class="font-dm-sans text-gray-500">P183</span>
-          </div>
-        </div>
-
-        <div class="flex justify-between text-lg font-bold border-t pt-4">
-          <span class="font-poppins">Total</span>
-          <span class="font-poppins">P1683</span>
-        </div>
-
-        <p class="text-sm text-gray-500 text-right font-dm-sans">
-          Taxes included.
-        </p>
       </div>
 
       </div>
