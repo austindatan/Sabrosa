@@ -16,6 +16,26 @@
           <p class="text-sm text-gray-600 font-dm-sans">you@example.com</p>
         </div>
 
+        <p class="text-base text-gray-600 font-dm-sans mx-auto">Express Checkout</p>
+
+        <div class="grid grid-cols-3 gap-4 w-full font-dm-sans">
+          <div class="flex justify-center items-center w-full">
+            <img src="{{ asset('images/maya-3.png') }}" class="bg-[#00b464] w-full h-18 object-contain rounded" />
+          </div>
+          <div class="flex justify-center items-center w-full">
+            <img src="{{ asset('images/gcash-2.png') }}" class="bg-blue-300 w-full h-18 object-contain rounded" />
+          </div>
+          <div class="flex justify-center items-center w-full">
+            <img src="{{ asset('images/paypal.png') }}" class="bg-yellow-400 w-full h-18 object-contain rounded" />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 my-6">
+          <div class="flex-grow border-t border-gray-300"></div>
+          <p class="text-base text-gray-600 font-dm-sans">OR</p>
+          <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
         <div class="grid grid-cols-2 gap-4 font-dm-sans">
           <div class="relative w-full">
             <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
@@ -96,13 +116,92 @@
             </label>
         </div>
 
+        <div class="mb-4">
+          <h2 class="text-lg font-bold text-left font-poppins">Payment</h2>
+          <p class="text-sm text-gray-600 font-dm-sans text-left">All transactions are secure and encrypted.</p>
+        </div>
+
+        <div class="lg:col-span-2 space-y-6 bg-gray-100 p-4 rounded-lg">
+
+          <label class="flex items-center gap-2 cursor-pointer mb-2">
+            <input type="radio" name="paymentMethod" value="creditCard" class="accent-blue-600" />
+            <span class="text-base font-semibold text-left font-poppins">Credit Card</span>
+          </label>
+
+          <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class=" peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Card Number
+              </label>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 font-dm-sans">
+            <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Expiration Date (MM/YY)
+              </label>
+            </div>
+
+            <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Security Code
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Name on Card
+              </label>
+          </div>
+
+          <label class="flex items-center gap-2 cursor-pointer mb-2">
+            <input type="radio" name="paymentMethod" value="creditCard" class="accent-blue-600" />
+            <span class="text-base font-semibold text-left font-poppins">Cash on Delivery</span>
+          </label>
+
+          <div class="grid grid-cols-2 gap-4 font-dm-sans">
+            <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                First Name
+              </label>
+            </div>
+
+            <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Last Name
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class=" peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Address
+              </label>
+          </div>    
+
+          <div class="bg-white relative w-full">
+              <input type="text" id="first_name" placeholder=" " class="peer w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400" />
+              <label for="first_name" class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                Phone Number
+              </label>
+          </div>
+        </div>
+
         <a href="/checkout" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200">
           Continue to Payment
         </a>
 
       </div>
 
-      <div class="block lg:hidden bg-gray-100 rounded-md overflow-hidden text-sm text-center ">
+      {{-- SMALL SCREENS NI SHAAAA--}}
+      <div class="mobile block lg:hidden bg-gray-100 rounded-md overflow-hidden text-sm text-center ">
 
         <details class="p-6 space-y-4">
           <summary class="text-xl font-bold font-poppins cursor-pointer mt-4">Order Summary</summary>
@@ -166,7 +265,6 @@
         </details>
       </div>
 
-      <!-- Desktop (always visible) -->
       <div class="hidden lg:block lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2">
         <h2 class="text-xl font-bold font-poppins">Order Summary</h2>
 
