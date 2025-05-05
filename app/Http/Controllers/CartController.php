@@ -26,7 +26,7 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Customer not found.');
         }
 
-        // Add item to cart or update quantity if it already exists
+        // Check if item already exists in cart
         $cartItem = CartItem::where([
             'customer_ID' => $customer->customer_ID,
             'product_details_ID' => $request->product_details_ID,
@@ -43,7 +43,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Item added to cart.');
+        return redirect()->back()->with('success', '✅ Item successfully added to cart!');
     }
 
     /**
@@ -58,7 +58,39 @@ class CartController extends Controller
             ->where('customer_ID', $customer->customer_ID)
             ->get();
 
-        // Ensure cartItems is always treated as a Collection
         return view('cart', ['cartItems' => collect($cartItems)]);
+    }
+
+    /**
+     * Update the quantity of a cart item.
+     */
+    public function update(Request $request, CartItem $cartItem, $action)
+    {
+        if (!$cartItem) {
+            return redirect()->back()->with('error', '❌ Cart item not found.');
+        }
+
+        if ($action === 'increase') {
+            $cartItem->increment('quantity');
+            return redirect()->back()->with('success', '✅ Item quantity increased.');
+        } elseif ($action === 'decrease' && $cartItem->quantity > 1) {
+            $cartItem->decrement('quantity');
+            return redirect()->back()->with('success', '✅ Item quantity decreased.');
+        }
+
+        return redirect()->back()->with('error', '⚠️ Unable to update cart item.');
+    }
+
+    /**
+     * Remove an item from the cart.
+     */
+    public function remove(CartItem $cartItem)
+    {
+        if (!$cartItem) {
+            return redirect()->back()->with('error', '❌ Cart item not found.');
+        }
+
+        $cartItem->delete();
+        return redirect()->back()->with('success', '🗑️ Item successfully removed from cart.');
     }
 }
