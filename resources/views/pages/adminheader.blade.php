@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @vite(['resources/css/app.css', 'resources/js/app.js']) 
+  @vite(['resources/css/admin_app.css', 'resources/js/app.js']) 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
 </head>
 
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
     <header>
-        <button id="open-menu" class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute left-8 sm:left-[50px] top-1/2 -translate-y-1/2 z-50" aria-label="Toggle menu">
-            <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
-            <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
-            <span class="w-6 h-0.5 bg-[#1F27A6] rounded"></span>
+        <button id="open-menu" class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute top-5 left-5 z-50" aria-label="Toggle menu">
+            <img src="{{ asset('images/sabrosa_stable_logo.png') }}" alt="Header Image" class="w-auto h-12 sm:h-12 md:h-12 mb-4">
         </button>
 
         <div id="overlay" class="fixed inset-0 z-30 hidden"></div>

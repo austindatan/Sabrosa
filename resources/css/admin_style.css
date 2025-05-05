@@ -1,8 +1,40 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fddde6;
-    color: #4d2c3d;
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=League+Spartan:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+.font-barlow {
+    font-family: 'Barlow', sans-serif;
+}
+
+.font-dm-sans {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.font-league-spartan {
+    font-family: 'League Spartan', sans-serif;
+}
+
+.font-courier-prime {
+    font-family: 'Courier Prime', monospace;
+}
+
+@layer utilities {
+    .scrollbar-hide {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, and Opera */
+    }
   }
   
   .app {
@@ -10,23 +42,6 @@ body {
     height: 100vh;
   }
   
-  .sidebar {
-    width: 200px;
-    background-color: #f8c9d8;
-    padding: 20px;
-  }
-  
-  .logo {
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar nav a {
-    display: block;
-    margin: 10px 0;
-    color: #30051b;
-    text-decoration: none;
-  }
 
   .collapsible {
     background: none;
@@ -39,29 +54,6 @@ body {
     width: 100%;
     cursor: pointer;
   }
-  
-  .submenu {
-    display: none;
-    padding-left: 10px;
-  }
-  
-  .submenu a {
-    font-size: 13px;
-  }
-  
-
-  .menu-group {
-    margin-top: 15px;
-  }
-  
-  .menu-group strong {
-    display: block;
-    margin: 10px 0 5px;
-    font-size: 14px;
-    color: #4d2c3d;
-    text-transform: uppercase;
-  }
-  
   
   .dashboard {
     flex-grow: 1;
