@@ -21,6 +21,19 @@
                 </div>
             @endif
 
+            <!-- ✅ Success Message -->
+            @if(session('success'))
+                <div id="success-message" class="bg-green-500 text-white px-4 py-2 rounded-md mb-4 text-center font-semibold transition-opacity duration-500">
+                    {{ session('success') }}
+                </div>
+
+                <script>
+                  setTimeout(() => {
+                    document.getElementById("success-message").style.opacity = "0";
+                  }, 3000);
+                </script>
+            @endif
+
             <form method="POST" action="{{ route('forgot.submit') }}">
                 @csrf
 

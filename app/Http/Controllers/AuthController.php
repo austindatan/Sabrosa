@@ -93,6 +93,6 @@ class AuthController extends Controller
             ->where('username', $request->username)
             ->update(['password' => Hash::make($request->password)]);
 
-        return redirect()->route('login')->with('success', 'Password reset successful. You can now log in.');
+        return redirect()->route('forgot')->with('success', 'Your password has been successfully reset.');
     }
 }
