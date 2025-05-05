@@ -1,0 +1,237 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fddde6;
+    color: #4d2c3d;
+  }
+
+  .app {
+    display: flex;
+    height: 100vh;
+  }
+.sidebar {
+    width: 200px;
+    background-color: #f8c9d8;
+    padding: 20px;
+  }
+
+  .sidebar nav a {
+    display: block;
+    margin: 10px 0;
+    color: #30051b;
+    text-decoration: none;
+  }
+
+  .dashboard {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    color: #30051b;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e4a6b8;
+}
+
+/* Content Layout */
+.content {
+    margin-left: 200px;
+    padding: 40px;
+    background: #fddde6;
+    min-height: 100vh;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Grid Form Layout */
+.form-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border 0.3s ease;
+    color: #4d2c3d;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #f8c9d8;
+}
+
+/* Image Upload Section */
+.image-upload-section {
+    margin-bottom: 30px;
+}
+
+.image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.image-upload-card {
+    width: 100%;
+    height: 120px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease;
+}
+
+.image-upload-card:hover {
+    border-color: #f8c9d8;
+}
+
+.image-upload-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.image-upload-card input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+/* Price Grouping */
+.price-group {
+    display: flex;
+    gap: 8px;
+}
+
+.price-group select {
+    max-width: 80px;
+}
+
+/* Availability Switch */
+.toggle-section {
+    align-items: center;
+    gap: 10px;
+    display: flex;
+}
+
+.status-label {
+    font-size: 14px;
+    color: #4d2c3d;
+}
+
+/* Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 26px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #f8c9d8;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* Button Styles */
+button[type="submit"] {
+    background-color: #f8c9d8;
+    color: #4d2c3d;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #e4a6b8;
+}
+
+/* Error Indicator */
+label span {
+    color: red;
+}
+
+.flex-row-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .toggle-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  

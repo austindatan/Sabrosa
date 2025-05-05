@@ -2,20 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    @vite(['resources/css/dashboard_style.css', 'resources/js/dashboard_script.js']) 
+    @vite(['resources/css/admin_style.css', 'resources/js/dashboard_script.js']) 
     <title>Web Analytics Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
   @include('pages.adminheader')
     <div class="app"> 
-     <aside class="sidebar">
-      <nav class="space-y-2">
-      </nav>
-    </aside> 
-        
+      <aside class="sidebar w-[80px] bg-white pd-[20px]"></aside>
+
       <main class="dashboard">
-        <h1>Web Analytics Dashboard</h1>
+        <h2 class="font-poppins font-bold text-3xl text-left">SABROSA Dashboard</h2>
         <div class="charts">
           <div class="chart-box">
             <canvas id="lineChart"></canvas>
