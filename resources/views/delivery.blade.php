@@ -204,7 +204,7 @@
       <div class="mobile block lg:hidden bg-gray-100 rounded-md overflow-hidden text-sm text-center ">
 
         <details class="p-6 space-y-4">
-          <summary class="text-xl font-bold font-poppins cursor-pointer mt-4">Order Summary</summary>
+          <summary class="text-xl text-left font-bold font-poppins cursor-pointer mt-4">Order Summary</summary>
 
           <div class="space-y-4 font-dm-sans">
 
@@ -227,7 +227,7 @@
                 </div>
                 <p class="text-sm text-left w-[150px]">Tea Chest Jubilee Petite Pyramid</p>
               </div>
-              <p class="text-sm font-semibold">P635</p>
+              <p class="text-sm font-semibold">P1270</p>
             </div>
 
             <div class="flex items-center justify-between">
@@ -266,7 +266,7 @@
       </div>
 
       <div class="hidden lg:block lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2">
-        <h2 class="text-xl font-bold font-poppins">Order Summary</h2>
+        <h2 class="text-xl font-bold font-poppins text-left">Order Summary</h2>
 
         <div class="space-y-4 font-dm-sans">
 
@@ -289,7 +289,7 @@
               </div>
               <p class="text-sm text-left w-[150px]">Tea Chest Jubilee Petite Pyramid</p>
             </div>
-            <p class="text-sm font-semibold">P635</p>
+            <p class="text-sm font-semibold">P1270</p>
           </div>
 
           <div class="flex items-center justify-between">
