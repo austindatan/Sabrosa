@@ -5,6 +5,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerDashboardController;
 use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController; // ✅ Ensure checkout controller is imported
 
 // Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -13,17 +15,28 @@ Route::get('/about', [ProductController::class, 'showAbout'])->name('about');
 Route::get('/contact', [ProductController::class, 'showContact'])->name('contact');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
-Route::middleware('auth')->get('/cart', [ProductController::class, 'showCart'])->name('cart');
+// Cart Routes (Requires Auth)
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'show'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+});
+
+// Alternative Route for Non-Logged-In Users
 Route::get('/cart-not-logged-in', function () {
-    return view('pages.cart_not_logged_in'); 
+    return view('pages.cart_not_logged_in');
 })->name('cart.not_logged_in');
 
+// ✅ Checkout Route
+Route::middleware('auth')->get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
+// Authentication Routes
 Route::view('/register', 'authentication.register')->name('register');
 Route::view('/login', 'authentication.login')->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Dashboard Routes (Requires Auth)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return match (auth()->user()->role) {
@@ -41,5 +54,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/dashboard', fn() => view('pages.userdashboard'))->name('user.dashboard');
 });
 
+// User Management Routes
 Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
 Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
