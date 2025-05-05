@@ -24,12 +24,12 @@
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
 
-                <div class="w-full mb-4">
+                <div class="w-full mb-5">
                     <label for="login" class="block mb-1 text-sm font-medium text-gray-700 mb-4 text-left font-dm-sans uppercase leading-2"> Email </label>
                     <input type="text" id="login" name="login" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
                 </div>
 
-                <div class="w-full mb-4">
+                <div class="w-full mb-">
                     <label for="password" class="block mb-1 text-sm font-medium text-gray-700 mb-4 text-left font-dm-sans uppercase leading-2"> Password </label>
                     <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
                 </div>
