@@ -29,11 +29,11 @@
 
 @layer utilities {
     .scrollbar-hide {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
     .scrollbar-hide::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, and Opera */
+      display: none;
     }
   }
 
@@ -41,4 +41,25 @@ body {
   background-image: url('../bg_pattern.png');
   background-size: cover;
   background-size: 100% auto;
+}
+
+.search-box-slide {
+  position: absolute;
+  left: -55%;
+  top: 50%;
+  transform: translate(-50%, -50%) translateX(100%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.search-box-slide.show {
+  transform: translate(-50%, -50%) translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.search-logo.move {
+  transform: translateX(-100px);
+  transition: transform 0.4s ease;
 }
