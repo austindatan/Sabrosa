@@ -26,4 +26,9 @@ class Customer extends Model
         'country', 
         'email'
     ];
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_ID');
+    }
 }

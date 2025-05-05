@@ -9,29 +9,45 @@
 
   <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
       {{-- LEFT SIDE: Delivery --}}
       <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-2xl font-bold text-right font-poppins">Review and Pay</h2>
         </div>
 
+        @php
+            $customer = \App\Models\Customer::where('user_account_ID', Auth::user()->user_account_ID)->first();
+            $cartItems = \App\Models\CartItem::where('customer_ID', optional($customer)->customer_ID)->with('productDetail.product')->get();
+            $subtotal = $cartItems->sum(fn($item) => optional($item->productDetail->product)->price * $item->quantity);
+            $shippingFee = 254; // Fixed shipping fee
+            $totalAmount = $subtotal + $shippingFee;
+
+            // ✅ Using Eloquent ORM to fetch PaymentMethod details
+            $paymentDetails = optional($customer)->paymentMethod;
+        @endphp
+
+        <!-- ✅ Email (Pulled from Database) -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
             <p class="col-span-3 text-lg text-gray-500 text-left">Email</p>
-            <p class="col-span-9 text-lg font-medium text-gray-800 text-left">austindatan@gmail.com</p>
+            <p class="col-span-9 text-lg font-medium text-gray-800 text-left">{{ optional($customer)->email ?? 'Not available' }}</p>
           </div>
         </div>
 
+        <!-- ✅ Ship to (Pulled from Database) -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
             <p class="col-span-3 text-lg text-gray-500 text-left">Ship to</p>
             <div class="col-span-9">
-              <p class="text-lg font-medium text-gray-800 text-left">#59 A. Villarin St.</p>
-              <p class="text-base text-gray-400 text-left">Carmen, Cagayan de Oro City</p>
+              <p class="text-lg font-medium text-gray-800 text-left">{{ optional($customer)->street ?? 'Street not found' }}</p>
+              <p class="text-base text-gray-400 text-left">{{ optional($customer)->city ?? 'City not found' }}, {{ optional($customer)->province ?? 'Province not found' }}</p>
+              <p class="text-base text-gray-400 text-left">{{ optional($customer)->country ?? 'Country not found' }}</p>
             </div>
           </div>
         </div>
 
+        <!-- ✅ Fixed Delivery Information -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
             <p class="col-span-3 text-lg text-gray-500 text-left">Delivery</p>
@@ -42,141 +58,72 @@
           </div>
         </div>
 
-        <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
+        <!-- ✅ Payment Method (Pulled from Database) -->
+        <div class="w-full border border-gray-200 rounded-lg p-4 mb-4 flex items-center gap-2">
+          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start flex-1">
             <p class="col-span-3 text-lg text-gray-500 text-left">Payment<br />Method</p>
-            <div class="col-span-9">
-              <p class="text-lg font-medium text-gray-800 text-left">Cash on Delivery</p>
-              <p class="text-base text-gray-400 text-left">Austin Datan - 0926103722</p>
+            <div class="col-span-9 flex flex-col items-start gap-2">
+              <div class="flex items-center gap-2">
+                <!-- ✅ Image BEFORE the Payment Method Name -->
+                @if($paymentDetails && $paymentDetails->card_image)
+                  <img src="{{ asset($paymentDetails->card_image) }}" alt="{{ $paymentDetails->payment_method }}" class="w-10 h-6 object-contain rounded border">
+                @endif
+
+                <p class="text-lg font-medium text-gray-800 text-left">
+                  {{ $paymentDetails->payment_method ?? 'No Payment Method Selected' }}
+                </p>
+              </div>
+
+              <!-- ✅ Customer Name Below Payment Method -->
+              <p class="text-base text-gray-400 text-left">
+                {{ optional($customer)->firstname }} {{ optional($customer)->lastname }}
+              </p>
             </div>
           </div>
         </div>
 
+
         <a href="/checkout" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">
           Complete Purchase
         </a>
-
       </div>
 
-      {{-- SMALL SCREENS NI SHAAAA--}}
-      <div class="mobile block lg:hidden bg-gray-100 rounded-md overflow-hidden text-sm text-center ">
-
-        <details class="p-6 space-y-4">
-          <summary class="text-xl cursor-pointer mt-4 text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></summary>
-
-          <div class="space-y-4 font-dm-sans">
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3 relative">
-                <div class="relative">
-                  <img src="{{ asset('images/product/product_sprites/Way of the Strong  Special Mixed Yakisoba.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                  <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
-                </div>
-                <p class="text-sm text-left w-[150px]">Way of the Strong  Special Mixed Yakisoba</p>
-              </div>
-              <p class="text-sm font-semibold">P145</p>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3 relative">
-                <div class="relative">
-                  <img src="{{ asset('images/product/product_sprites/Tea Chest Jubilee Petite Pyramid.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                  <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">2</span>
-                </div>
-                <p class="text-sm text-left w-[150px]">Tea Chest Jubilee Petite Pyramid</p>
-              </div>
-              <p class="text-sm font-semibold">P1270</p>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3 relative">
-                <div class="relative">
-                  <img src="{{ asset('images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                  <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
-                </div>
-                <p class="text-sm text-left w-[150px]">Tropical Mango and Passionfruit Cookie</p>
-              </div>
-              <p class="text-sm font-semibold">P85</p>
-            </div>
-
-          </div>
-
-          <div class="border-t pt-4 space-y-2">
-            <div class="flex justify-between">
-              <span class="font-poppins">Subtotal</span>
-              <span class="font-dm-sans">P1500</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="font-poppins">Shipping</span>
-              <span class="font-dm-sans text-gray-500">183</span>
-            </div>
-          </div>
-
-          <div class="flex justify-between text-lg font-bold border-t pt-4">
-            <span class="font-poppins">Total</span>
-            <span class="font-poppins">P1683</span>
-          </div>
-
-          <p class="text-sm text-gray-500 text-right font-dm-sans">
-            Taxes included.
-          </p>
-        </details>
-      </div>
-
+      {{-- RIGHT SIDE: Order Summary --}}
       <div class="hidden lg:block lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2">
         <h2 class="text-xl font-dm-sans text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></h2>
 
         <div class="space-y-4 font-dm-sans">
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Way of the Strong  Special Mixed Yakisoba.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
+          @foreach ($cartItems as $item)
+            @php
+              $product = optional($item->productDetail->product);
+            @endphp
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3 relative">
+                <div class="relative">
+                  <img src="{{ asset($product->image_URL) }}" class="bg-white w-14 h-14 object-contain rounded border" />
+                  <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">{{ $item->quantity }}</span>
+                </div>
+                <p class="text-sm text-left w-[150px]">{{ $product->name }}</p>
               </div>
-              <p class="text-sm text-left w-[150px]">Way of the Strong  Special Mixed Yakisoba</p>
+              <p class="text-sm font-semibold">₱{{ number_format($product->price * $item->quantity) }}</p>
             </div>
-            <p class="text-sm font-semibold">P145</p>
-          </div>
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Tea Chest Jubilee Petite Pyramid.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">2</span>
-              </div>
-              <p class="text-sm text-left w-[150px]">Tea Chest Jubilee Petite Pyramid</p>
-            </div>
-            <p class="text-sm font-semibold">P1270</p>
-          </div>
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
-              </div>
-              <p class="text-sm text-left w-[150px]">Tropical Mango and Passionfruit Cookie</p>
-            </div>
-            <p class="text-sm font-semibold">P85</p>
-          </div>
-
+          @endforeach
         </div>
 
         <div class="border-t pt-4 space-y-2">
           <div class="flex justify-between">
             <span class="font-poppins">Subtotal</span>
-            <span class="font-dm-sans">P1500</span>
+            <span class="font-dm-sans">₱{{ number_format($subtotal) }}</span>
           </div>
           <div class="flex justify-between">
             <span class="font-poppins">Shipping</span>
-            <span class="font-dm-sans text-gray-500">P183</span>
+            <span class="font-dm-sans text-gray-500">₱{{ number_format($shippingFee) }}</span>
           </div>
         </div>
 
         <div class="flex justify-between text-lg font-bold border-t pt-4">
           <span class="font-poppins">Total</span>
-          <span class="font-poppins">P1683</span>
+          <span class="font-poppins">₱{{ number_format($totalAmount) }}</span>
         </div>
 
         <p class="text-sm text-gray-500 text-right font-dm-sans">
@@ -184,7 +131,6 @@
         </p>
       </div>
 
-      </div>
     </div>
   </main>
 

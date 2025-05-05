@@ -7,6 +7,7 @@ use App\Http\Controllers\OwnerDashboardController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentMethodController;
 
 // ✅ Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -26,8 +27,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'show'])->name('cart');
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update'); // Update quantity
-    Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove'); // Remove item
+    Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 });
 
 // ✅ Checkout Routes (Requires Auth)
@@ -36,10 +37,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 });
 
+// ✅ Payment Method Routes (Requires Auth)
+Route::middleware('auth')->group(function () {
+    Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
+    Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');
+    Route::post('/payment-methods', [PaymentMethodController::class, 'store'])->name('payment.methods.store');
+});
+
 // ✅ Alternative Cart Route for Non-Logged-In Users
-Route::get('/cart-not-logged-in', function () {
-    return view('pages.cart_not_logged_in');
-})->name('cart.not_logged_in');
+Route::get('/cart-not-logged-in', fn() => view('pages.cart_not_logged_in'))->name('cart.not_logged_in');
 
 // ✅ Dashboard Routes (Requires Auth)
 Route::middleware(['auth'])->group(function () {
@@ -60,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // ✅ User Management Routes (Requires Admin)
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
