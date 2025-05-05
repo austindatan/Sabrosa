@@ -8,6 +8,7 @@ use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ShippingController;
 
 // ✅ Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -42,6 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
     Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');
     Route::post('/payment-methods', [PaymentMethodController::class, 'store'])->name('payment.methods.store');
+});
+
+// ✅ Shipping Routes (Requires Auth)
+Route::middleware('auth')->group(function () {
+    Route::get('/shipping-methods', [ShippingController::class, 'index'])->name('shipping.methods');
+    Route::get('/shipping-methods/{id}', [ShippingController::class, 'show'])->name('shipping.methods.show');
+    Route::post('/shipping-methods/{id}/update', [ShippingController::class, 'update'])->name('shipping.methods.update');
 });
 
 // ✅ Alternative Cart Route for Non-Logged-In Users

@@ -47,16 +47,44 @@
           </div>
         </div>
 
-        <!-- ✅ Fixed Delivery Information -->
+        @php
+            // ✅ Fetch shipping methods using Eloquent
+            $shippingMethods = \App\Models\Shipping::all();
+        @endphp
+
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
+          <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-center">
+            <!-- ✅ Keep "Delivery" Word on the Left -->
             <p class="col-span-3 text-lg text-gray-500 text-left">Delivery</p>
-            <div class="col-span-9">
-              <p class="text-lg font-medium text-gray-800 text-left">Standard Shipping</p>
-              <p class="text-base text-gray-400 text-left">5 to 7 days</p>
+
+            <!-- ✅ Dynamic Delivery Method + Time (Stacked) -->
+            <div class="col-span-6 text-left">
+              <p class="text-lg font-semibold text-black" id="deliveryTitle">Standard Delivery</p>
+              <p class="text-base text-gray-400" id="deliveryTime">5-7 Days</p>
+            </div>
+
+            <!-- ✅ Dropdown for Selecting Method (Smaller on Right) -->
+            <div class="col-span-3 text-right">
+              <select name="shipping_method" id="shippingDropdown" class="border rounded-lg p-2 text-lg text-gray-800 w-32">
+                @foreach ($shippingMethods as $shipping)
+                  <option value="{{ $shipping->shipping_ID }}" data-method="{{ $shipping->shipping_method }}" data-time="{{ $shipping->shipping_method == 'Standard' ? '5-7 Days' : '1-3 Days' }}">
+                    {{ $shipping->shipping_method }}
+                  </option>
+                @endforeach
+              </select>
             </div>
           </div>
         </div>
+
+        <script>
+          document.getElementById('shippingDropdown').addEventListener('change', function() {
+              const selectedOption = this.options[this.selectedIndex];
+
+              // ✅ Correctly updates method and delivery time
+              document.getElementById('deliveryTitle').innerText = selectedOption.getAttribute('data-method') + " Delivery";
+              document.getElementById('deliveryTime').innerText = selectedOption.getAttribute('data-time');
+          });
+        </script>
 
         <!-- ✅ Payment Method (Pulled from Database) -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4 flex items-center gap-2">
