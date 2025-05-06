@@ -100,7 +100,7 @@
           <p class="text-sm text-gray-600 font-dm-sans mb-4">All transactions are secure and encrypted.</p>
 
           <div class="flex gap-4 mb-4">
-            @foreach(['cash', 'gcash', 'mastercard', 'visa'] as $tab)
+            @foreach(['cash', 'gcash', 'mastercard', 'visa', 'paymaya', 'paypal'] as $tab)
               <button type="button" onclick="showPaymentTab(event, '{{ $tab }}')"
                 class="tab-btn px-4 py-2 border border-pink-500 rounded-md font-semibold transition bg-white hover:bg-pink-500 hover:text-white">
                 {{ ucfirst($tab) }}
@@ -109,6 +109,7 @@
           </div>
 
           <div id="cash" class="payment-content block">Cash on Delivery</div>
+
           <div id="gcash" class="payment-content hidden space-y-4">
             <input type="text" name="gcash_first_name" placeholder="First Name" class="w-full p-3 border rounded">
             <input type="text" name="gcash_last_name" placeholder="Last Name" class="w-full p-3 border rounded">
@@ -131,6 +132,18 @@
               <input type="text" name="visa_security_code" placeholder="CVV" class="p-3 border rounded">
             </div>
             <input type="text" name="visa_name_on_card" placeholder="Name on Card" class="w-full p-3 border rounded">
+          </div>
+
+          <div id="paymaya" class="payment-content hidden space-y-4">
+            <input type="text" name="paymaya_first_name" placeholder="First Name" class="w-full p-3 border rounded">
+            <input type="text" name="paymaya_last_name" placeholder="Last Name" class="w-full p-3 border rounded">
+            <input type="text" name="paymaya_phone" placeholder="Phone Number" class="w-full p-3 border rounded">
+          </div>
+
+          <div id="paypal" class="payment-content hidden space-y-4">
+            <input type="text" name="paypal_first_name" placeholder="First Name" class="w-full p-3 border rounded">
+            <input type="text" name="paypal_last_name" placeholder="Last Name" class="w-full p-3 border rounded">
+            <input type="text" name="paypal_phone" placeholder="Phone Number" class="w-full p-3 border rounded">
           </div>
 
           <a href="/checkout"
