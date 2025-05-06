@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CartItem;
 use App\Models\Customer;
+use App\Models\Shipping;
+use App\Models\PaymentMethod;
 
 class CheckoutController extends Controller
 {
@@ -22,9 +24,25 @@ class CheckoutController extends Controller
             return redirect()->route('cart')->with('error', 'Your cart is empty.');
         }
 
-        $grandTotal = $cartItems->sum(fn ($item) => optional($item->productDetail->product)->price * $item->quantity);
+        $shippingMethods = Shipping::all();
+        $paymentDetails = $customer->paymentMethod;
+        $shippingFee = 254;
 
-        return view('checkout', compact('cartItems', 'grandTotal'));
+        $subtotal = $cartItems->sum(fn($item) =>
+            optional($item->productDetail->product)->price * $item->quantity
+        );
+
+        $totalAmount = $subtotal + $shippingFee;
+
+        return view('checkout', compact(
+            'customer',
+            'cartItems',
+            'shippingMethods',
+            'paymentDetails',
+            'subtotal',
+            'shippingFee',
+            'totalAmount'
+        ));
     }
 
     public function showDeliveryPage()
@@ -40,11 +58,20 @@ class CheckoutController extends Controller
             return redirect()->route('cart')->with('error', 'Your cart is empty.');
         }
 
-        $subtotal = $cartItems->sum(fn ($item) => optional($item->productDetail->product)->price * $item->quantity);
+        $subtotal = $cartItems->sum(fn($item) =>
+            optional($item->productDetail->product)->price * $item->quantity
+        );
+
         $shippingFee = 50;
         $totalAmount = $subtotal + $shippingFee;
 
-        return view('delivery', compact('customer', 'cartItems', 'subtotal', 'shippingFee', 'totalAmount'));
+        return view('delivery', compact(
+            'customer',
+            'cartItems',
+            'subtotal',
+            'shippingFee',
+            'totalAmount'
+        ));
     }
 
     public function updateCustomer(Request $request)
@@ -63,10 +90,21 @@ class CheckoutController extends Controller
         return redirect()->route('delivery')->with('success', 'Customer info updated successfully.');
     }
 
+    public function storePaymentMethod(Request $request)
+    {
+        $request->validate([
+            'payment_method' => 'required|integer|min:1|max:6',
+        ]);
+
+        session(['selectedPaymentMethod' => $request->payment_method]);
+
+        return redirect()->route('checkout')->with('success', 'Payment method saved.');
+    }
+
     public function process(Request $request)
     {
         $request->validate([
-            'payment_method' => 'required|string',
+            'payment_method' => 'required|integer|min:1|max:6',
             'shipping_address' => 'required|string',
         ]);
 
