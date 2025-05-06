@@ -7,6 +7,9 @@ use App\Http\Controllers\OwnerDashboardController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\CustomerController; // ✅ Added CustomerController for delivery updates
 
 // ✅ Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -18,18 +21,24 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
 // ✅ Authentication Routes
-Route::view('/register', 'authentication.register')->name('register');
-Route::view('/login', 'authentication.login')->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::view('/register', 'authentication.register')->name('register');
+    Route::view('/login', 'authentication.login')->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// ✅ Forgot Password Routes
+Route::get('/forgot', fn() => view('authentication.forgot'))->name('forgot');
+Route::post('/forgot', [AuthController::class, 'resetPassword'])->name('forgot.submit');
 
 // ✅ Cart Routes (Requires Auth)
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'show'])->name('cart');
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update'); // Update quantity
-    Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove'); // Remove item
+    Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 });
 
 // ✅ Checkout Routes (Requires Auth)
@@ -38,10 +47,28 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 });
 
+// ✅ Delivery Routes (Requires Auth) - ✅ Uses CustomerController
+Route::middleware('auth')->group(function () {
+    Route::get('/delivery', [CustomerController::class, 'show'])->name('delivery');
+    Route::post('/delivery/update', [CustomerController::class, 'update'])->name('delivery.update');
+});
+
+// ✅ Payment Method Routes (Requires Auth)
+Route::middleware('auth')->group(function () {
+    Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
+    Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');
+    Route::post('/payment-methods', [PaymentMethodController::class, 'store'])->name('payment.methods.store');
+});
+
+// ✅ Shipping Routes (Requires Auth)
+Route::middleware('auth')->group(function () {
+    Route::get('/shipping-methods', [ShippingController::class, 'index'])->name('shipping.methods');
+    Route::get('/shipping-methods/{id}', [ShippingController::class, 'show'])->name('shipping.methods.show');
+    Route::post('/shipping-methods/{id}/update', [ShippingController::class, 'update'])->name('shipping.methods.update');
+});
+
 // ✅ Alternative Cart Route for Non-Logged-In Users
-Route::get('/cart-not-logged-in', function () {
-    return view('pages.cart_not_logged_in');
-})->name('cart.not_logged_in');
+Route::get('/cart-not-logged-in', fn() => view('pages.cart_not_logged_in'))->name('cart.not_logged_in');
 
 // ✅ Dashboard Routes (Requires Auth)
 Route::middleware(['auth'])->group(function () {
@@ -62,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // ✅ User Management Routes (Requires Admin)
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });

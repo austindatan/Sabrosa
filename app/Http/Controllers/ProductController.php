@@ -79,4 +79,11 @@ class ProductController extends Controller
 
         return view('product_views.product', compact('product', 'recommended'));
     }
+
+    // ✅ NEW METHOD
+    public function showOrderSummary(): View
+    {
+        $products = Product::select('name', 'price', 'quantity')->get();
+        return view('delivery', compact('products'));
+    }
 }

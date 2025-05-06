@@ -21,9 +21,15 @@ class Customer extends Model
         'middlename', 
         'lastname', 
         'street', 
+        'barangay',
         'city', 
         'province', 
         'country', 
         'email'
     ];
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_ID');
+    }
 }
