@@ -8,6 +8,7 @@
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden">
 
   @include('pages.header')
+
   <main class="flex-grow">
   <div class="w-full mt-[80px]">
     <img src="{{ asset('images/shop_banner.png') }}" alt="Header Image" class="w-full h-auto">

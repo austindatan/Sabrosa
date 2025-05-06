@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\CustomerController; // ✅ Added CustomerController for delivery updates
 
 // ✅ Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -18,11 +19,13 @@ Route::get('/contact', [ProductController::class, 'showContact'])->name('contact
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
 // ✅ Authentication Routes
-Route::view('/register', 'authentication.register')->name('register');
-Route::view('/login', 'authentication.login')->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::view('/register', 'authentication.register')->name('register');
+    Route::view('/login', 'authentication.login')->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // ✅ Forgot Password Routes
 Route::get('/forgot', fn() => view('authentication.forgot'))->name('forgot');
@@ -40,6 +43,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+});
+
+// ✅ Delivery Routes (Requires Auth) - ✅ Uses CustomerController
+Route::middleware('auth')->group(function () {
+    Route::get('/delivery', [CustomerController::class, 'show'])->name('delivery');
+    Route::post('/delivery/update', [CustomerController::class, 'update'])->name('delivery.update');
 });
 
 // ✅ Payment Method Routes (Requires Auth)
@@ -82,6 +91,3 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
-
-// ✅ Delivery Route (Loads `delivery.blade.php`)
-Route::get('/delivery', fn() => view('pages.delivery'))->name('delivery');

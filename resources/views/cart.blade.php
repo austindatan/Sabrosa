@@ -78,7 +78,7 @@
       </p>
 
       <div class="flex justify-end mt-4">
-        <a href="{{ route('checkout') }}" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold text-md px-15 py-4 rounded transition duration-200">
+        <a href="{{ route('delivery') }}" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold text-md px-15 py-4 rounded transition duration-200">
           Continue to Checkout
         </a>
       </div>
