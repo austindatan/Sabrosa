@@ -1,3 +1,4 @@
+<!-- resources/views/pages/checkout.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +9,10 @@
   @include('pages.header')
 
   <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      
-      {{-- LEFT SIDE: Delivery --}}
+    <form action="{{ route('checkout.process') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      @csrf
+
+      {{-- LEFT SIDE --}}
       <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-2xl font-bold text-right font-poppins">Review and Pay</h2>
@@ -20,14 +22,13 @@
             $customer = \App\Models\Customer::where('user_account_ID', Auth::user()->user_account_ID)->first();
             $cartItems = \App\Models\CartItem::where('customer_ID', optional($customer)->customer_ID)->with('productDetail.product')->get();
             $subtotal = $cartItems->sum(fn($item) => optional($item->productDetail->product)->price * $item->quantity);
-            $shippingFee = 254; // Fixed shipping fee
+            $shippingFee = 254;
             $totalAmount = $subtotal + $shippingFee;
-
-            // ✅ Using Eloquent ORM to fetch PaymentMethod details
             $paymentDetails = optional($customer)->paymentMethod;
+            $shippingMethods = \App\Models\Shipping::all();
         @endphp
 
-        <!-- ✅ Email (Pulled from Database) -->
+        <!-- Email -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
             <p class="col-span-3 text-lg text-gray-500 text-left">Email</p>
@@ -35,7 +36,7 @@
           </div>
         </div>
 
-        <!-- ✅ Ship to (Pulled from Database) -->
+        <!-- Ship To -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
             <p class="col-span-3 text-lg text-gray-500 text-left">Ship to</p>
@@ -47,25 +48,16 @@
           </div>
         </div>
 
-        @php
-            // ✅ Fetch shipping methods using Eloquent
-            $shippingMethods = \App\Models\Shipping::all();
-        @endphp
-
+        <!-- Delivery -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-center">
-            <!-- ✅ Keep "Delivery" Word on the Left -->
             <p class="col-span-3 text-lg text-gray-500 text-left">Delivery</p>
-
-            <!-- ✅ Dynamic Delivery Method + Time (Stacked) -->
             <div class="col-span-6 text-left">
               <p class="text-lg font-semibold text-black" id="deliveryTitle">Standard Delivery</p>
               <p class="text-base text-gray-400" id="deliveryTime">5-7 Days</p>
             </div>
-
-            <!-- ✅ Dropdown for Selecting Method (Smaller on Right) -->
             <div class="col-span-3 text-right">
-              <select name="shipping_method" id="shippingDropdown" class="border rounded-lg p-2 text-lg text-gray-800 w-32">
+              <select name="shipping_method_id" id="shippingDropdown" class="border rounded-lg p-2 text-lg text-gray-800 w-32">
                 @foreach ($shippingMethods as $shipping)
                   <option value="{{ $shipping->shipping_ID }}" data-method="{{ $shipping->shipping_method }}" data-time="{{ $shipping->shipping_method == 'Standard' ? '5-7 Days' : '1-3 Days' }}">
                     {{ $shipping->shipping_method }}
@@ -78,31 +70,25 @@
 
         <script>
           document.getElementById('shippingDropdown').addEventListener('change', function() {
-              const selectedOption = this.options[this.selectedIndex];
-
-              // ✅ Correctly updates method and delivery time
-              document.getElementById('deliveryTitle').innerText = selectedOption.getAttribute('data-method') + " Delivery";
-              document.getElementById('deliveryTime').innerText = selectedOption.getAttribute('data-time');
+            const selectedOption = this.options[this.selectedIndex];
+            document.getElementById('deliveryTitle').innerText = selectedOption.getAttribute('data-method') + " Delivery";
+            document.getElementById('deliveryTime').innerText = selectedOption.getAttribute('data-time');
           });
         </script>
 
-        <!-- ✅ Payment Method (Pulled from Database) -->
+        <!-- Payment Method -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4 flex items-center gap-2">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start flex-1">
             <p class="col-span-3 text-lg text-gray-500 text-left">Payment<br />Method</p>
             <div class="col-span-9 flex flex-col items-start gap-2">
               <div class="flex items-center gap-2">
-                <!-- ✅ Image BEFORE the Payment Method Name -->
                 @if($paymentDetails && $paymentDetails->card_image)
                   <img src="{{ asset($paymentDetails->card_image) }}" alt="{{ $paymentDetails->payment_method }}" class="w-10 h-6 object-contain rounded border">
                 @endif
-
                 <p class="text-lg font-medium text-gray-800 text-left">
                   {{ $paymentDetails->payment_method ?? 'No Payment Method Selected' }}
                 </p>
               </div>
-
-              <!-- ✅ Customer Name Below Payment Method -->
               <p class="text-base text-gray-400 text-left">
                 {{ optional($customer)->firstname }} {{ optional($customer)->lastname }}
               </p>
@@ -110,19 +96,18 @@
           </div>
         </div>
 
-
-        <a href="{{ route('delivery') }}" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</a>
+        <!-- Submit Button -->
+        <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">
+          Complete Purchase
+        </button>
       </div>
 
-      {{-- RIGHT SIDE: Order Summary --}}
+      {{-- RIGHT SIDE --}}
       <div class="hidden lg:block lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2">
         <h2 class="text-xl font-dm-sans text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></h2>
-
         <div class="space-y-4 font-dm-sans">
           @foreach ($cartItems as $item)
-            @php
-              $product = optional($item->productDetail->product);
-            @endphp
+            @php $product = optional($item->productDetail->product); @endphp
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3 relative">
                 <div class="relative">
@@ -156,8 +141,7 @@
           Taxes included.
         </p>
       </div>
-
-    </div>
+    </form>
   </main>
 
   @include('pages.footer')

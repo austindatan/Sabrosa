@@ -10,6 +10,7 @@ use App\Models\Customer;
 class CustomerController extends Controller
 {
 
+    /** ✅ Show Delivery Page with Customer Data */
     public function show()
     {
         $user = Auth::user();
@@ -28,23 +29,30 @@ class CustomerController extends Controller
         return view('delivery', compact('customer', 'cartItems', 'subtotal', 'shippingFee', 'totalAmount'));
     }
 
-
-    /** ✅ Update customer details */
+    /** ✅ Update Customer Information */
     public function update(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'street' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
+        // ✅ Validate inputs before updating
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:100',
+            'middlename' => 'nullable|string|max:100',
+            'lastname' => 'required|string|max:100',
+            'street' => 'nullable|string|max:100',
+            'barangay' => 'nullable|string|max:100',
+            'city' => 'nullable|string|max:100',
+            'province' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+            'email' => 'required|email|max:100',
+            'phone' => 'nullable|string|max:100',
+            'company' => 'nullable|string|max:100',
+            'payment_method_ID' => 'nullable|integer'
         ]);
 
-        // ✅ Retrieve customer based on logged-in user
+        // ✅ Retrieve customer for logged-in user
         $customer = Customer::where('user_account_ID', Auth::user()->user_account_ID)->firstOrFail();
 
-        // ✅ Update only provided fields
-        $customer->update($request->only(['first_name', 'last_name', 'email', 'street', 'phone']));
+        // ✅ Update ONLY modified fields
+        $customer->update(array_filter($validated));
 
         return redirect()->route('delivery')->with('success', 'Your information has been updated.');
     }

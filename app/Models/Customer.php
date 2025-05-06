@@ -25,7 +25,9 @@ class Customer extends Model
         'city', 
         'province', 
         'country', 
-        'email'
+        'email',
+        'phone', 
+        'company'
     ];
 
     public function paymentMethod()
