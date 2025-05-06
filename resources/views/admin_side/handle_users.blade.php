@@ -1,83 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    @vite(['resources/css/app.css', 'resources/css/handle_users.css','resources/js/handle_users_script.js']) 
-    <title>Web Analytics Dashboard</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @vite(['resources/js/dashboard_script.js']) 
+    <title>Sabrosa Dashboard | Users</title>
+    @include('pages.head')
   </head>
-
   <body class="bg-pink-50">
-    <div class="app min-h-screen flex flex-col md:flex-row">
 
-      <!-- Sidebar -->
-      <aside id="mobile-slide-menu" class="fixed md:static top-0 left-0 md:h-screen h-full bg-pink-100 text-white transform md:translate-x-0 -translate-x-full md:transition-none transition-transform duration-300 z-40 flex flex-col w-full md:w-1/5 md:z-auto">
-        <div class="flex justify-between items-center p-6">
-          <a href="{{ route('home') }}">
-            <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-40 h-auto">
-          </a>
-          <button id="close-menu" class="md:hidden text-[#1F27A6] text-3xl font-bold">&times;</button>
-        </div>
+  <div class="app min-h-screen flex flex-col md:flex-row">
 
-        <nav class="flex flex-col gap-6 px-12 text-xl mt-6 text-left">
-          <a href="{{ route('shop') }}" class="hover:underline text-[#1F27A6]">Dashboard</a>
-          <a href="{{ route('about') }}" class="hover:underline text-[#1F27A6]">Products</a>
-          <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Employees</a>
-          <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Users</a>
-          <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Orders</a>
-        </nav>
+  @include('admin_side.sidebar')
 
-        <div class="flex-grow"></div>
+    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
+      <h1 class="text-2xl font-bold text-[#E55182] mb-4">Users List</h1>
+        <div class="relative overflow-x-auto sm:rounded-lg"><div class="pb-4 bg-white">
+          <div class="flex items-center justify-between gap-x-4">
+            
+            <div class="relative">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-pink-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="table-search"
+                class="block w-80 ps-10 py-2 text-sm text-pink-900 border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500 placeholder-pink-400"
+                placeholder="Search for users"
+              >
+            </div>
 
-        <div class="px-6 pb-8 flex flex-col items-start gap-4">
-          <div class="flex gap-4 mt-2 px-6">
-            <a href="#" target="_blank"><img src="{{ asset('images/facebok.png') }}" alt="Facebook" class="h-6 w-6"></a>
-            <a href="#" target="_blank"><img src="{{ asset('images/twitter.png') }}" alt="Twitter" class="h-6 w-6"></a>
-            <a href="#" target="_blank"><img src="{{ asset('images/insta.png') }}" alt="Instagram" class="h-6 w-6"></a>
-            <a href="#" target="_blank"><img src="{{ asset('images/yt.png') }}" alt="YouTube" class="h-6 w-6"></a>
+            <div>
+              <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
+                <option value="">All Categories</option>
+                <option value="snacks">Snacks</option>
+                <option value="drinks">Drinks</option>
+                <option value="desserts">Desserts</option>
+              </select>
+            </div>
+
           </div>
         </div>
-      </aside>
 
-      <!-- Main Content -->
-      <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
-        <div class="flex justify-between items-center mb-4">
-          <h1 class="text-2xl font-semibold text-[#1F27A6]">User Management</h1>
-          <button id="openModalBtn" class="bg-[#1F27A6] text-white px-4 py-2 rounded hover:bg-[#1F27A6]/90">Add User</button>
+
+          <table class="w-full table-fixed text-sm text-left text-pink-900">
+            <thead class="text-xs uppercase bg-pink-100 text-pink-700">
+              <tr>
+                <th class="w-64 px-4 py-3 truncate">Name</th>
+                <th class="w-24 px-4 py-3 truncate">Address</th>
+                <th class="w-24 px-4 py-3 truncate">Email</th>
+                <th class="w-24 px-4 py-3 truncate">Phone Number</th>
+                <th class="w-24 px-4 py-3 truncate">Company</th>
+                <th class="w-10 px-4 py-3 truncate"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+              </th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($handleusers as $handleuser)
+              <tr class="bg-white border-b border-pink-200 hover:bg-pink-50">
+                <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2">{{ $handleuser->firstname ?? 'N/A' }}</td>
+                <td class="px-4 py-4 truncate">{{ $handleuser->city ?? 'N/A' }}</td>
+                <td class="px-4 py-4 truncate">{{ $handleuser->email ?? 'N/A' }}</td>
+                <td class="px-4 py-4 truncate">{{ $handleuser->phone ?? 'N/A' }}</td>
+                <td class="px-4 py-4 truncate">{{ $handleuser->company ?? 'N/A' }}</td>
+                <td class="px-4 py-4 truncate">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></a>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
+    </main>
 
-        <div id="userList" class="space-y-4">
-          <!-- User cards will be shown here -->
-        </div>
-      </main>
-    </div>
+  </div>
+</body>
 
-    <!-- Modal -->
-    <div id="userModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-content">
-        <button id="closeModalBtn" class="close-btn">&times;</button>
-        <h2 id="modalTitle" class="text-xl font-semibold mb-4">Add New User</h2>
-        <form id="userForm">
-          <div class="mb-4">
-            <label for="name" class="block font-semibold mb-1">Name</label>
-            <input type="text" id="name" class="w-full border px-3 py-2 rounded" required />
-          </div>
-          <div class="mb-4">
-            <label for="email" class="block font-semibold mb-1">Email</label>
-            <input type="email" id="email" class="w-full border px-3 py-2 rounded" required />
-          </div>
-          <div class="mb-4">
-            <label for="password" class="block font-semibold mb-1">Password</label>
-            <input type="password" id="password" class="w-full border px-3 py-2 rounded" required />
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="submit-btn">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Modal Logic -->
-  </body>
 </html>

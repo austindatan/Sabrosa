@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductDetail;
+use App\Models\EmployeeDetail;
+use App\Models\Customer;
 
 class AdminController extends Controller
 {
@@ -36,11 +38,25 @@ class AdminController extends Controller
         return view('admin_side.handle_orders');
     }
 
-    public function index()
+    public function product_index()
     {
     $products = ProductDetail::with(['product', 'category', 'store', 'supplier'])->get();
 
     return view('admin_side.productlist', compact('products'));
+    }
+
+    public function employee_index()
+    {
+    $employees = EmployeeDetail::with(['employee', 'employee_positions', 'employee_account'])->get();
+
+    return view('admin_side.employees', compact('employees'));
+    }
+
+    public function customer_index()
+    {
+    $handleusers = Customer::all();
+
+    return view('admin_side.handle_users', compact('handleusers'));
     }
 
 }

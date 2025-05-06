@@ -98,6 +98,6 @@ Route::get('/admin/addemployees', [AdminController::class, 'admin_addemployees']
 Route::get('/admin/handleusers', [AdminController::class, 'admin_handleusers'])->name('admin.handleusers');
 Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
 
-Route::get('/admin/productlist', [AdminController::class, 'index'])->name('admin.productlist');
-
-
+Route::get('/admin/productlist', [AdminController::class, 'product_index'])->name('admin.productlist');
+Route::get('/admin/employees', [AdminController::class, 'employee_index'])->name('admin.employees');
+Route::get('/admin/handleusers', [AdminController::class, 'customer_index'])->name('admin.handleusers');
