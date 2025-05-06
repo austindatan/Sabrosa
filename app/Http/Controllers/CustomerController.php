@@ -45,6 +45,7 @@ class CustomerController extends Controller
             'email' => 'required|email|max:100',
             'phone' => 'nullable|string|max:100',
             'company' => 'nullable|string|max:100',
+            'payment_method_ID' => 'required|integer|in:1,2,3,4,5,6'
         ]);
 
         // ✅ Get the logged-in user's customer data
@@ -60,5 +61,18 @@ class CustomerController extends Controller
         $customer->save();
 
         return redirect()->route('delivery')->with('success', 'Your delivery info was updated successfully! 🚚✨');
+    }
+
+    public function updatePaymentMethod(Request $request)
+    {
+        $validated = $request->validate([
+            'payment_method_ID' => 'required|exists:payment_method,payment_method_ID'
+        ]);
+
+        $customer = Customer::where('user_account_ID', Auth::user()->user_account_ID)->firstOrFail();
+        $customer->payment_method_ID = $validated['payment_method_ID'];
+        $customer->save();
+
+        return redirect()->route('delivery')->with('success', 'Payment method updated successfully.');
     }
 }
