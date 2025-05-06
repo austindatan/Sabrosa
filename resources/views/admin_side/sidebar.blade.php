@@ -7,12 +7,42 @@
         <button id="close-menu" class="md:hidden text-[#1F27A6] text-3xl font-bold">&times;</button>
       </div>
 
-      <nav class="flex flex-col gap-6 px-12 text-xl mt-6 text-left">
-        <a href="{{ route('shop') }}" class="hover:underline text-[#1F27A6]">Dashboard</a>
-        <a href="{{ route('about') }}" class="hover:underline text-[#1F27A6]">Products</a>
-        <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Employees</a>
-        <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Users</a>
-        <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Orders</a>
+      <nav class="flex flex-col gap-6 px-8 text-xl mt-6 text-left">
+        
+        <a 
+          href="{{ route('contact') }}" 
+          class="hover:bg-pink-200 hover:text-white px-4 py-2 rounded 
+                {{ request()->routeIs('about') ? 'bg-pink-300 text-white font-semibold' : 'text-[#1F27A6]' }}">
+          Dashboard
+        </a>
+
+        <a 
+          href="{{ route('about') }}" 
+          class="hover:bg-pink-200 hover:text-white px-4 py-2 rounded 
+                {{ request()->routeIs('about') ? 'bg-pink-300 text-white font-semibold' : 'text-[#1F27A6]' }}">
+          Products
+        </a>
+
+        <a 
+          href="{{ route('contact') }}" 
+          class="hover:bg-pink-200 hover:text-white px-4 py-2 rounded 
+                {{ request()->routeIs('about') ? 'bg-pink-300 text-white font-semibold' : 'text-[#1F27A6]' }}">
+          Employees
+        </a>
+
+        <a 
+          href="{{ route('contact') }}" 
+          class="hover:bg-pink-200 hover:text-white px-4 py-2 rounded 
+                {{ request()->routeIs('about') ? 'bg-pink-300 text-white font-semibold' : 'text-[#1F27A6]' }}">
+          Users
+        </a>
+
+        <a 
+          href="{{ route('contact') }}" 
+          class="hover:bg-pink-200 hover:text-white px-4 py-2 rounded 
+                {{ request()->routeIs('about') ? 'bg-pink-300 text-white font-semibold' : 'text-[#1F27A6]' }}">
+          Orders
+        </a>
       </nav>
 
       <div class="flex-grow"></div>
