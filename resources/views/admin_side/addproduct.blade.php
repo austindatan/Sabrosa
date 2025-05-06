@@ -17,7 +17,8 @@
       </div>
 
       <div class="mb-8">
-        <form id="addProductForm">
+        <form id="addProductForm" method="POST" action="{{ route('home') }}" enctype="multipart/form-data">
+        @csrf
           <h3 class="text-xl font-semibold mb-4 font-poppins">Product Images</h3>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
@@ -32,7 +33,6 @@
             </label>
           </div>
         </div>
-      </form>
 
       <div class="mb-5 flex flex-col">
           <label for="productBrand" class="font-semibold mb-2 font-poppins">Brand <span class="text-red-500">*</span></label>
@@ -95,7 +95,7 @@
         <button type="submit" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
           Add Product
         </button>
-
+      </form>
     </main>
 
   </div>
