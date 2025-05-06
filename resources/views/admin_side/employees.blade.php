@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    @vite(['resources/css/app.css', 'resources/js/EmployeeDetails.js']) 
-    <title>Web Analytics Dashboard</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}">
+    @vite(['resources/js/dashboard_script.js']) 
+    <title>Sabrosa Dashboard | Employee List</title>
+    @include('pages.head')
   </head>
   <body class="bg-pink-50">
 
   <div class="app min-h-screen flex flex-col md:flex-row">
 
-    <aside id="mobile-slide-menu" class="fixed md:static top-0 left-0 md:h-screen h-full bg-pink-100 text-white transform md:translate-x-0 -translate-x-full md:transition-none transition-transform duration-300 z-40 flex flex-col w-full md:w-1/5 md:z-auto">
+  @include('admin_side.sidebar')
 
-      <div class="flex justify-between items-center p-6">
-        <a href="{{ route('home') }}">
-          <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-40 h-auto">
-        </a>
-        <button id="close-menu" class="md:hidden text-[#1F27A6] text-3xl font-bold">&times;</button>
-      </div>
+    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
+      <h1 class="text-2xl font-bold text-[#E55182] mb-4">Employee List</h1>
+        <div class="relative overflow-x-auto sm:rounded-lg"><div class="pb-4 bg-white">
+          <div class="flex items-center justify-between gap-x-4">
+            
+            <div class="relative">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-pink-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="table-search"
+                class="block w-80 ps-10 py-2 text-sm text-pink-900 border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500 placeholder-pink-400"
+                placeholder="Search for employees"
+              >
+            </div>
 
-      <nav class="flex flex-col gap-6 px-12 text-xl mt-6 text-left">
-        <a href="{{ route('shop') }}" class="hover:underline text-[#1F27A6]">Dashboard</a>
-        <a href="{{ route('about') }}" class="hover:underline text-[#1F27A6]">Products</a>
-        <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Employees</a>
-        <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Users</a>
-        <a href="{{ route('contact') }}" class="hover:underline text-[#1F27A6]">Orders</a>
-      </nav>
+            <div>
+              <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
+                <option value=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" /></svg>
+                    Sort by Name</option>
+                <option value=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" /></svg>
+                    Sort by Name</option>
+              </select>
+            </div>
 
-      <div class="flex-grow"></div>
-
-      <div class="px-6 pb-8 flex flex-col items-start gap-4">
-        <div class="flex gap-4 mt-2 px-6">
-          <a href="#" target="_blank"><img src="{{ asset('images/facebok.png') }}" alt="Facebook" class="h-6 w-6"></a>
-          <a href="#" target="_blank"><img src="{{ asset('images/twitter.png') }}" alt="Twitter" class="h-6 w-6"></a>
-          <a href="#" target="_blank"><img src="{{ asset('images/insta.png') }}" alt="Instagram" class="h-6 w-6"></a>
-          <a href="#" target="_blank"><img src="{{ asset('images/yt.png') }}" alt="YouTube" class="h-6 w-6"></a>
+          </div>
         </div>
-      </div>
-    </aside>
-
-    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg">
-  <div class="content">
-<!-- Page Title -->
-<div class="mb-6">
-  <h1 class="text-3xl font-bold text-[#1F27A6]">Employees</h1>
-</div>
 
 
-    <!-- Employee Table -->
-    <div class="overflow-x-auto bg-white">
-      <table class="text-sm min-w-full table-auto">
-        <thead class="bg-pink-100 text-[#1F27A6] text-center">
-          <tr>
-            <th class="px-4 py-3 border">Employee ID</th>
-            <th class="px-4 py-3 border">First Name</th>
-            <th class="px-4 py-3 border">Last Name</th>
-            <th class="px-4 py-3 border">Email</th>
-            <th class="px-4 py-3 border">Phone Number</th>
-            <th class="px-4 py-3 border">Job Position</th>
-            <th class="px-4 py-3 border">Status</th>
-            <th class="px-4 py-3 border">Action</th>
-          </tr>
-        </thead>
-        <tbody id="employeeTableBody" class="bg-gray-50 text-center">
-          <!-- Dynamic content will go here -->
-        </tbody>
-      </table>
-    </div>
+          <table class="w-full table-fixed text-sm text-left text-pink-900">
+            <thead class="text-xs uppercase bg-pink-100 text-pink-700">
+              <tr>
+                <th class="w-85 px-4 py-3 truncate">Name</th>
+                <th class="w-55 px-4 py-3 truncate">Email</th>
+                <th class="w-52 px-4 py-3 truncate">Number</th>
+                <th class="w-60 px-4 py-3 truncate">Job Position</th>
+                <th class="w-19 px-4 py-3 truncate"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+              </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="bg-white border-b border-pink-200 hover:bg-pink-50">
+                <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2">Austin Dilan Datan</td>
+                <td class="px-4 py-4 truncate">austindatan@gmail.com</td>
+                <td class="px-4 py-4 truncate">09262103722</td>
+                <td class="px-4 py-4 truncate">System Analyst</td>
+                <td class="px-4 py-4 truncate">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></a>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+    </main>
+
   </div>
-  </div>
-  <!-- Fixed Create Button (Bottom Right) -->
-<div class="fixed bottom-6 right-6 z-50">
-  <button
-    id="createNewEmployee"
-    class="bg-[#1F27A6] hover:bg-[#182089] text-white font-semibold px-6 py-3 rounded-lg transition duration-300"
-  >
-    + Create New Employee
-  </button>
-</div>
 </body>
+
 </html>

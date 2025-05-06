@@ -9,7 +9,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ShippingController;
-use App\Http\Controllers\CustomerController; // ✅ Added CustomerController for delivery updates
+use App\Http\Controllers\CustomerController; 
+use App\Http\Controllers\AdminController;
 
 // ✅ Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -93,3 +94,15 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::put('/update-role/{user}', [ManageUserController::class, 'updateRole'])->name('update.role');
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
+
+// ✅ Admin Dashboard Routes
+Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
+Route::get('/admin/productlist', [AdminController::class, 'admin_productlist'])->name('admin.productlist');
+Route::get('/admin/addproduct', [AdminController::class, 'admin_addproduct'])->name('admin.addproduct');
+Route::get('/admin/employees', [AdminController::class, 'admin_employees'])->name('admin.employees');
+Route::get('/admin/addemployees', [AdminController::class, 'admin_addemployees'])->name('admin.addemployees');
+Route::get('/admin/handleusers', [AdminController::class, 'admin_handleusers'])->name('admin.handleusers');
+Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
+
+
+
