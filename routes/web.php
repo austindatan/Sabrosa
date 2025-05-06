@@ -14,6 +14,8 @@ Route::get('/shop', [ProductController::class, 'showShop'])->name('shop');
 Route::get('/about', [ProductController::class, 'showAbout'])->name('about');
 Route::get('/contact', [ProductController::class, 'showContact'])->name('contact');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
 
 // ✅ Authentication Routes
 Route::view('/register', 'authentication.register')->name('register');
