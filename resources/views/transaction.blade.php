@@ -15,6 +15,17 @@
       <p><strong>Email:</strong> {{ optional($customer)->email ?? 'N/A' }}</p>
       <p><strong>Shipping Address:</strong> {{ optional($customer)->street }}, {{ optional($customer)->city }}, {{ optional($customer)->province }}, {{ optional($customer)->country }}</p>
       <p><strong>Payment Method:</strong> {{ $paymentDetails->name ?? 'Not selected' }}</p>
+
+      <!-- Display the Delivery Method (Shipping) -->
+      <p><strong>Delivery Method:</strong> 
+        @if ($shipping && $shipping->shipping_ID == 1)
+            Standard
+        @elseif ($shipping && $shipping->shipping_ID == 2)
+            Premium
+        @else
+            Not selected
+        @endif
+      </p>
     </div>
 
     <hr class="my-6">
