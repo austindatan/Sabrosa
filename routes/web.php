@@ -11,6 +11,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\CustomerController; 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductDetailController;
 
 // ✅ Public Pages
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -104,5 +105,6 @@ Route::get('/admin/addemployees', [AdminController::class, 'admin_addemployees']
 Route::get('/admin/handleusers', [AdminController::class, 'admin_handleusers'])->name('admin.handleusers');
 Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
 
+Route::get('/admin/productlist', [AdminController::class, 'index'])->name('admin.productlist');
 
 

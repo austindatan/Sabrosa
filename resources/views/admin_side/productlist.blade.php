@@ -58,20 +58,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b border-pink-200 hover:bg-pink-50">
-                <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2"><img src="{{ asset('images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png') }}" class="bg-white w-8 h-8 object-contain rounded border" />
-                Tropical Mango & Passionfruit Cookie</td>
-                <td class="px-4 py-4 truncate">Cookies</td>
-                <td class="px-4 py-4 truncate">Byron Bay Cookie Company</td>
-                <td class="px-4 py-4 truncate">Escape to the tropics with flavours of coconut coupled with mango and passionfruit jellies.</td>
-                <td class="px-4 py-4 truncate">85</a>
-                </td>
-                <td class="px-4 py-4 truncate">50</a>
-                </td>
-                <td class="px-4 py-4 truncate">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></a>
-                </td>
-              </tr>
+              @foreach($products as $product)
+                <tr class="bg-white border-b border-pink-200 hover:bg-pink-50">
+                  <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2">
+                    <img src="{{ asset($product->product->image_URL) }}" class="bg-white w-8 h-8 object-contain rounded border" />
+                    {{ $product->product->name }}
+                  </td>
+                      <td class="px-4 py-4 truncate">{{ $product->category->name ?? 'N/A' }}</td>
+                      <td class="px-4 py-4 truncate">{{ $product->store->name ?? 'N/A' }}</td>
+                      <td class="px-4 py-4 truncate">{{ $product->product->description ?? 'N/A' }}</td>
+                      <td class="px-4 py-4 truncate">{{ $product->product->price }}</td>
+                      <td class="px-4 py-4 truncate">{{ $product->product->stock_Quantity }}</td>
+                      <td class="px-4 py-4 truncate">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                  </td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

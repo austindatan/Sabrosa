@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProductDetail;
 
 class AdminController extends Controller
 {
@@ -35,6 +36,12 @@ class AdminController extends Controller
         return view('admin_side.handle_orders');
     }
 
+    public function index()
+    {
+    $products = ProductDetail::with(['product', 'category', 'store', 'supplier'])->get();
+
+    return view('admin_side.productlist', compact('products'));
+    }
 
 }
 
