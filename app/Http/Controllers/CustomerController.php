@@ -73,6 +73,6 @@ class CustomerController extends Controller
         $customer->payment_method_ID = $validated['payment_method_ID'];
         $customer->save();
 
-        return redirect()->route('delivery')->with('success', 'Payment method updated successfully.');
+        return redirect()->route('checkout')->with('success', 'Payment method updated successfully.');
     }
 }

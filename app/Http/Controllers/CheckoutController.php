@@ -98,7 +98,7 @@ class CheckoutController extends Controller
 
         session(['selectedPaymentMethod' => $request->payment_method]);
 
-        return redirect()->route('checkout')->with('success', 'Payment method saved.');
+        return redirect()->route('transaction')->with('success', 'Payment method saved.');
     }
 
     public function process(Request $request)

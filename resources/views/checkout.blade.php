@@ -9,7 +9,7 @@
   @include('pages.header')
 
   <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
-    <form action="{{ route('checkout.process') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <form action="{{ route('transaction') }}" method="GET" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       @csrf
 
       {{-- LEFT SIDE --}}
@@ -26,6 +26,7 @@
             $totalAmount = $subtotal + $shippingFee;
             $paymentDetails = optional($customer)->paymentMethod;
             $shippingMethods = \App\Models\Shipping::all();
+            $selectedPayment = request('payment_method_ID');
         @endphp
 
         <!-- Email -->
@@ -83,10 +84,10 @@
             <div class="col-span-9 flex flex-col items-start gap-2">
               <div class="flex items-center gap-2">
                 @if($paymentDetails && $paymentDetails->card_image)
-                  <img src="{{ asset($paymentDetails->card_image) }}" alt="{{ $paymentDetails->payment_method }}" class="w-10 h-6 object-contain rounded border">
+                  <img src="{{ asset($paymentDetails->card_image) }}" alt="{{ $paymentDetails->payment_method }}" class="w-10 h-8 fill rounded border">
                 @endif
                 <p class="text-lg font-medium text-gray-800 text-left">
-                  {{ $paymentDetails->payment_method ?? 'No Payment Method Selected' }}
+                  {{ $paymentDetails->name ?? 'No Payment Method Selected' }}
                 </p>
               </div>
               <p class="text-base text-gray-400 text-left">
@@ -97,9 +98,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">
-          Complete Purchase
-        </button>
+        <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</button>
       </div>
 
       {{-- RIGHT SIDE --}}

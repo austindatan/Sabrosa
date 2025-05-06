@@ -111,7 +111,7 @@
                 6 => 'paypal'
               ] as $id => $tab)
               <button type="button" onclick="showPaymentTab(event, '{{ $tab }}', {{ $id }})"
-                class="tab-btn px-4 py-2 border border-pink-500 rounded-md font-semibold transition {{ $id == 1 ? 'bg-pink-500 text-pink-100' : 'bg-white text-black' }} hover:bg-pink-500 hover:text-white">
+                class="tab-btn px-4 py-2 border border-pink-500 rounded-md font-semibold transition {{ $id === 1 ? 'bg-pink-500 text-pink-100' : 'bg-white hover:bg-pink-500 hover:text-white' }}">
                 {{ ucfirst($tab) }}
               </button>
             @endforeach
@@ -152,8 +152,11 @@
             </div>
 
             <button type="submit"
-                class="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded mt-4">Save Payment Method</button>
-            </form>
+              class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded mt-4">
+              Save Payment Method
+            </button>
+          </div>
+        </form>
 
       <!-- ✅ RIGHT SIDE: ORDER SUMMARY -->
       <div class="lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4">
@@ -195,7 +198,7 @@
             field.style.backgroundColor = "#FFF8F8"; // ✅ Highlight when editable
             field.style.cursor = "text";
             button.style.backgroundColor = "#E55182"; 
-            button.style.color = "blue"; // ✅ Active effect
+            button.style.color = "bg-pink-100"; // ✅ Active effect
             field.dataset.previousValue = field.value; // ✅ Store previous value before editing
         } else {
             field.readOnly = true;
@@ -220,22 +223,21 @@
         }
     });
 
-      function showPaymentTab(event, tabId, paymentId) {
-      // Hide all content
+        function showPaymentTab(event, tabId, paymentId) {
+      // Hide all
       document.querySelectorAll('.payment-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById(tabId)?.classList.remove('hidden');
-
-      // Reset tab styles
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('bg-pink-500', 'text-pink-100');
-        btn.classList.add('bg-white', 'text-black');
+        btn.classList.add('bg-white', 'text-black', 'border', 'border-pink-500');
       });
 
-      // Set active style
-      event.currentTarget.classList.remove('bg-white', 'text-black');
-      event.currentTarget.classList.add('bg-pink-500', 'text-pink-100');
+      // Show selected tab
+      document.getElementById(tabId).classList.remove('hidden');
+      const clickedBtn = event.currentTarget;
+      clickedBtn.classList.remove('bg-white', 'hover:bg-pink-500', 'hover:text-white');
+      clickedBtn.classList.add('bg-pink-500', 'text-pink-100');
 
-      // Update hidden input
+      // Set payment method ID
       document.getElementById('payment_method_ID').value = paymentId;
     }
 </script>

@@ -13,6 +13,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
 Route::get('/shop', [ProductController::class, 'showShop'])->name('shop');
@@ -38,17 +39,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-    Route::post('/checkout', [CheckoutController::class, 'storePaymentMethod']); // <- ADD this if form submits to /checkout
-    Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
-
     Route::get('/delivery', [CheckoutController::class, 'showDeliveryPage'])->name('delivery');
     Route::post('/delivery/update', [CustomerController::class, 'update'])->name('delivery.update');
     Route::post('/delivery/payment', [CustomerController::class, 'updatePaymentMethod'])->name('delivery.update.payment');
 
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout', [CheckoutController::class, 'storePaymentMethod']); // <- ADD this if form submits to /checkout
+    Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
+
     Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
     Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');
     Route::post('/payment-methods', [PaymentMethodController::class, 'store'])->name('payment.methods.store');
+    Route::post('/customer/update-payment-method', [CustomerController::class, 'updatePaymentMethod'])->name('customer.updatePaymentMethod');
 
     Route::get('/shipping-methods', [ShippingController::class, 'index'])->name('shipping.methods');
     Route::get('/shipping-methods/{id}', [ShippingController::class, 'show'])->name('shipping.methods.show');
