@@ -1,83 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    @vite(['resources/js/dashboard_script.js']) 
-    <title>Sabrosa Dashboard | Add Product</title>
-    @include('pages.head')
-  </head>
-  <body class="bg-pink-50">
+<head>
+  @include('pages.head')
+</head>
+<body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
 
-  <div class="app min-h-screen flex flex-col md:flex-row">
+  @include('pages.header')
 
-  @include('admin_side.sidebar')
+    <div class="header-image w-full mt-[80px]">
+        <img src="{{ asset('images/hero_banner.png') }}" alt="Header Image" class="w-full h-auto">
+    </div>
 
-    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
-      <h1 class="text-2xl font-bold text-[#E55182] mb-4">Product List</h1>
-        <div class="relative overflow-x-auto sm:rounded-lg"><div class="pb-4 bg-white">
-          <div class="flex items-center justify-between gap-x-4">
-            
-            <div class="relative">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-pink-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
+    <section class="max-w-[1200px] mx-auto pt-12 px-4 sm:px-6 md:px-[60px] lg:px-[100px]">
+      <div class="flex justify-between items-center w-full mb-7">
+        <h4 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F27A6] font-[Poppins]">
+          Tasty Treats
+        </h4>
+        <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-[80px] sm:w-[100px] md:w-[120px] object-contain">
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @foreach (['Donuts' => 'treats_donut.png', 'Cookies' => 'treats_cookies.png', 'Drinks' => 'treats_drinks.png', 'Meals' => 'treats_meals.png'] as $title => $image)
+          <a href="{{ route('shop') }}" class="block">
+            <div class="bg-[#FDC0D0] border-2 border-[#E55182] rounded-[20px] flex flex-col justify-between transition duration-300 ease-in-out hover:shadow-md hover:scale-[1.02]">
+              <div class="aspect-[3/2] overflow-hidden rounded-t-[20px]">
+                <img src="{{ asset('images/' . $image) }}" alt="{{ $title }}" class="w-full h-full object-cover">
               </div>
-              <input
-                type="text"
-                id="table-search"
-                class="block w-80 ps-10 py-2 text-sm text-pink-900 border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500 placeholder-pink-400"
-                placeholder="Search for items"
-              >
+              <div class="bg-white p-4 flex items-center justify-between rounded-b-[20px]">
+                <p class="font-[Barlow] text-sm sm:text-base text-black font-medium ml-[5px]">{{ $title }}</p>
+                <div class="w-[20px] h-[20px] rounded-full flex items-center justify-center mr-[3px]">
+                  <img src="{{ asset('images/arrow.png') }}" class="w-[17px] h-[17px]">
+                </div>
+              </div>
             </div>
+          </a>
+        @endforeach
+      </div>
+    </section>
 
-            <div>
-              <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
-                <option value="">All Categories</option>
-                <option value="snacks">Snacks</option>
-                <option value="drinks">Drinks</option>
-                <option value="desserts">Desserts</option>
-              </select>
-            </div>
+    <section class="max-w-[1200px] mx-auto pt-[50px] px-6 sm:px-10 md:px-[60px] lg:px-[100px] flex items-center justify-center">
+      <div class="flex flex-col items-center text-center">
+        <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-[130px] h-[50px] object-contain">
+        
+        <h5 class="text-2xl font-bold text-[#E55182] font-[Poppins] mt-1">
+          Featured Items
+        </h5>
+        
+        <p class="text-black font-[DM Sans] mt-3 px-4 sm:px-10 md:px-[100px] leading-[1.2] tracking-[0.2px]">
+          Explore our signature items, crafted to perfection and bursting with flavors that will leave you craving more. Discover your new favorites today!
+        </p>
+      </div>
+    </section>
 
-          </div>
-        </div>
+    <div class="displayed-products flex flex-wrap justify-center mt-10 gap-6 px-4 max-w-[1100px] mx-auto">
+      @foreach ($featured as $item)
+      <div class="transition-transform duration-300 transform hover:scale-105">
+        <x-home-card 
+          :name="$item->name" 
+          :image="$item->image_URL" 
+          :price="'₱' . $item->price" 
+          :route="route('product.show', ['product' => $item->product_ID])" 
+          :brand="optional($item->productDetail->store)->image_url ?? 'images/brands/default.png'"
+        />
+      </div>
+      @endforeach
+    </div>
 
 
-          <table class="w-full table-fixed text-sm text-left text-pink-900">
-            <thead class="text-xs uppercase bg-pink-100 text-pink-700">
-              <tr>
-                <th class="w-64 px-4 py-3 truncate">Product name</th>
-                <th class="w-24 px-4 py-3 truncate">Category</th>
-                <th class="w-24 px-4 py-3 truncate">Brand</th>
-                <th class="w-24 px-4 py-3 truncate">Description</th>
-                <th class="w-24 px-4 py-3 truncate">Price</th>
-                <th class="w-24 px-4 py-3 truncate">Stock</th>
-                <th class="w-10 px-4 py-3 truncate"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
-              </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="bg-white border-b border-pink-200 hover:bg-pink-50">
-                <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2"><img src="{{ asset('images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png') }}" class="bg-white w-8 h-8 object-contain rounded border" />
-                Tropical Mango & Passionfruit Cookie</td>
-                <td class="px-4 py-4 truncate">Cookies</td>
-                <td class="px-4 py-4 truncate">Byron Bay Cookie Company</td>
-                <td class="px-4 py-4 truncate">Escape to the tropics with flavours of coconut coupled with mango and passionfruit jellies.</td>
-                <td class="px-4 py-4 truncate">85</a>
-                </td>
-                <td class="px-4 py-4 truncate">50</a>
-                </td>
-                <td class="px-4 py-4 truncate">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-    </main>
+    <div class="about-image flex flex-col lg:flex-row justify-center items-center mt-20 mb-16 gap-12 px-6 md:px-10">
 
-  </div>
+      <img src="{{ asset('images/sabrosa-card.png') }}" alt="Header Image"
+        class="w-64 md:w-80 lg:w-[300px] h-auto align-middle" />
+
+      <div class="max-w-xl text-center lg:text-left">
+        <h4 class="text-2xl md:text-3xl lg:text-2x1 font-bold text-[#1F27A6] mb-6 font-[Poppins] w-[350px] md:w-[450px] lg:w-[550px] mx-auto lg:mx-0">
+          Our Story, Your Flavor Journey
+        </h4>
+        <p class="text-black text-base md:text-lg font-[Poppins] leading-relaxed text-justify w-[350px] md:w-[500px] lg:w-[600px] mx-auto lg:mx-0">
+          At <span class="text-[#1F27A6] font-semibold">Sabrosa</span>, we believe that snacks should be more than just a quick bite; they should be a moment of joy.
+          <br><br>
+          Our journey began with a simple yet exciting idea: to craft snacks that elevate your snacking experience with bold flavors, creativity, and quality. Whether you're looking for something savory, sweet, or a little bit of both, we’ve got something to satisfy every craving.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  @include('pages.footer')
+
 </body>
-
 </html>
