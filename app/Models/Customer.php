@@ -9,12 +9,16 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'customer'; // Ensure it matches your database table name
+    // ✅ Match the exact table name
+    protected $table = 'customer';
 
-    protected $primaryKey = 'customer_ID'; // Define the primary key
+    // ✅ Set the primary key
+    protected $primaryKey = 'customer_ID';
 
-    public $timestamps = false; // If your table doesn't have created_at & updated_at
+    // ✅ Disable timestamps if your table lacks them
+    public $timestamps = false;
 
+    // ✅ Mass-assignable fields
     protected $fillable = [
         'user_account_ID', 
         'firstname', 
@@ -27,11 +31,23 @@ class Customer extends Model
         'country', 
         'email',
         'phone', 
-        'company'
+        'company',
+        'payment_method_ID' // Include this if the field exists in your table
     ];
 
+    // ✅ Relationships
     public function paymentMethod()
     {
         return $this->belongsTo(PaymentMethod::class, 'payment_method_ID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_account_ID');
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'customer_ID');
     }
 }
