@@ -43,7 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
     Route::get('/delivery', [CheckoutController::class, 'showDeliveryPage'])->name('delivery');
-    Route::post('/delivery/update', [CheckoutController::class, 'updateCustomer'])->name('delivery.update');
+    Route::post('/delivery/update', [CustomerController::class, 'update'])->name('delivery.update');
+    Route::post('/delivery/payment', [CustomerController::class, 'updatePaymentMethod'])->name('delivery.update.payment');
 
     Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
     Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');
