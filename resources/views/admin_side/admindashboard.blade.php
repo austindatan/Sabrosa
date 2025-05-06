@@ -34,7 +34,14 @@
           <div class="metric">User Engagement<br /><strong>21m 41s</strong></div>
           <div class="metric">Conversions<br /><strong>931</strong></div>
         </div>
-
+        <div>
+        <form method="POST" action="{{ route('logout') }}" class="mt-6 text-center">
+                @csrf
+                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition">
+                    Logout
+                </button>
+            </form>
+</div>
     </main>
 
   </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -80,10 +81,21 @@ class ProductController extends Controller
         return view('product_views.product', compact('product', 'recommended'));
     }
 
-    // ✅ NEW METHOD
     public function showOrderSummary(): View
     {
         $products = Product::select('name', 'price', 'quantity')->get();
         return view('delivery', compact('products'));
     }
+
+    public function searchSuggestions(Request $request)
+{
+    $query = $request->get('query');
+
+    $products = Product::where('name', 'like', '%' . $query . '%')
+                ->select('name', 'image_URL')
+                ->limit(6)
+                ->get();
+
+    return response()->json($products);
+}
 }
