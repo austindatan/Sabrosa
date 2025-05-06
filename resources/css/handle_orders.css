@@ -1,0 +1,10 @@
+
+  select.custom-dropdown {
+    background-color: #ffe4e6; /* Light pink */
+    color: #374151; /* Gray-700 */
+  }
+
+  select.custom-dropdown option {
+    background-color: #ffe4e6; /* Light pink */
+    color: #374151; /* Gray-700 */
+  }
