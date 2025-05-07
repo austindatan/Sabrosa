@@ -9,103 +9,128 @@
   <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}" />
 
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById("toggle-search");
-    const searchBox = document.getElementById("search-box");
-    const searchLogo = document.getElementById("search-logo");
-    const searchInput = document.querySelector('input[name="query"]');
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("toggle-search");
+  const searchBox = document.getElementById("search-box");
+  const searchLogo = document.getElementById("search-logo");
+  const searchInput = document.querySelector('input[name="query"]');
 
-    toggleBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      searchBox.classList.toggle("show");
-      searchLogo.classList.toggle("move");
-      if (searchBox.classList.contains("show")) {
-        searchInput.focus();
-      }
-    });
+  // Debounce function to limit API calls
+  function debounce(func, delay = 300) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
 
-    document.addEventListener("click", function (e) {
-      if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
-        searchBox.classList.remove("show");
-        searchLogo.classList.remove("move");
-        const oldDropdown = document.getElementById("search-suggestions-dropdown");
-        if (oldDropdown) oldDropdown.remove();
-      }
-    });
+  const showSuggestions = debounce(function () {
+    const keyword = searchInput.value.trim().toLowerCase();
 
-    searchInput.addEventListener("input", function () {
-  const keyword = this.value;
+    // Always remove previous dropdown
+    const oldDropdown = document.querySelector(".dropdown");
+    if (oldDropdown) oldDropdown.remove();
 
-  // Remove all previous dropdowns inside searchBox
-  const oldDropdowns = searchBox.querySelectorAll(".dropdown");
-  oldDropdowns.forEach(d => d.remove());
+    if (keyword.length === 0) return;
 
-  if (keyword.length === 0) return;
+    fetch(`/search-suggestions?query=${encodeURIComponent(keyword)}`)
+      .then(res => res.json())
+      .then(data => {
+        data.sort((a, b) =>
+          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        );
 
-  fetch(`/search-suggestions?query=${encodeURIComponent(keyword)}`)
-    .then(response => response.json())
-    .then(data => {
-      dropdown = document.createElement('div');
-      dropdown.classList.add('dropdown');
-      dropdown.style.position = 'absolute';
-      dropdown.style.left = '0';
-      dropdown.style.top = '100%';
-      dropdown.style.backgroundColor = '#fff';
-      dropdown.style.border = '1px solid #1F27A6';
-      dropdown.style.width = '100%';
-      dropdown.style.zIndex = 999;
-      dropdown.style.padding = '8px';
-      dropdown.style.marginTop = '5px';
-      dropdown.style.borderRadius = '4px';
-      dropdown.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-      dropdown.style.textAlign = 'left';
+        const dropdown = document.createElement("div");
+        dropdown.classList.add("dropdown");
+        Object.assign(dropdown.style, {
+          position: "absolute",
+          left: "0",
+          top: "100%",
+          backgroundColor: "#fff",
+          border: "1px solid #1F27A6",
+          width: "100%",
+          zIndex: 999,
+          padding: "8px",
+          marginTop: "5px",
+          borderRadius: "4px",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          textAlign: "left",
+        });
 
-      let count = 0;
-      data.sort((a, b) => a.name.localeCompare(b.name));
-      data.forEach(product => {
-        if (count < 5) {
-          const item = document.createElement('a');
+        let count = 0;
+        for (const product of data) {
+          if (count >= 5) break;
+
+          const item = document.createElement("a");
           item.href = `/product/${product.name}`;
-          item.style.display = 'flex';
-          item.style.alignItems = 'center';
-          item.style.gap = '8px';
-          item.style.padding = '4px 0';
-          item.style.textDecoration = 'none';
+          Object.assign(item.style, {
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "4px 0",
+            textDecoration: "none",
+          });
 
-          const img = document.createElement('img');
+          const img = document.createElement("img");
           img.src = `/storage/${product.image_URL}`;
-          img.style.width = '30px';
-          img.style.height = '30px';
-          img.style.objectFit = 'cover';
-          img.style.borderRadius = '4px';
+          Object.assign(img.style, {
+            width: "30px",
+            height: "30px",
+            objectFit: "cover",
+            borderRadius: "4px",
+          });
 
-          const text = document.createElement('span');
+          const text = document.createElement("span");
           text.textContent = product.name;
-          text.style.color = '#1F27A6';
-          text.style.fontSize = '14px';
+          Object.assign(text.style, {
+            color: "#1F27A6",
+            fontSize: "14px",
+          });
 
           item.appendChild(img);
           item.appendChild(text);
           dropdown.appendChild(item);
           count++;
         }
+
+        if (data.length > 5) {
+          const more = document.createElement("div");
+          more.textContent = "See more...";
+          Object.assign(more.style, {
+            color: "#E55182",
+            marginTop: "6px",
+            fontSize: "14px",
+            cursor: "pointer",
+          });
+          dropdown.appendChild(more);
+        }
+
+        searchBox.appendChild(dropdown);
       });
+  }, 300);
 
-      if (data.length > 5) {
-        const more = document.createElement('div');
-        more.textContent = 'See more...';
-        more.style.color = '#E55182';
-        more.style.marginTop = '6px';
-        more.style.fontSize = '14px';
-        more.style.cursor = 'pointer';
-        dropdown.appendChild(more);
-      }
-
-      searchBox.appendChild(dropdown);
-    });
-});
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    searchBox.classList.toggle("show");
+    searchLogo.classList.toggle("move");
+    if (searchBox.classList.contains("show")) {
+      searchInput.focus();
+    }
   });
+
+  document.addEventListener("click", function (e) {
+    if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
+      searchBox.classList.remove("show");
+      searchLogo.classList.remove("move");
+      const dropdown = document.querySelector(".dropdown");
+      if (dropdown) dropdown.remove();
+    }
+  });
+
+  searchInput.addEventListener("input", showSuggestions);
+});
 </script>
+
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
   <header>
