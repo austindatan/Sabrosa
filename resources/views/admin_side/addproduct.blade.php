@@ -34,6 +34,11 @@
           </div>
         </div>
 
+        <div class="mb-5 flex flex-col">
+          <label for="productDescription" class="font-semibold mb-2 font-poppins">Product Name</label>
+          <input id="productName" name="productName" rows="4" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]"></input>
+        </div>
+
       <div class="mb-5 flex flex-col">
           <label for="productBrand" class="font-semibold mb-2 font-poppins">Brand <span class="text-red-500">*</span></label>
           <select id="productBrand" name="productBrand" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
