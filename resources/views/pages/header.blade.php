@@ -9,126 +9,141 @@
   <link rel="icon" type="image/png" href="{{ asset('images/sabrosa_stable_logo.png') }}" />
 
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.getElementById("toggle-search");
-  const searchBox = document.getElementById("search-box");
-  const searchLogo = document.getElementById("search-logo");
-  const searchInput = document.querySelector('input[name="query"]');
+    document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-search");
+    const searchBox = document.getElementById("search-box");
+    const searchLogo = document.getElementById("search-logo");
+    const searchInput = document.querySelector('input[name="query"]');
 
-  // Debounce function to limit API calls
-  function debounce(func, delay = 300) {
-    let timer;
-    return function (...args) {
-      clearTimeout(timer);
-      timer = setTimeout(() => func.apply(this, args), delay);
-    };
-  }
+    // Debounce function to limit API calls
+    function debounce(func, delay = 300) {
+      let timer;
+      return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
 
-  const showSuggestions = debounce(function () {
-    const keyword = searchInput.value.trim().toLowerCase();
+    const showSuggestions = debounce(function () {
+      const keyword = searchInput.value.trim().toLowerCase();
 
-    // Always remove previous dropdown
-    const oldDropdown = document.querySelector(".dropdown");
-    if (oldDropdown) oldDropdown.remove();
+      // Always remove previous dropdown
+      const oldDropdown = document.querySelector(".dropdown");
+      if (oldDropdown) oldDropdown.remove();
 
-    if (keyword.length === 0) return;
+      if (keyword.length === 0) return;
 
-    fetch(`/search-suggestions?query=${encodeURIComponent(keyword)}`)
-      .then(res => res.json())
-      .then(data => {
-        data.sort((a, b) =>
-          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-        );
+      fetch(`/search-suggestions?query=${encodeURIComponent(keyword)}`)
+        .then(res => res.json())
+        .then(data => {
+          // Improve sorting logic to prioritize words that start with the keyword
+          data.sort((a, b) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+            
+            const startsWithA = nameA.startsWith(keyword) ? -1 : 1;
+            const startsWithB = nameB.startsWith(keyword) ? -1 : 1;
 
-        const dropdown = document.createElement("div");
-        dropdown.classList.add("dropdown");
-        Object.assign(dropdown.style, {
-          position: "absolute",
-          left: "0",
-          top: "100%",
-          backgroundColor: "#fff",
-          border: "1px solid #1F27A6",
-          width: "100%",
-          zIndex: 999,
-          padding: "8px",
-          marginTop: "5px",
-          borderRadius: "4px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          textAlign: "left",
-        });
+            // If both start with keyword, sort alphabetically
+            if (nameA.startsWith(keyword) && nameB.startsWith(keyword)) {
+              return nameA.localeCompare(nameB);
+            }
 
-        let count = 0;
-        for (const product of data) {
-          if (count >= 5) break;
-
-          const item = document.createElement("a");
-          item.href = `/product/${product.name}`;
-          Object.assign(item.style, {
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            padding: "4px 0",
-            textDecoration: "none",
+            return startsWithA - startsWithB;
           });
 
-          const img = document.createElement("img");
-          img.src = `/storage/${product.image_URL}`;
-          Object.assign(img.style, {
-            width: "30px",
-            height: "30px",
-            objectFit: "cover",
+          const dropdown = document.createElement("div");
+          dropdown.classList.add("dropdown");
+          Object.assign(dropdown.style, {
+            position: "absolute",
+            left: "0",
+            top: "100%",
+            backgroundColor: "#fff",
+            border: "1px solid #1F27A6",
+            width: "100%",
+            zIndex: 999,
+            padding: "8px",
+            marginTop: "5px",
             borderRadius: "4px",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+            textAlign: "left",
           });
 
-          const text = document.createElement("span");
-          text.textContent = product.name;
-          Object.assign(text.style, {
-            color: "#1F27A6",
-            fontSize: "14px",
-          });
+          let count = 0;
+          for (const product of data) {
+            if (count >= 5) break;
 
-          item.appendChild(img);
-          item.appendChild(text);
-          dropdown.appendChild(item);
-          count++;
-        }
+            // Dynamically construct the product URL
+            const productUrl = `/product/${product.product_ID}`;
 
-        if (data.length > 5) {
-          const more = document.createElement("div");
-          more.textContent = "See more...";
-          Object.assign(more.style, {
-            color: "#E55182",
-            marginTop: "6px",
-            fontSize: "14px",
-            cursor: "pointer",
-          });
-          dropdown.appendChild(more);
-        }
+            const item = document.createElement("a");
+            item.href = productUrl;
+            Object.assign(item.style, {
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "4px 0",
+                textDecoration: "none",
+            });
 
-        searchBox.appendChild(dropdown);
-      });
-  }, 300);
+            const img = document.createElement("img");
+            img.src = `${product.image_URL}`;
+            Object.assign(img.style, {
+              width: "30px",
+              height: "30px",
+              objectFit: "cover",
+              borderRadius: "4px",
+            });
 
-  toggleBtn.addEventListener("click", function (e) {
-    e.stopPropagation();
-    searchBox.classList.toggle("show");
-    searchLogo.classList.toggle("move");
-    if (searchBox.classList.contains("show")) {
-      searchInput.focus();
-    }
+            const text = document.createElement("span");
+            text.textContent = product.name;
+            Object.assign(text.style, {
+              color: "#1F27A6",
+              fontSize: "14px",
+            });
+
+            item.appendChild(img);
+            item.appendChild(text);
+            dropdown.appendChild(item);
+            count++;
+          }
+
+          if (data.length > 5) {
+            const more = document.createElement("div");
+            more.textContent = "";
+            Object.assign(more.style, {
+              color: "#E55182",
+              marginTop: "6px",
+              fontSize: "14px",
+              cursor: "pointer",
+            });
+            dropdown.appendChild(more);
+          }
+
+          searchBox.appendChild(dropdown);
+        });
+    }, 300);
+
+    toggleBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      searchBox.classList.toggle("show");
+      searchLogo.classList.toggle("move");
+      if (searchBox.classList.contains("show")) {
+        searchInput.focus();
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
+        searchBox.classList.remove("show");
+        searchLogo.classList.remove("move");
+        const dropdown = document.querySelector(".dropdown");
+        if (dropdown) dropdown.remove();
+      }
+    });
+
+    searchInput.addEventListener("input", showSuggestions);
   });
-
-  document.addEventListener("click", function (e) {
-    if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
-      searchBox.classList.remove("show");
-      searchLogo.classList.remove("move");
-      const dropdown = document.querySelector(".dropdown");
-      if (dropdown) dropdown.remove();
-    }
-  });
-
-  searchInput.addEventListener("input", showSuggestions);
-});
 </script>
 
 </head>

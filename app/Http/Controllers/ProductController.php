@@ -78,7 +78,7 @@ class ProductController extends Controller
                         ->with('productDetail.store')
                         ->get();
 
-        return view('product_views.product', compact('product', 'recommended'));
+        return view('product', compact('product', 'recommended'));
     }
 
     public function showOrderSummary(): View
@@ -88,14 +88,15 @@ class ProductController extends Controller
     }
 
     public function searchSuggestions(Request $request)
-{
-    $query = $request->get('query');
+    {
+        $query = $request->get('query');
 
-    $products = Product::where('name', 'like', '%' . $query . '%')
-                ->select('name', 'image_URL')
-                ->limit(6)
-                ->get();
+        $products = Product::where('name', 'like', '%' . $query . '%')
+                    ->select('product_ID', 'name', 'image_URL') // Ensure 'product_ID' is included
+                    ->limit(6)
+                    ->get();
 
-    return response()->json($products);
-}
+        return response()->json($products);
+    }
+
 }

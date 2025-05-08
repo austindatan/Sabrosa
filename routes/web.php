@@ -23,6 +23,7 @@ Route::get('/product/{product}', [ProductController::class, 'show'])->name('prod
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search-suggestions', [ProductController::class, 'searchSuggestions'])->name('search.suggestions');
 
+
 Route::middleware('guest')->group(function () {
     Route::view('/register', 'authentication.register')->name('register');
     Route::view('/login', 'authentication.login')->name('login');

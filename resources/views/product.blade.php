@@ -6,10 +6,11 @@
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
 
-  @include('pages.header')
+  @include('pages.header', ['product' => $product])
+
 
   <main class="flex-1">
-    <div class="flex flex-col lg:flex-row gap-10 px-10 py-10 max-w-[1440px] mx-auto mt-[50px]">
+    <div class="flex flex-col lg:flex-row gap-10 px-10 py-10 max-w-[1440px] mx-auto mt-[75px]">
       <div class="flex-1 flex flex-col gap-4">
         <img src="{{ asset($product->image_display) }}" alt="{{ $product->name }}" class="h-[1000px] object-contain">
       </div>
