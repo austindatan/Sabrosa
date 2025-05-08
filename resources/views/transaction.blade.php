@@ -8,7 +8,7 @@
 <body class="bg-pink-100 bg-cover bg-center text-center min-h-screen flex flex-col">
   @include('pages.header')
 
-  <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
+  <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
     <h1 class="text-3xl font-bold mb-6 font-poppins">Transaction Summary</h1>
 
     <div class="text-left space-y-4 font-dm-sans">

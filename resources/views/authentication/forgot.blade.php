@@ -7,7 +7,7 @@
 
   @include('pages.header')
 
-  <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
+  <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-[450px]">
         <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">
             <div class="flex justify-between items-center mb-4">

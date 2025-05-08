@@ -1,7 +1,7 @@
 <aside id="mobile-slide-menu" class="fixed md:fixed top-0 left-0 h-full bg-pink-100 text-white transform md:transform-none -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 flex flex-col w-full md:w-1/5 md:z-auto">
 
   <div class="flex justify-between items-center p-6">
-    <a href="{{ route('home') }}">
+    <a href="{{ route('admin.dashboard') }}">
       <img src="{{ asset('images/sabrosa_logo.png') }}" alt="Sabrosa Logo" class="w-40 h-auto">
     </a>
     <button id="close-menu" class="md:hidden text-[#1F27A6] text-3xl font-bold">&times;</button>

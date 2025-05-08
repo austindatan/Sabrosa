@@ -7,7 +7,7 @@
 
   @include('pages.header')
 
-  <main class="flex-1 px-4 py-6 sm:p-8 max-w-6xl mx-auto mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
+  <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-[450px]">
         <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">
             <div class="flex justify-between items-center mb-4">
@@ -24,12 +24,12 @@
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
 
-                <div class="w-full mb-5">
+                <div class="w-full mb-5 mt-5">
                     <label for="login" class="block mb-1 text-sm font-medium text-gray-700 mb-4 text-left font-dm-sans uppercase leading-2"> Email or Username </label>
                     <input type="text" id="login" name="login" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
                 </div>
 
-                <div class="w-full mb-">
+                <div class="w-full mb-4">
                     <label for="password" class="block mb-1 text-sm font-medium text-gray-700 mb-4 text-left font-dm-sans uppercase leading-2"> Password </label>
                     <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
                 </div>

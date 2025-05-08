@@ -8,7 +8,7 @@
 
   @include('pages.header')
 
-  <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
+  <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
     <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 border-b pb-4 sm:pb-5 font-poppins">Your Cart</h2>
 
     <!-- ✅ Success & Error Messages -->

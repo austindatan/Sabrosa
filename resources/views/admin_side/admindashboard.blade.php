@@ -12,7 +12,7 @@
 
   @include('admin_side.sidebar')
 
-    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
+    <main class="font-dm-sans flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
       <h2 class="font-poppins font-bold text-3xl text-left">SABROSA Dashboard</h2>
         <div class="charts">
           <div class="chart-box">
@@ -35,13 +35,17 @@
           <div class="metric">Conversions<br /><strong>931</strong></div>
         </div>
         <div>
-        <form method="POST" action="{{ route('logout') }}" class="mt-6 text-center">
-                @csrf
-                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition">
-                    Logout
-                </button>
-            </form>
-</div>
+
+        <div class="mt-6 flex justify-end">
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="font-dm-sans px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition">
+              Logout
+            </button>
+          </form>
+        </div>
+
+      </div>
     </main>
 
   </div>
