@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
 
     Route::get('/employee/dashboard', fn() => view('pages.employeedashboard'))->name('employee.dashboard');
-    Route::get('/user/dashboard', fn() => view('pages.userdashboard'))->name('user.dashboard');
+    Route::get('/user/dashboard', fn() => view('user_side.userdashboard'))->name('user.dashboard');
 });
 
 Route::get('/cart-not-logged-in', fn() => view('pages.cart_not_logged_in'))->name('cart.not_logged_in');
