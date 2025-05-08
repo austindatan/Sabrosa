@@ -14,50 +14,37 @@ class AdminController extends Controller
         return view('admin_side.admindashboard');
     }
 
-    public function admin_productlist() {
-        return view('admin_side.productlist');
+    public function admin_productlist()
+    {
+        $products = ProductDetail::with(['product', 'category', 'store', 'supplier'])->get();
+
+        return view('admin_side.productlist', compact('products'));
     }
 
     public function admin_addproduct() {
         return view('admin_side.addproduct');
     }
 
-    public function admin_employees() {
-        return view('admin_side.employees');
+    public function admin_employees() 
+    {
+        $employees = EmployeeDetail::with(['employee', 'employee_positions', 'employee_account'])->get();
+
+        return view('admin_side.employees', compact('employees'));
     }
 
     public function admin_addemployees() {
         return view('admin_side.addemployees');
     }
 
-    public function admin_handleusers() {
-        return view('admin_side.handle_users');
+    public function admin_handleusers() 
+    {
+        $handleusers = Customer::all();
+
+    return view('admin_side.handle_users', compact('handleusers'));
     }
 
     public function admin_handleorders() {
         return view('admin_side.handle_orders');
     }
-
-    public function product_index()
-    {
-    $products = ProductDetail::with(['product', 'category', 'store', 'supplier'])->get();
-
-    return view('admin_side.productlist', compact('products'));
-    }
-
-    public function employee_index()
-    {
-    $employees = EmployeeDetail::with(['employee', 'employee_positions', 'employee_account'])->get();
-
-    return view('admin_side.employees', compact('employees'));
-    }
-
-    public function customer_index()
-    {
-    $handleusers = Customer::all();
-
-    return view('admin_side.handle_users', compact('handleusers'));
-    }
-
 }
 

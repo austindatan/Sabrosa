@@ -91,15 +91,3 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
 
-// ✅ Admin Dashboard Routes
-Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
-Route::get('/admin/productlist', [AdminController::class, 'admin_productlist'])->name('admin.productlist');
-Route::get('/admin/addproduct', [AdminController::class, 'admin_addproduct'])->name('admin.addproduct');
-Route::get('/admin/employees', [AdminController::class, 'admin_employees'])->name('admin.employees');
-Route::get('/admin/addemployees', [AdminController::class, 'admin_addemployees'])->name('admin.addemployees');
-Route::get('/admin/handleusers', [AdminController::class, 'admin_handleusers'])->name('admin.handleusers');
-Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
-
-Route::get('/admin/productlist', [AdminController::class, 'product_index'])->name('admin.productlist');
-Route::get('/admin/employees', [AdminController::class, 'employee_index'])->name('admin.employees');
-Route::get('/admin/handleusers', [AdminController::class, 'customer_index'])->name('admin.handleusers');
