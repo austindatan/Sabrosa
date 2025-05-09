@@ -113,3 +113,4 @@ document.getElementById('addProductForm').addEventListener('submit', async (even
         alert('Failed to add product. Please try again.');
     }
 });
+
