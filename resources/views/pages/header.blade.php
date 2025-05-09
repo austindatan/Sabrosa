@@ -143,11 +143,26 @@
     });
 
     searchInput.addEventListener("input", showSuggestions);
-  });
+
+    const overlay = document.getElementById('overlay');
+    const menu = document.getElementById('mobile-slide-menu');
+    const openMenuBtn = document.getElementById('open-menu'); // your open button
+    const closeMenuBtn = document.getElementById('close-menu');
+
+    openMenuBtn.addEventListener('click', () => {
+      menu.classList.remove('-translate-x-full');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      menu.classList.add('-translate-x-full');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+    });
+    });
 </script>
 
 </head>
-<body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
+<body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col ">
   <header>
     <nav class="flex justify-between items-center p-10 bg-pink-100 text-[#1F27A6] shadow-md fixed top-0 left-0 w-full z-10 font-poppins font-medium">
       <button id="open-menu" class="flex flex-col gap-1.5 bg-none border-0 cursor-pointer absolute left-8 sm:left-[50px] top-1/2 -translate-y-1/2 z-50" aria-label="Toggle menu">
@@ -185,7 +200,7 @@
         </a>
       </div>
 
-      <div id="overlay" class="fixed inset-0 z-30 hidden"></div>
+      <div id="overlay" class="fixed inset-0 bg-[rgba(0,0,0,0.3)] flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
       <div id="mobile-slide-menu" class="fixed top-0 left-0 h-full bg-pink-100 text-white transform -translate-x-full transition-transform duration-300 z-40 flex flex-col w-full md:w-1/4 z-50">
         <div class="flex justify-between items-center p-6">
           <a href="{{ route('home') }}">

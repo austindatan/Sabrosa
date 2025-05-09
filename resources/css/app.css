@@ -63,3 +63,7 @@ body {
   transform: translateX(-100px);
   transition: transform 0.4s ease;
 }
+
+[x-cloak] {
+  display: none !important;
+}

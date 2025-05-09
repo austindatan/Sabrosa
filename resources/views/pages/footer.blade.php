@@ -10,7 +10,7 @@
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
 
-<footer class="w-full bg-pink-100 shadow-t-lg">
+<footer class="w-full bg-pink-100 font-dm-sans" style="box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.1);">
         <div class="mx-auto max-w-7xl px-6 lg:px-8"> 
             <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 lg:gap-8 py-14 max-w-xs mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-full">
                 <div class="col-span-full mb-10 lg:col-span-2 lg:mb-0">
@@ -25,6 +25,38 @@
                     </div>
 
                     <p class="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">A flavor that will make you feel nostalgia and home.</p>
+                    
+                </div>
+                <!--End Col-->
+                <div class="lg:mx-auto text-center sm:text-left">
+                    <p class="text-sm text-gray-900 text-bold mb-4">Shop Snacks Online</p>
+                    <ul class="text-sm  transition-all duration-500">
+                        <li class="mb-3"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Donuts</a></li>
+                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Cookies</a></li>
+                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Meals</a></li>
+                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Drinks</a></li>
+                    </ul>
+                </div>
+                <!--End Col-->
+                <div class="lg:mx-auto text-center sm:text-left">
+                    <p class="text-sm text-gray-900 text-bold mb-4">Company</p>
+                    <ul class="text-sm  transition-all duration-500">
+                        <li class="mb-3"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Terms of Services</a></li>
+                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <!--End Col-->
+                <div class="lg:mx-auto text-center sm:text-left">
+                    <p class="text-sm text-gray-900 text-bold mb-4">Service</p>
+                    <ul class="text-sm  transition-all duration-500">
+                        <li class="mb-3"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Contact Us</a></li>
+                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Shipping & Returns</a></li>
+                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">FAQs</a></li>
+                    </ul>
+                </div>
+                <!--End Col-->
+                <div class="lg:mx-auto text-center sm:text-left">
+                    <p class="text-sm text-gray-900 text-bold mb-4">Find us on</p>
                     <div class="flex mt-4 space-x-4 justify-center lg:justify-start sm:mt-0 ">
                         <a href="javascript:;"  class="w-9 h-9 rounded-full bg-[#1f27a6] flex justify-center items-center hover:bg-indigo-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6 text-white" viewBox="0 0 24 24">
@@ -53,51 +85,11 @@
                         </a>
                     </div>
                 </div>
-                <!--End Col-->
-                <div class="lg:mx-auto text-center sm:text-left">
-                    <h4 class="text-lg text-gray-900 font-medium mb-7">Pagedone</h4>
-                    <ul class="text-sm  transition-all duration-500">
-                        <li class="mb-6"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Home</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">About</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Pricing</a></li>
-                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Features</a></li>
-                    </ul>
-                </div>
-                <!--End Col-->
-                <div class="lg:mx-auto text-center sm:text-left">
-                    <h4 class="text-lg text-gray-900 font-medium mb-7">Products</h4>
-                    <ul class="text-sm  transition-all duration-500">
-                        <li class="mb-6"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Figma UI System</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Icons Assets</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Responsive Blocks</a></li>
-                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Components Library</a></li>
-                    </ul>
-                </div>
-                <!--End Col-->
-                <div class="lg:mx-auto text-center sm:text-left">
-                    <h4 class="text-lg text-gray-900 font-medium mb-7">Resources</h4>
-                    <ul class="text-sm  transition-all duration-500">
-                        <li class="mb-6"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">FAQs</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Quick Start</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Documentation</a></li>
-                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">User Guide</a></li>
-                    </ul>
-                </div>
-                <!--End Col-->
-                <div class="lg:mx-auto text-center sm:text-left">
-                    <h4 class="text-lg text-gray-900 font-medium mb-7">Blogs</h4>
-                    <ul class="text-sm  transition-all duration-500">
-                        <li class="mb-6"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">News</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Tips & Tricks</a></li>
-                        <li class="mb-6"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">New Updates</a></li>
-                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Events</a></li>
-                    </ul>
-                </div>
             </div>
             <!--Grid-->
             <div class="py-7 border-t border-gray-200">
                 <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-                    <span class="text-sm text-gray-500 ">©<a href="https://pagedone.io/">pagedone</a>2024, All rights reserved.</span>
+                    <span class="text-sm text-gray-500 ">©<a href="https://pagedone.io/">Sabrosa</a>2025, All rights reserved.</span>
                     <ul class="flex items-center gap-9 mt-4 lg:mt-0">
                         <li><a href="javascript:;"  class="text-sm text-gray-500">Terms</a></li>
                         <li><a href="javascript:;"  class="text-sm text-gray-500">Privacy</a></li>

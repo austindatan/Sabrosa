@@ -4,8 +4,25 @@
     @vite(['resources/js/dashboard_script.js']) 
     <title>Sabrosa Dashboard | Add Product</title>
     @include('pages.head')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body class="bg-pink-50">
+  
+  <!-- Popup Modal -->
+<div x-data="{ open: true }" x-show="open" x-cloak x-transition 
+     class="fixed inset-0 bg-[rgba(0,0,0,0.5)] flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-lg max-w-sm w-full p-6 relative text-center">
+    <button @click="open = false" class="absolute top-3 right-3 text-gray-500 hover:text-red-500">
+      &times;
+    </button>
+    <h3 class="text-xl font-bold text-[#E55182] mb-2">🎉 Limited Offer!</h3>
+    <p class="text-gray-700 mb-4">Get <span class="font-bold">10% off</span> your order if you buy now.</p>
+    <a href="{{ route('shop') }}" class="inline-block bg-[#E55182] text-white px-4 py-2 rounded-full hover:bg-pink-600 transition">
+      Shop Now
+    </a>
+  </div>
+</div>
+
 
   <div class="app min-h-screen flex flex-col md:flex-row">
 
@@ -31,15 +48,25 @@
               >
             </div>
 
-            <div>
-              <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
-                <option value="">All Categories</option>
-                <option value="snacks">Snacks</option>
-                <option value="drinks">Drinks</option>
-                <option value="desserts">Desserts</option>
-              </select>
-            </div>
+              <div class="flex gap-6">
+                <div>
+                  <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
+                    <option value="">All Categories</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="drinks">Drinks</option>
+                    <option value="desserts">Desserts</option>
+                  </select>
+                </div>
 
+                <div>
+                  <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
+                    <option value="">All Categories</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="drinks">Drinks</option>
+                    <option value="desserts">Desserts</option>
+                  </select>
+                </div>
+            </div>
           </div>
         </div>
 
@@ -83,5 +110,7 @@
 
   </div>
 </body>
+
+
 
 </html>
