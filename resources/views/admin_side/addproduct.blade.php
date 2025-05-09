@@ -1,84 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    @vite(['resources/js/dashboard_script.js']) 
-    <title>Sabrosa Dashboard | Add Product</title>
-    @include('pages.head')
-  </head>
-  <body class="bg-pink-50">
+<head>
+  @vite(['resources/js/dashboard_script.js']) 
+  <title>Sabrosa Dashboard | Add Product</title>
+  @include('pages.head')
+</head>
+<body class="bg-pink-50">
 
-  <div class="app min-h-screen flex flex-col md:flex-row">
-
+<div class="app min-h-screen flex flex-col md:flex-row">
   @include('admin_side.sidebar')
 
-    <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
-      <div class="flex justify-between items-center mb-4 gap-24">
-        <h2 class="text-2xl font-bold text-right font-poppins">Add Product</h2>
-      </div>
+  <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
+    
+    <div class="flex justify-between items-center mb-4 gap-24">
+      <h2 class="text-2xl font-bold text-right font-poppins">Add Product</h2>
+    </div>
 
+    <form method="POST" enctype="multipart/form-data">
+      @csrf
       <div class="mb-8">
-        <form id="addProductForm" method="POST" action="{{ route('home') }}" enctype="multipart/form-data">
-        @csrf
-          <h3 class="text-xl font-semibold mb-4 font-poppins">Product Images</h3>
+        <h3 class="text-xl font-semibold mb-4 font-poppins">Product Images</h3>
+        <div class="flex flex-col md:flex-row gap-4 mb-6">
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-            <label class="relative w-full h-32 border-2 border-dashed border-gray-300 rounded-lg bg-white flex items-center justify-center hover:border-[#f8c9d8] cursor-pointer overflow-hidden">
-              <img id="productPhotoPreview1" src="placeholder.jpg" alt="Product Photo 1" class="font-dm-sans max-w-full max-h-full object-cover pointer-events-none">
-              <input type="file" id="productPhoto1" name="productPhoto1" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
-            </label>
+          <!-- Product Photo 1 -->
+          <div class="relative group w-full md:w-1/2 h-32 border-2 border-dashed border-gray-300 rounded-lg bg-white overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div class="text-center text-gray-400 font-poppins text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-3h6l2 3h4v13H3V7z" />
+                  <circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="2" />
+                </svg>
+                Add Photo
+              </div>
+            </div>
+            <img id="productPhotoPreview1" src="placeholder.jpg" alt="Product Photo 1" class="w-full h-full object-cover pointer-events-auto cursor-pointer" onclick="showModal(this.src)">
+            <input type="file" id="productPhoto1" name="productPhoto1" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+            <button type="button" onclick="resetImage('productPhoto1', 'productPhotoPreview1')" class="absolute top-1 right-1 bg-white rounded-full p-1 hover:bg-gray-100 transition-opacity opacity-0 group-hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#E55182]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
 
-            <label class="relative w-full h-32 border-2 border-dashed border-gray-300 rounded-lg bg-white flex items-center justify-center hover:border-[#f8c9d8] cursor-pointer overflow-hidden">
-              <img id="productPhotoPreview2" src="placeholder.jpg" alt="Product Photo 2" class="font-dm-sans max-w-full max-h-full object-cover pointer-events-none">
-              <input type="file" id="productPhoto2" name="productPhoto2" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
-            </label>
+          <!-- Product Photo 2 -->
+          <div class="relative group w-full md:w-1/2 h-32 border-2 border-dashed border-gray-300 rounded-lg bg-white overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div class="text-center text-gray-400 font-poppins text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-3h6l2 3h4v13H3V7z" />
+                  <circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="2" />
+                </svg>
+                Add Photo
+              </div>
+            </div>
+            <img id="productPhotoPreview2" src="placeholder.jpg" alt="Product Photo 2" class="w-full h-full object-cover pointer-events-auto cursor-pointer" onclick="showModal(this.src)">
+            <input type="file" id="productPhoto2" name="productPhoto2" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+            <button type="button" onclick="resetImage('productPhoto2', 'productPhotoPreview2')" class="absolute top-1 right-1 bg-white rounded-full p-1 hover:bg-gray-100 transition-opacity opacity-0 group-hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#E55182]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
-
-        <div class="mb-5 flex flex-col">
-          <label for="productDescription" class="font-semibold mb-2 font-poppins">Product Name</label>
-          <input id="productName" name="productName" rows="4" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]"></input>
-        </div>
+      </div>
 
       <div class="mb-5 flex flex-col">
-          <label for="productBrand" class="font-semibold mb-2 font-poppins">Brand <span class="text-red-500">*</span></label>
-          <select id="productBrand" name="productBrand" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
-            <option value="">Select a brand</option>
-            <option value="Sweets Paradise">Sweets Paradise</option>
-            <option value="Byron Bay">Byron Bay</option>
-            <option value="Krispy Kreme">Krispy Kreme</option>
-            <option value="Olipop">Olipop</option>
-            <option value="Tea Forte">Tea Forte</option>
-            <option value="Compartes">Compartes</option>
-            <option value="Sugarfina">Sugarfina</option>
-            <option value="Chobani">Chobani</option>
-            <option value="Laduree">Laduree</option>
-            <option value="Bluestar">Bluestar</option>
-            <option value="Graze">Graze</option>
-            <option value="Granblue Kitchen">Granblue Kitchen</option>
-          </select>
-        </div>
+        <label for="productName" class="font-semibold mb-2 font-poppins">Product Name</label>
+        <input id="productName" name="productName" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+      </div>
 
-        <div class="mb-5 flex flex-col">
-          <label for="productDescription" class="font-semibold mb-2 font-poppins">Description</label>
-          <textarea id="productDescription" name="productDescription" rows="4" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]"></textarea>
-        </div>
+      <div class="mb-5 flex flex-col">
+        <label for="productBrand" class="font-semibold mb-2 font-poppins">Brand <span class="text-red-500">*</span></label>
+        <select id="productBrand" name="productBrand" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+          <option value="">Select a brand</option>
+          <option value="Sweets Paradise">Sweets Paradise</option>
+          <option value="Byron Bay">Byron Bay</option>
+          <option value="Krispy Kreme">Krispy Kreme</option>
+          <option value="Olipop">Olipop</option>
+          <option value="Tea Forte">Tea Forte</option>
+          <option value="Compartes">Compartes</option>
+          <option value="Sugarfina">Sugarfina</option>
+          <option value="Chobani">Chobani</option>
+          <option value="Laduree">Laduree</option>
+          <option value="Bluestar">Bluestar</option>
+          <option value="Graze">Graze</option>
+          <option value="Granblue Kitchen">Granblue Kitchen</option>
+        </select>
 
-        <div class="mb-5 flex flex-col">
-          <label for="productWeight" class="font-semibold mb-2 font-poppins">Weight (kg)</label>
-          <input type="number" id="productWeight" name="productWeight" step="0.01" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
-        </div>
+        <div class="mb-5 flex flex-col mt-4">
+        <label for="productBrand" class="font-semibold mb-2 font-poppins">Category <span class="text-red-500">*</span></label>
+        <select id="productBrand" name="productBrand" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+          <option value="">Select a category</option>
+          <option value="cookies">Cookies</option>
+          <option value="donuts">Donuts</option>
+          <option value="cakes & chocolates">Cakes & Chocolates</option>
+          <option value="drinks & tea">Drinks & Tea</option>
+          <option value="meals">Meals</option>
+          <option value="we also have!">We also have!</option>
+        </select>
+      </div>
+      </div>
 
+      <div class="mb-5 flex flex-col">
+        <label for="productDescription" class="font-semibold mb-2 font-poppins">Description</label>
+        <textarea id="productDescription" name="productDescription" rows="4" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]"></textarea>
+      </div>
+
+      <div class="mb-5 flex flex-col">
+        <label for="productWeight" class="font-semibold mb-2 font-poppins">Weight (kg)</label>
+        <input type="number" id="productWeight" name="productWeight" step="0.01" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+      </div>
+      
+      <div class="flex flex-row gap-5">
         <div class="mb-5">
-          <label class="font-semibold mb-2 block font-poppins">Price & Availability <span class="text-red-500">*</span></label>
+          <label class="font-semibold mb-2 block font-poppins">Price <span class="text-red-500">*</span></label>
           <div class="flex flex-wrap items-center gap-5">
-
             <div class="flex gap-2">
+              <div class="flex items-center border border-gray-300 rounded-lg p-2.5 text-sm bg-white text-[#4d2c3d]">
+                <span class="text-xl">₱</span>
+              </div>
               <input type="number" id="productPrice" name="productPrice" required class="p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
-              <select id="currency" name="currency" class="p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8] max-w-[80px]">
-                <option value="USD">$</option>
-                <option value="PHP">₱</option>
-                <option value="EUR">€</option>
-              </select>
             </div>
 
             <div class="flex items-center gap-3">
@@ -96,14 +137,62 @@
           <label for="stockQuantity" class="font-semibold mb-2 font-poppins">Stock Quantity</label>
           <input type="number" id="stockQuantity" name="stockQuantity" min="0" class="p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
         </div>
+      </div>
 
-        <button type="submit" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
-          Add Product
-        </button>
-      </form>
-    </main>
 
-  </div>
+        
+
+      <button type="submit" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
+        Add Product
+      </button>
+    </form>
+  </main>
+</div>
+
+<!-- Image Modal -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50">
+  <span onclick="closeModal()" class="absolute top-4 right-6 text-white text-3xl cursor-pointer">&times;</span>
+  <img id="modalImage" src="" class="max-w-full max-h-[90vh] rounded-lg shadow-xl border-4 border-white">
+</div>
+
+<script>
+function resetImage(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  input.value = "";
+  preview.src = "placeholder.jpg";
+}
+
+function previewImage(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  input.addEventListener('change', function () {
+    const file = input.files[0];
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+    }
+  });
+}
+
+function showModal(imageSrc) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  modalImg.src = imageSrc;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeModal() {
+  const modal = document.getElementById("imageModal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  previewImage('productPhoto1', 'productPhotoPreview1');
+  previewImage('productPhoto2', 'productPhotoPreview2');
+});
+</script>
+
 </body>
-
 </html>
