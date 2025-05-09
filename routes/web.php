@@ -41,9 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 
+    Route::get('/delivery/{id}', [CustomerController::class, 'edit'])->name('delivery.edit');
+    Route::post('/delivery/{id}', [CustomerController::class, 'update'])->name('delivery.update');
     Route::get('/delivery', [CheckoutController::class, 'showDeliveryPage'])->name('delivery');
-    Route::post('/delivery/update', [CustomerController::class, 'update'])->name('delivery.update');
-    Route::post('/delivery/payment', [CustomerController::class, 'updatePaymentMethod'])->name('delivery.update.payment');
+    Route::post('/delivery/payment', [CustomerController::class, 'updatePaymentMethod'])->name('delivery.checkout');
 
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout', [CheckoutController::class, 'storePaymentMethod']); // <- ADD this if form submits to /checkout

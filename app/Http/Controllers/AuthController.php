@@ -27,14 +27,14 @@ class AuthController extends Controller
             return back()->withErrors(['login' => 'Invalid credentials']);
         }
 
-        // ✅ Manually authenticate user since it's in `user_account` table
+        // ✅ Manually authenticate user
         Auth::loginUsingId($user->user_account_ID);
         $request->session()->regenerate();
 
         return redirect()->route($user->role . '.dashboard');
     }
 
-    // ✅ Register Function
+    // ✅ Register Function (Updated)
     public function register(Request $request)
     {
         $request->validate([
@@ -43,7 +43,7 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        // ✅ Store new user in `user_account` table
+        // ✅ Store new user
         $userID = DB::table('user_account')->insertGetId([
             'username' => $request->username,
             'name' => $request->username,
@@ -52,13 +52,35 @@ class AuthController extends Controller
             'role' => 'user',
         ]);
 
+        // ✅ Log in new user
         Auth::loginUsingId($userID);
         $request->session()->regenerate();
+
+        // ✅ Check if a customer record already exists for this user_account_ID
+        $existingCustomer = DB::table('customer')->where('user_account_ID', $userID)->first();
+
+        // ✅ If no customer exists for the user, create a new one
+        if (!$existingCustomer) {
+            DB::table('customer')->insert([
+                'user_account_ID' => $userID,
+                'firstname' => '',
+                'middlename' => '',
+                'lastname' => '',
+                'street' => '',
+                'barangay' => '',
+                'city' => '',
+                'province' => '',
+                'country' => '',
+                'email' => $request->email,
+                'phone' => '',
+                'company' => '',
+            ]);
+        }
 
         return redirect()->route('user.dashboard');
     }
 
-    // ✅ Logout Function (Enhanced Security)
+    // ✅ Logout Function
     public function logout(Request $request)
     {
         Auth::logout();
@@ -77,7 +99,7 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        // ✅ Locate user in `user_account` table
+        // ✅ Locate user
         $user = DB::table('user_account')
                   ->where('email', $request->email)
                   ->where('username', $request->username)
@@ -87,7 +109,7 @@ class AuthController extends Controller
             return back()->withErrors(['error' => 'No matching user found']);
         }
 
-        // ✅ Hash & update password securely
+        // ✅ Update password
         DB::table('user_account')
             ->where('email', $request->email)
             ->where('username', $request->username)
