@@ -1,15 +1,14 @@
 <?php
 
+// app/Http/Controllers/CustomerController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\CartItem;
 use App\Models\Customer;
 
 class CustomerController extends Controller
 {
-    /** ✅ Show Delivery Page with Customer Data */
+
     public function show()
     {
         $user = Auth::user();
@@ -28,39 +27,33 @@ class CustomerController extends Controller
 
         return view('delivery', compact('customer', 'cartItems', 'subtotal', 'shippingFee', 'totalAmount'));
     }
-
-    /** ✅ Update Customer Information */
-    public function update(Request $request)
+    
+    public function edit($id)
     {
-        // ✅ Validate input fields
-        $validated = $request->validate([
-            'firstname' => 'required|string|max:100',
-            'middlename' => 'nullable|string|max:100',
-            'lastname' => 'required|string|max:100',
-            'street' => 'nullable|string|max:100',
-            'barangay' => 'nullable|string|max:100',
-            'city' => 'nullable|string|max:100',
-            'province' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-            'email' => 'required|email|max:100',
-            'phone' => 'nullable|string|max:100',
-            'company' => 'nullable|string|max:100',
-            'payment_method_ID' => 'required|integer|in:1,2,3,4,5,6'
+        $customer = Customer::findOrFail($id);
+        return view('delivery', compact('customer'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'middlename' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'barangay' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'company' => 'required|string|max:255',
         ]);
 
-        // ✅ Get the logged-in user's customer data
-        $customer = Customer::where('user_account_ID', Auth::user()->user_account_ID)->firstOrFail();
+        $customer = Customer::findOrFail($id);
+        $customer->update($request->only(['firstname', 'middlename', 'lastname', 'street', 'barangay', 'city', 'province', 'country', 'email', 'phone', 'company']));
 
-        // ✅ Only update changed fields
-        foreach ($validated as $key => $value) {
-            if ($customer->$key !== $value) {
-                $customer->$key = $value;
-            }
-        }
-
-        $customer->save();
-
-        return redirect()->route('delivery')->with('success', 'Your delivery info was updated successfully! 🚚✨');
+        return redirect()->back()->with('success', 'Customer updated successfully!');
     }
 
     public function updatePaymentMethod(Request $request)
@@ -69,9 +62,9 @@ class CustomerController extends Controller
             'payment_method_ID' => 'required|exists:payment_method,payment_method_ID'
         ]);
 
-        $customer = Customer::where('user_account_ID', Auth::user()->user_account_ID)->firstOrFail();
-        $customer->payment_method_ID = $validated['payment_method_ID'];
-        $customer->save();
+        $customer1 = Customer::where('user_account_ID', Auth::user()->user_account_ID)->firstOrFail();
+        $customer1->payment_method_ID = $validated['payment_method_ID'];
+        $customer1->save();
 
         return redirect()->route('checkout')->with('success', 'Payment method updated successfully.');
     }

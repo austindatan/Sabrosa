@@ -13,7 +13,7 @@
       <!-- ✅ LEFT SIDE: FORM -->
       <div class="lg:col-span-2 space-y-10">
         <!-- ✅ Delivery Form -->
-        <form method="POST" action="{{ route('delivery.update') }}" class="space-y-6">
+        <form action="{{ route('delivery.update', $customer->customer_ID) }}" method="POST" class="space-y-6">
           @csrf
 
           <div class="flex justify-between items-center">
@@ -95,7 +95,7 @@
           </form>
 
         <!-- ✅ Payment Tabs Below Form -->
-        <form method="POST" action="{{ route('delivery.update.payment') }}">
+        <form method="POST" action="{{ route('delivery.checkout') }}">
           @csrf
 
           <input type="hidden" id="payment_method_ID" name="payment_method_ID" value="1"> <!-- Default to 1 (Cash) -->
