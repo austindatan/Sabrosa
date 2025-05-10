@@ -103,7 +103,7 @@
                 <button type="button"
                     onclick="showTab({{ $index }})"
                     class="payment-btn px-3 py-2 rounded text-white text-sm
-                        {{ $index === 0 ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-blue-500 hover:bg-blue-600' }}">
+                        {{ $index === 0 ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-pink-500 hover:bg-pink-600' }}">
                     {{ $method }}
                 </button>
             @endforeach
@@ -117,7 +117,7 @@
             <div id="tabs">
                 <!-- Cash -->
                 <div class="tab" style="display:block">
-                    <p class="text-lg text-center font-semibold text-green-600 border border-green-300 p-3 rounded">
+                    <p class="text-lg text-center font-semibold text-black border border-pink-300 p-3 rounded">
                         You selected <span class="font-bold">Cash on Delivery</span>. Kindly prepare the exact amount for the rider upon arrival. Thank you for your order!
                     </p>
                 </div>
@@ -161,7 +161,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-full mt-4 bg-green-500 text-white py-2 rounded hover:bg-green-600">Proceed to Checkout</button>
+            <button type="submit" class="w-full mt-4 bg-pink-500 text-white py-2 rounded hover:bg-green-600">Proceed to Checkout</button>
         </form>
     </div>
 
@@ -236,11 +236,11 @@
             let buttons = document.querySelectorAll('.payment-btn');
             buttons.forEach((btn, i) => {
                 if (i === index) {
-                    btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    btn.classList.remove('bg-pink-500', 'hover:bg-pink-600');
                     btn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
                 } else {
                     btn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
-                    btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                    btn.classList.add('bg-pink-500', 'hover:bg-pink-600');
                 }
             });
         }
