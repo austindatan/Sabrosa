@@ -63,17 +63,17 @@ class AuthController extends Controller
         if (!$existingCustomer) {
             DB::table('customer')->insert([
                 'user_account_ID' => $userID,
-                'firstname' => '',
-                'middlename' => '',
-                'lastname' => '',
-                'street' => '',
-                'barangay' => '',
-                'city' => '',
-                'province' => '',
-                'country' => '',
-                'email' => $request->email,
-                'phone' => '',
-                'company' => '',
+                '...' => '',
+                '...' => '',
+                '...' => '',
+                '...' => '',
+                '...' => '',
+                '...' => '',
+                '...' => '',
+                '...' => '',
+                '...' => $request->email,
+                '...' => '',
+                '...' => '',
             ]);
         }
 
