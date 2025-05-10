@@ -154,5 +154,14 @@ if (typeof window !== 'undefined') {
       }
     });
   });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggle-order-summary');
+    const orderSummary = document.getElementById('orderSummary');
+
+    toggleButton.addEventListener('click', () => {
+      orderSummary.classList.toggle('hidden');
+    });
+  });
   
 

@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <title>Sabrosa | Checkout</title>
+  @vite(['resources/js/app.js']) 
   @include('pages.head')
 </head>
 <body class="bg-pink-100 bg-cover bg-center text-center overflow-x-hidden min-h-screen flex flex-col">
@@ -101,10 +102,23 @@
         <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</button>
       </div>
 
-      {{-- RIGHT SIDE --}}
-      <div class="hidden lg:block lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2">
-        <h2 class="text-xl font-dm-sans text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></h2>
-        <div class="space-y-4 font-dm-sans">
+      <button
+        type="button"
+        id="toggle-order-summary"
+        class="block lg:hidden bg-gray-100 p-6 rounded-lg order-1 lg:order-2 mb-0"
+      >
+        Toggle Order Summary
+      </button>
+
+      <div
+        id="orderSummary"
+        class="bg-gray-100 p-6 rounded-lg order-1 lg:order-2 hidden lg:block mt-0"
+      >
+        <h2 class="text-xl font-dm-sans text-left">
+          Your order from <span class="font-bold font-poppins mb-2">Sabrosa</span>
+        </h2>
+
+        <div class="space-y-4 font-dm-sans mt-4 mb-4">
           @foreach ($cartItems as $item)
             @php $product = optional($item->productDetail->product); @endphp
             <div class="flex items-center justify-between">
@@ -125,7 +139,7 @@
             <span class="font-poppins">Subtotal</span>
             <span class="font-dm-sans">₱{{ number_format($subtotal) }}</span>
           </div>
-          <div class="flex justify-between">
+          <div class="flex justify-between mb-4 ">
             <span class="font-poppins">Shipping</span>
             <span class="font-dm-sans text-gray-500">₱{{ number_format($shippingFee) }}</span>
           </div>
@@ -140,9 +154,13 @@
           Taxes included.
         </p>
       </div>
+
+      </div>
     </form>
   </main>
 
   @include('pages.footer')
+
 </body>
+
 </html>

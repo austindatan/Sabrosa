@@ -5,7 +5,7 @@
 
     <!-- Product Info -->
     <div class="col-span-1 sm:col-span-6 w-full flex flex-row items-center gap-4 sm:gap-6">
-      <img src="{{ asset($image) }}" class="bg-white w-28 h-28 object-contain p-1 rounded-lg border mx-auto sm:mx-0" />
+      <img src="{{ asset($image) }}" class="bg-gray-50 w-28 h-28 object-contain p-1 rounded-lg border mx-auto sm:mx-0" />
       <div class="w-full sm:max-w-[300px]">
         <p class="text-lg sm:text-xl font-dm-sans text-gray-800">{{ $name }}</p>
         <p class="text-gray-500 mt-1 font-poppins">{{ $priceText }}</p>
