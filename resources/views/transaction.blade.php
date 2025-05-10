@@ -1,56 +1,77 @@
-<!-- resources/views/transaction.blade.php -->
+<!-- resources/views/pages/transaction.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Sabrosa | Transaction</title>
   @include('pages.head')
 </head>
-<body class="bg-pink-100 bg-cover bg-center text-center min-h-screen flex flex-col">
+<body class="bg-pink-100 text-gray-800 min-h-screen flex flex-col">
   @include('pages.header')
 
-  <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
-    <h1 class="text-3xl font-bold mb-6 font-poppins">Transaction Summary</h1>
+  <main class="flex-1 max-w-5xl mx-auto bg-white border-2 border-[#E55182] rounded-lg shadow-lg p-6 sm:p-10 mt-[150px] mb-[100px] w-full">
+    <h1 class="text-2xl sm:text-3xl font-bold font-poppins mb-6 text-center">Order Confirmation</h1>
 
-    <div class="text-left space-y-4 font-dm-sans">
-      <p><strong>Email:</strong> {{ optional($customer)->email ?? 'N/A' }}</p>
-      <p><strong>Shipping Address:</strong> {{ optional($customer)->street }}, {{ optional($customer)->city }}, {{ optional($customer)->province }}, {{ optional($customer)->country }}</p>
-      <p><strong>Payment Method:</strong> {{ $paymentDetails->name ?? 'Not selected' }}</p>
-
-      <!-- Display the Delivery Method (Shipping) -->
-      <p><strong>Delivery Method:</strong> 
-        @if ($shipping && $shipping->shipping_ID == 1)
-            Standard
-        @elseif ($shipping && $shipping->shipping_ID == 2)
-            Premium
-        @else
-            Not selected
-        @endif
-      </p>
-    </div>
-
-    <hr class="my-6">
-
-    <h2 class="text-2xl font-semibold mb-4">Items Ordered</h2>
-    <div class="space-y-4">
-      @foreach ($cartItems as $item)
-        @php $product = optional($item->productDetail->product); @endphp
-        <div class="flex justify-between items-center">
-          <div class="flex gap-4 items-center">
-            <img src="{{ asset($product->image_URL) }}" alt="{{ $product->name }}" class="w-14 h-14 object-contain border rounded" />
-            <div>
-              <p class="font-semibold">{{ $product->name }}</p>
-              <p class="text-sm text-gray-500">Quantity: {{ $item->quantity }}</p>
-            </div>
-          </div>
-          <p class="font-semibold">₱{{ number_format($product->price * $item->quantity) }}</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-dm-sans">
+      <!-- Left Column: Customer Details -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Customer Information</h2>
+          <p><span class="font-medium">Name:</span> {{ $customer->firstname }} {{ $customer->lastname }}</p>
+          <p><span class="font-medium">Email:</span> {{ $customer->email }}</p>
         </div>
-      @endforeach
-    </div>
 
-    <div class="mt-6 text-right space-y-2 font-poppins">
-      <p><strong>Subtotal:</strong> ₱{{ number_format($subtotal) }}</p>
-      <p><strong>Shipping:</strong> ₱{{ number_format($shippingFee) }}</p>
-      <p class="text-xl font-bold"><strong>Total:</strong> ₱{{ number_format($totalAmount) }}</p>
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Shipping Address</h2>
+          <p>{{ $customer->street }}</p>
+          <p>{{ $customer->city }}, {{ $customer->province }}</p>
+          <p>{{ $customer->country }}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Payment Method</h2>
+          <p>{{ $paymentMethod->name ?? 'Not Available' }}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Delivery Method</h2>
+          <p>{{ $shipping->shipping_method }} (Estimated: {{ $shipping->shipping_method == 'Standard' ? '5-7 Days' : '1-3 Days' }})</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Order Items -->
+      <div class="bg-gray-50 p-6 rounded-lg border space-y-4">
+        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+        @foreach ($cartItems as $item)
+          @php $product = optional($item->productDetail->product); @endphp
+          <div class="flex items-center justify-between border-b pb-2">
+            <div class="flex items-center gap-3">
+              <img src="{{ asset($product->image_URL) }}" class="w-12 h-12 object-contain border rounded" />
+              <div>
+                <p class="font-medium">{{ $product->name }}</p>
+                <p class="text-sm text-gray-500">Quantity: {{ $item->quantity }}</p>
+              </div>
+            </div>
+            <p class="font-semibold">₱{{ number_format($product->price * $item->quantity) }}</p>
+          </div>
+        @endforeach
+
+        <div class="border-t pt-4 space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span>₱{{ number_format($subtotal) }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Shipping</span>
+            <span>₱{{ number_format($shippingFee) }}</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between text-lg font-bold border-t pt-4">
+          <span>Total</span>
+          <span>₱{{ number_format($total) }}</span>
+        </div>
+      </div>
     </div>
   </main>
 

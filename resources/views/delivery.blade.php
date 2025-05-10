@@ -61,7 +61,9 @@
                   {{ ucwords(str_replace('_', ' ', $field)) }}
                 </label>
                 <button type="button" onclick="toggleEdit('{{ $field }}')"
-                  class="absolute right-2 top-1 text-pink-500 text-lg">✏️</button>
+                  class="absolute right-2 top-1 text-pink-500 text-lg transition duration-200 ease-in-out 
+                hover:bg-pink-200 hover:rounded-lg hover:px-1 hover:text-pink-700 
+                active:bg-pink-500 active:text-white cursor-pointer">✏️</button>
               </div>
             @endforeach
           </div>
@@ -102,7 +104,7 @@
             @foreach($methods as $index => $method)
                 <button type="button"
                     onclick="showTab({{ $index }})"
-                    class="payment-btn px-3 py-2 rounded text-white text-sm
+                    class="payment-btn px-3 py-2 rounded text-white text-sm font-semibold
                         {{ $index === 0 ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-pink-500 hover:bg-pink-600' }}">
                     {{ $method }}
                 </button>
@@ -161,7 +163,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-full mt-4 bg-pink-500 text-white py-2 rounded hover:bg-green-600">Proceed to Checkout</button>
+            <button type="submit" class="w-full mt-4 bg-pink-500 text-white font-semibold py-2 rounded hover:bg-pink-600">Proceed to Checkout</button>
         </form>
     </div>
 

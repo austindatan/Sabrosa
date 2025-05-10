@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'storePaymentMethod']); // <- ADD this if form submits to /checkout
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
-    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
+    Route::post('/transaction', [CheckoutController::class, 'processTransaction'])->name('transaction');
 
     Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
     Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');

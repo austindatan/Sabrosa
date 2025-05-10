@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\CartItem;
 use App\Models\Customer;
 use App\Models\Shipping;
+use App\Models\Order;
 use App\Models\PaymentMethod;
 
 class CheckoutController extends Controller
 {
-    
     public function index()
     {
         $user = Auth::user();
@@ -102,6 +102,52 @@ class CheckoutController extends Controller
         return redirect()->route('transaction')->with('success', 'Payment method saved.');
     }
 
+    public function processTransaction(Request $request)
+    {
+        $request->validate([
+            'shipping_method_id' => 'required|exists:shipping,shipping_ID',
+        ]);
+
+        $user = Auth::user();
+        $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
+
+        $cartItems = CartItem::with(['productDetail.product'])
+            ->where('customer_ID', $customer->customer_ID)
+            ->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart')->with('error', 'Your cart is empty.');
+        }
+
+        $shipping = Shipping::findOrFail($request->shipping_method_id);
+        $paymentMethod = $customer->paymentMethod;
+
+        // Create an order for each cart item
+        foreach ($cartItems as $item) {
+            \DB::table('order')->insert([
+                'cart_item_ID' => $item->cart_item_ID,
+                'shipping_ID' => $shipping->shipping_ID,
+                'date' => now(),
+            ]);
+        }
+
+        $shippingFee = 254;
+        $subtotal = $cartItems->sum(fn($item) =>
+            optional($item->productDetail->product)->price * $item->quantity
+        );
+        $total = $subtotal + $shippingFee;
+
+        return view('transaction', compact(
+            'customer',
+            'cartItems',
+            'shipping',
+            'paymentMethod',
+            'subtotal',
+            'shippingFee',
+            'total'
+        ));
+    }
+
     public function process(Request $request)
     {
         $request->validate([
@@ -111,6 +157,4 @@ class CheckoutController extends Controller
 
         return redirect()->route('home')->with('success', 'Checkout process placeholder—no order created yet!');
     }
-
-    
 }

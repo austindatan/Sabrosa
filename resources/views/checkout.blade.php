@@ -9,7 +9,7 @@
   @include('pages.header')
 
   <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
-    <form action="{{ route('transaction') }}" method="GET" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <form action="{{ route('transaction') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       @csrf
 
       {{-- LEFT SIDE --}}
