@@ -14,6 +14,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\DeliveryController;
+
 
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
 Route::get('/shop', [ProductController::class, 'showShop'])->name('shop');
@@ -41,10 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/update/{cartItem}/{action}', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 
+    Route::get('/delivery', [CheckoutController::class, 'showDeliveryPage'])->name('delivery');
     Route::get('/delivery/{id}', [CustomerController::class, 'edit'])->name('delivery.edit');
     Route::post('/delivery/{id}', [CustomerController::class, 'update'])->name('delivery.update');
-    Route::get('/delivery', [CheckoutController::class, 'showDeliveryPage'])->name('delivery');
-    Route::post('/delivery/payment', [CustomerController::class, 'updatePaymentMethod'])->name('delivery.checkout');
+    Route::post('/delivery', [DeliveryController::class, 'update'])->name('delivery.payment.update');
 
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout', [CheckoutController::class, 'storePaymentMethod']); // <- ADD this if form submits to /checkout

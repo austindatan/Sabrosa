@@ -11,6 +11,7 @@ use App\Models\PaymentMethod;
 
 class CheckoutController extends Controller
 {
+    
     public function index()
     {
         $user = Auth::user();
@@ -110,4 +111,6 @@ class CheckoutController extends Controller
 
         return redirect()->route('home')->with('success', 'Checkout process placeholder—no order created yet!');
     }
+
+    
 }

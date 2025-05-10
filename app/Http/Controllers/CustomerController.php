@@ -3,6 +3,7 @@
 // app/Http/Controllers/CustomerController.php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 
@@ -56,16 +57,4 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Customer updated successfully!');
     }
 
-    public function updatePaymentMethod(Request $request)
-    {
-        $validated = $request->validate([
-            'payment_method_ID' => 'required|exists:payment_method,payment_method_ID'
-        ]);
-
-        $customer1 = Customer::where('user_account_ID', Auth::user()->user_account_ID)->firstOrFail();
-        $customer1->payment_method_ID = $validated['payment_method_ID'];
-        $customer1->save();
-
-        return redirect()->route('checkout')->with('success', 'Payment method updated successfully.');
-    }
 }

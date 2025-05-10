@@ -3,6 +3,7 @@
 // app/Models/Customer.php
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -27,11 +28,6 @@ class Customer extends Model
         'payment_method_ID',
     ];
 
-    public function paymentMethod()
-    {
-        return $this->belongsTo(PaymentMethod::class, 'payment_method_ID');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_account_ID');
@@ -40,5 +36,10 @@ class Customer extends Model
     public function cartItems()
     {
         return $this->hasMany(CartItem::class, 'customer_ID');
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_ID', 'payment_method_ID');
     }
 }

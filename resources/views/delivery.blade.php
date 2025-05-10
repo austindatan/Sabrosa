@@ -94,69 +94,73 @@
           </div>
           </form>
 
-        <!-- ✅ Payment Tabs Below Form -->
-        <form method="POST" action="{{ route('delivery.checkout') }}">
-          @csrf
-
-          <input type="hidden" id="payment_method_ID" name="payment_method_ID" value="1"> <!-- Default to 1 (Cash) -->
-
-          <!-- Tabs -->
-          <div class="flex gap-4 mb-4">
-            @foreach([
-                1 => 'cash',
-                2 => 'gcash',
-                3 => 'mastercard',
-                4 => 'visa',
-                5 => 'paymaya',
-                6 => 'paypal'
-              ] as $id => $tab)
-              <button type="button" onclick="showPaymentTab(event, '{{ $tab }}', {{ $id }})"
-                class="tab-btn px-4 py-2 border border-pink-500 rounded-md font-semibold transition {{ $id === 1 ? 'bg-pink-500 text-pink-100' : 'bg-white hover:bg-pink-500 hover:text-white' }}">
-                {{ ucfirst($tab) }}
-              </button>
+        <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+          <h2 class="text-xl font-bold mb-4 text-center">Select Your Payment Method</h2>
+          
+        <div class="flex flex-wrap gap-2 justify-center mb-4">
+            @php $methods = ['Cash', 'GCash', 'Mastercard', 'Visa', 'Paymaya', 'Paypal']; @endphp
+            @foreach($methods as $index => $method)
+                <button type="button" onclick="showTab({{ $index }})" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                    {{ $method }}
+                </button>
             @endforeach
-          </div>
+        </div>
 
-            <!-- Payment method content blocks -->
-            <div id="cash" class="payment-content block">Cash on Delivery</div>
-            <div id="gcash" class="payment-content hidden space-y-4">
-              <input type="text" name="gcash_first_name" placeholder="First Name" class="w-full p-3 border rounded">
-              <input type="text" name="gcash_last_name" placeholder="Last Name" class="w-full p-3 border rounded">
-              <input type="text" name="gcash_phone" placeholder="Phone Number" class="w-full p-3 border rounded">
-            </div>
-            <div id="mastercard" class="payment-content hidden space-y-4">
-              <input type="text" name="mastercard_card_number" placeholder="Card Number" class="w-full p-3 border rounded">
-              <div class="grid grid-cols-2 gap-4">
-                <input type="text" name="mastercard_exp_date" placeholder="MM/YY" class="p-3 border rounded">
-                <input type="text" name="mastercard_security_code" placeholder="CVV" class="p-3 border rounded">
-              </div>
-              <input type="text" name="mastercard_name_on_card" placeholder="Name on Card" class="w-full p-3 border rounded">
-            </div>
-            <div id="visa" class="payment-content hidden space-y-4">
-              <input type="text" name="visa_card_number" placeholder="Card Number" class="w-full p-3 border rounded">
-              <div class="grid grid-cols-2 gap-4">
-                <input type="text" name="visa_exp_date" placeholder="MM/YY" class="p-3 border rounded">
-                <input type="text" name="visa_security_code" placeholder="CVV" class="p-3 border rounded">
-              </div>
-              <input type="text" name="visa_name_on_card" placeholder="Name on Card" class="w-full p-3 border rounded">
-            </div>
-            <div id="paymaya" class="payment-content hidden space-y-4">
-              <input type="text" name="paymaya_first_name" placeholder="First Name" class="w-full p-3 border rounded">
-              <input type="text" name="paymaya_last_name" placeholder="Last Name" class="w-full p-3 border rounded">
-              <input type="text" name="paymaya_phone" placeholder="Phone Number" class="w-full p-3 border rounded">
-            </div>
-            <div id="paypal" class="payment-content hidden space-y-4">
-              <input type="text" name="paypal_first_name" placeholder="First Name" class="w-full p-3 border rounded">
-              <input type="text" name="paypal_last_name" placeholder="Last Name" class="w-full p-3 border rounded">
-              <input type="text" name="paypal_phone" placeholder="Phone Number" class="w-full p-3 border rounded">
+        <form method="POST" action="{{ route('delivery.payment.update') }}">
+            @csrf
+            <input type="hidden" name="payment_method_ID" id="payment_method_ID" value="1">
+
+            <!-- Tabs -->
+            <div id="tabs">
+                <!-- Cash -->
+                <div class="tab" style="display:block">
+                    <p class="text-lg text-center font-semibold text-green-600 border border-green-300 p-3 rounded">
+                        You selected <span class="font-bold">Cash on Delivery</span>. Kindly prepare the exact amount for the rider upon arrival. Thank you for your order!
+                    </p>
+                </div>
+
+                <!-- GCash -->
+                <div class="tab hidden">
+                    <input type="text" name="first_name" placeholder="First Name" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="last_name" placeholder="Last Name" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2">
+                </div>
+
+                <!-- Mastercard -->
+                <div class="tab hidden">
+                    <input type="text" name="card_number" placeholder="Card Number" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="expiry" placeholder="MM/YY" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="cvv" placeholder="CVV" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="card_name" placeholder="Name on Card" class="w-full p-2 border rounded mb-2">
+                </div>
+
+                <!-- Visa -->
+                <div class="tab hidden">
+                    <input type="text" name="card_number" placeholder="Card Number" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="expiry" placeholder="MM/YY" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="cvv" placeholder="CVV" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="card_name" placeholder="Name on Card" class="w-full p-2 border rounded mb-2">
+                </div>
+
+                <!-- Paymaya -->
+                <div class="tab hidden">
+                    <input type="text" name="first_name" placeholder="First Name" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="last_name" placeholder="Last Name" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2">
+                </div>
+
+                <!-- Paypal -->
+                <div class="tab hidden">
+                    <input type="text" name="first_name" placeholder="First Name" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="last_name" placeholder="Last Name" class="w-full p-2 border rounded mb-2">
+                    <input type="text" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2">
+                    <input type="email" name="email" placeholder="Email" class="w-full p-2 border rounded mb-2">
+                </div>
             </div>
 
-            <button type="submit"
-              class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded mt-4">
-              Save Payment Method
-            </button>
-          </div>
+            <button type="submit" class="w-full mt-4 bg-green-500 text-white py-2 rounded hover:bg-green-600">Proceed to Checkout</button>
         </form>
+    </div>
 
       <!-- ✅ RIGHT SIDE: ORDER SUMMARY -->
       <div class="lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4">
@@ -214,32 +218,12 @@
         }
     }
 
-    // ✅ Submit form only if there are changes
-    document.getElementById("save-form").addEventListener("submit", function (event) {
-        document.querySelectorAll("input").forEach(input => input.removeAttribute("readonly")); // ✅ Remove readonly from all inputs
-        if (!this.dataset.edited) {
-            event.preventDefault(); // ✅ Prevent submission if nothing was edited
-            alert("No changes were made.");
+    function showTab(index) {
+            let tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.style.display = 'none');
+            tabs[index].style.display = 'block';
+            document.getElementById('payment_method_ID').value = index + 1;
         }
-    });
-
-        function showPaymentTab(event, tabId, paymentId) {
-      // Hide all
-      document.querySelectorAll('.payment-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-pink-500', 'text-pink-100');
-        btn.classList.add('bg-white', 'text-black', 'border', 'border-pink-500');
-      });
-
-      // Show selected tab
-      document.getElementById(tabId).classList.remove('hidden');
-      const clickedBtn = event.currentTarget;
-      clickedBtn.classList.remove('bg-white', 'hover:bg-pink-500', 'hover:text-white');
-      clickedBtn.classList.add('bg-pink-500', 'text-pink-100');
-
-      // Set payment method ID
-      document.getElementById('payment_method_ID').value = paymentId;
-    }
 </script>
 
   @include('pages.footer')
