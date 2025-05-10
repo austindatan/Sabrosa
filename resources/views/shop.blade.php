@@ -6,7 +6,7 @@
 </head>
 <style>
   :target {
-    scroll-margin-top: 100px; /* Adjust to match your header height */
+    scroll-margin-top: 150px; /* Adjust to match your header height */
   }
 </style>
 
