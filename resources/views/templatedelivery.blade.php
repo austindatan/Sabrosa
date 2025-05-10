@@ -13,7 +13,10 @@
         <div class="flex flex-wrap gap-2 justify-center mb-4">
             @php $methods = ['Cash', 'GCash', 'Mastercard', 'Visa', 'Paymaya', 'Paypal']; @endphp
             @foreach($methods as $index => $method)
-                <button type="button" onclick="showTab({{ $index }})" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                <button type="button"
+                    onclick="showTab({{ $index }})"
+                    class="payment-btn px-3 py-2 rounded text-white text-sm
+                        {{ $index === 0 ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-blue-500 hover:bg-blue-600' }}">
                     {{ $method }}
                 </button>
             @endforeach
@@ -76,12 +79,29 @@
     </div>
 
     <script>
-            function showTab(index) {
-                let tabs = document.querySelectorAll('.tab');
-                tabs.forEach(tab => tab.style.display = 'none');
-                tabs[index].style.display = 'block';
-                document.getElementById('payment_method_ID').value = index + 1;
-            }
+        function showTab(index) {
+            // Show selected tab and hide others
+            let tabs = document.querySelectorAll('.tab');
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('hidden', i !== index);
+                tab.style.display = (i === index) ? 'block' : 'none';
+            });
+
+            // Update hidden input
+            document.getElementById('payment_method_ID').value = index + 1;
+
+            // Update button styles
+            let buttons = document.querySelectorAll('.payment-btn');
+            buttons.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    btn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+                } else {
+                    btn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+                    btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                }
+            });
+        }
     </script>
 </body>
 </html>
