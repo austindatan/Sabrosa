@@ -10,7 +10,9 @@
   @include('pages.header')
 
   <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
-    <form action="{{ route('transaction') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    {{-- ✅ FORM ACTION NOW POINTS TO complete.purchase --}}
+    <form action="{{ route('complete.purchase') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       @csrf
 
       {{-- LEFT SIDE --}}
@@ -98,7 +100,7 @@
           </div>
         </div>
 
-        <!-- Submit Button -->
+        <!-- ✅ Submit Button stays the same -->
         <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</button>
       </div>
 
@@ -155,12 +157,9 @@
         </p>
       </div>
 
-      </div>
     </form>
   </main>
 
   @include('pages.footer')
-
 </body>
-
 </html>

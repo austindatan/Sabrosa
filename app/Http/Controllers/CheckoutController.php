@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Shipping;
 use App\Models\Order;
 use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -104,10 +105,6 @@ class CheckoutController extends Controller
 
     public function processTransaction(Request $request)
     {
-        $request->validate([
-            'shipping_method_id' => 'required|exists:shipping,shipping_ID',
-        ]);
-
         $user = Auth::user();
         $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
 
@@ -119,23 +116,21 @@ class CheckoutController extends Controller
             return redirect()->route('cart')->with('error', 'Your cart is empty.');
         }
 
-        $shipping = Shipping::findOrFail($request->shipping_method_id);
-        $paymentMethod = $customer->paymentMethod;
-
-        // Create an order for each cart item
-        foreach ($cartItems as $item) {
-            \DB::table('order')->insert([
-                'cart_item_ID' => $item->cart_item_ID,
-                'shipping_ID' => $shipping->shipping_ID,
-                'date' => now(),
-            ]);
+        $shippingMethodId = session('shipping_method_id');
+        if (!$shippingMethodId) {
+            return redirect()->route('checkout')->with('error', 'Shipping method not found.');
         }
+
+        $shipping = Shipping::findOrFail($shippingMethodId);
+        $paymentMethod = $customer->paymentMethod;
 
         $shippingFee = 254;
         $subtotal = $cartItems->sum(fn($item) =>
             optional($item->productDetail->product)->price * $item->quantity
         );
         $total = $subtotal + $shippingFee;
+
+        $transactionToken = session('transaction_token');
 
         return view('transaction', compact(
             'customer',
@@ -144,7 +139,8 @@ class CheckoutController extends Controller
             'paymentMethod',
             'subtotal',
             'shippingFee',
-            'total'
+            'total',
+            'transactionToken'
         ));
     }
 
@@ -156,5 +152,46 @@ class CheckoutController extends Controller
         ]);
 
         return redirect()->route('home')->with('success', 'Checkout process placeholder—no order created yet!');
+    }
+
+    public function completePurchase(Request $request)
+    {
+        $user = Auth::user();
+        $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
+
+        $cartItems = CartItem::where('customer_ID', $customer->customer_ID)->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart')->with('error', 'Your cart is empty.');
+        }
+
+        $request->validate([
+            'shipping_method_id' => 'required|exists:shipping,shipping_ID',
+        ]);
+
+        $shipping = Shipping::findOrFail($request->shipping_method_id);
+
+        session(['shipping_method_id' => $shipping->shipping_ID]);
+
+        // Generate token and store in session
+        $transactionToken = strtoupper(bin2hex(random_bytes(5)));
+        session(['transaction_token' => $transactionToken]);
+
+        $transactionID = DB::table('transaction')->insertGetId([
+            'date_added' => now(),
+            'status' => 'Pending',
+            'transaction_token' => $transactionToken,
+        ]);
+
+        foreach ($cartItems as $item) {
+            DB::table('orders')->insert([
+                'cart_item_ID' => $item->cart_item_ID,
+                'shipping_ID' => $shipping->shipping_ID,
+                'transaction_id' => $transactionID,
+                'date' => now(),
+            ]);
+        }
+
+        return redirect()->route('transaction');
     }
 }
