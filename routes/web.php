@@ -95,3 +95,5 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
     Route::delete('/delete-user/{user}', [ManageUserController::class, 'deleteUser'])->name('delete.user');
 });
 
+Route::view('/tos', 'tos');
+Route::view('/privacy', 'privacy');
