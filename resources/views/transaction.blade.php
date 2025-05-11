@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Sabrosa | Transaction</title>
   @include('pages.head')
 </head>
 <body class="bg-pink-100 text-gray-800 min-h-screen flex flex-col">
@@ -40,7 +39,10 @@
 
         <div>
           <h2 class="text-xl font-semibold mb-2">Delivery Method</h2>
-          <p>{{ $shipping->shipping_method }} (Estimated: {{ $shipping->shipping_method == 'Standard' ? '5-7 Days' : '1-3 Days' }})</p>
+          <p>
+            {{ $shipping->shipping_method }} 
+            (Estimated: {{ $shipping->shipping_method == 'Standard' ? 'Standard Priority' : 'Highest Priority' }})
+          </p>
         </div>
       </div>
 
@@ -62,6 +64,12 @@
           </div>
         @endforeach
 
+        @php
+          $baseShipping = 50;
+          $additionalFee = $shipping->shipping_method === 'Premium' ? 50 : 0;
+          $shippingFee = $baseShipping + $additionalFee;
+        @endphp
+
         <div class="border-t pt-4 space-y-2 text-sm">
           <div class="flex justify-between">
             <span>Subtotal</span>
@@ -75,7 +83,7 @@
 
         <div class="flex justify-between text-lg font-bold border-t pt-4">
           <span>Total</span>
-          <span>₱{{ number_format($total) }}</span>
+          <span>₱{{ number_format($subtotal + $shippingFee) }}</span>
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Sabrosa | Checkout</title>
   @vite(['resources/js/app.js']) 
   @include('pages.head')
 </head>
@@ -11,7 +10,6 @@
 
   <main class="px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[79px] sm:mt-[200px] mb-[0px] sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg w-fit">
     
-    {{-- ✅ FORM ACTION NOW POINTS TO complete.purchase --}}
     <form action="{{ route('complete.purchase') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       @csrf
 
@@ -25,8 +23,7 @@
             $customer = \App\Models\Customer::where('user_account_ID', Auth::user()->user_account_ID)->first();
             $cartItems = \App\Models\CartItem::where('customer_ID', optional($customer)->customer_ID)->with('productDetail.product')->get();
             $subtotal = $cartItems->sum(fn($item) => optional($item->productDetail->product)->price * $item->quantity);
-            $shippingFee = 254;
-            $totalAmount = $subtotal + $shippingFee;
+            $shippingFee = 50;
             $paymentDetails = optional($customer)->paymentMethod;
             $shippingMethods = \App\Models\Shipping::all();
             $selectedPayment = request('payment_method_ID');
@@ -58,12 +55,16 @@
             <p class="col-span-3 text-lg text-gray-500 text-left">Delivery</p>
             <div class="col-span-6 text-left">
               <p class="text-lg font-semibold text-black" id="deliveryTitle">Standard Delivery</p>
-              <p class="text-base text-gray-400" id="deliveryTime">5-7 Days</p>
+              <p class="text-base text-gray-400" id="deliveryTime">Standard Priority <span class="text-sm text-gray-600">(+₱0)</span></p>
             </div>
             <div class="col-span-3 text-right">
               <select name="shipping_method_id" id="shippingDropdown" class="border rounded-lg p-2 text-lg text-gray-800 w-32">
                 @foreach ($shippingMethods as $shipping)
-                  <option value="{{ $shipping->shipping_ID }}" data-method="{{ $shipping->shipping_method }}" data-time="{{ $shipping->shipping_method == 'Standard' ? '5-7 Days' : '1-3 Days' }}">
+                  <option 
+                    value="{{ $shipping->shipping_ID }}"
+                    data-method="{{ $shipping->shipping_method }}"
+                    data-time="{{ $shipping->shipping_method == 'Standard' ? 'Standard Priority' : 'Highest Priority' }}"
+                  >
                     {{ $shipping->shipping_method }}
                   </option>
                 @endforeach
@@ -71,14 +72,6 @@
             </div>
           </div>
         </div>
-
-        <script>
-          document.getElementById('shippingDropdown').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            document.getElementById('deliveryTitle').innerText = selectedOption.getAttribute('data-method') + " Delivery";
-            document.getElementById('deliveryTime').innerText = selectedOption.getAttribute('data-time');
-          });
-        </script>
 
         <!-- Payment Method -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4 flex items-center gap-2">
@@ -100,7 +93,7 @@
           </div>
         </div>
 
-        <!-- ✅ Submit Button stays the same -->
+        <!-- Submit Button -->
         <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</button>
       </div>
 
@@ -141,25 +134,52 @@
             <span class="font-poppins">Subtotal</span>
             <span class="font-dm-sans">₱{{ number_format($subtotal) }}</span>
           </div>
-          <div class="flex justify-between mb-4 ">
+          <div class="flex justify-between mb-4">
             <span class="font-poppins">Shipping</span>
-            <span class="font-dm-sans text-gray-500">₱{{ number_format($shippingFee) }}</span>
+            <span class="font-dm-sans text-gray-500" data-shipping-amount>₱{{ number_format($shippingFee) }}</span>
           </div>
         </div>
 
         <div class="flex justify-between text-lg font-bold border-t pt-4">
           <span class="font-poppins">Total</span>
-          <span class="font-poppins">₱{{ number_format($totalAmount) }}</span>
+          <span class="font-poppins" data-total-amount>₱{{ number_format($subtotal + $shippingFee) }}</span>
         </div>
 
         <p class="text-sm text-gray-500 text-right font-dm-sans">
           Taxes included.
         </p>
       </div>
-
     </form>
   </main>
 
   @include('pages.footer')
+
+  <!-- JavaScript to update shipping info -->
+  <script>
+    const dropdown = document.getElementById('shippingDropdown');
+    const deliveryTitle = document.getElementById('deliveryTitle');
+    const deliveryTime = document.getElementById('deliveryTime');
+    const shippingAmountLabel = document.querySelector('[data-shipping-amount]');
+    const totalAmountLabel = document.querySelector('[data-total-amount]');
+    const baseSubtotal = {{ $subtotal }};
+    const baseShipping = 50;
+
+    function updateDeliveryInfo() {
+      const selected = dropdown.options[dropdown.selectedIndex];
+      const method = selected.getAttribute('data-method');
+      const time = selected.getAttribute('data-time');
+      const isPremium = method === 'Premium';
+      const extraFee = isPremium ? 50 : 0;
+      const totalShipping = baseShipping + extraFee;
+
+      deliveryTitle.innerText = `${method} Delivery`;
+      deliveryTime.innerHTML = `${time} <span class="text-sm text-gray-600">(+₱${extraFee})</span>`;
+      shippingAmountLabel.innerText = `₱${totalShipping.toLocaleString()}`;
+      totalAmountLabel.innerText = `₱${(baseSubtotal + totalShipping).toLocaleString()}`;
+    }
+
+    dropdown.addEventListener('change', updateDeliveryInfo);
+    window.addEventListener('DOMContentLoaded', updateDeliveryInfo);
+  </script>
 </body>
 </html>
