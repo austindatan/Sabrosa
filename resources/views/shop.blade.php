@@ -8,6 +8,9 @@
   :target {
     scroll-margin-top: 150px; /* Adjust to match your header height */
   }
+  html {
+    scroll-behavior: smooth;
+}
 </style>
 
 

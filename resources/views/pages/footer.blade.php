@@ -30,12 +30,15 @@
                 <!--End Col-->
                 <div class="lg:mx-auto text-center sm:text-left">
                     <p class="text-sm text-gray-900 text-bold mb-4">Shop Snacks Online</p>
-                    <ul class="text-sm  transition-all duration-500">
-                        <li class="mb-3"><a href="javascript:;"  class="text-gray-600 hover:text-gray-900">Donuts</a></li>
-                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Cookies</a></li>
-                        <li class="mb-3"><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Meals</a></li>
-                        <li><a href="javascript:;"  class=" text-gray-600 hover:text-gray-900">Drinks</a></li>
+                    <ul class="text-sm transition-all duration-500">
+                        <li class="mb-2"><a href="#donuts">Donuts</a></li>
+                        <li class="mb-2"><a href="#cookies">Cookies</a></li>
+                        <li class="mb-2"><a href="#meals">Meals</a></li>
+                        <li class="mb-2"><a href="#drinks">Drinks</a></li>
+                        <li class="mb-2"><a href="#donuts">Donuts</a></li>
+                        <li class="mb-2"><a href="#others">We also have!</a></li>
                     </ul>
+
                 </div>
                 <!--End Col-->
                 <div class="lg:mx-auto text-center sm:text-left">

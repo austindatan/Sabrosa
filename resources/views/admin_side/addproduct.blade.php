@@ -137,10 +137,7 @@
           <label for="stockQuantity" class="font-semibold mb-2 font-poppins">Stock Quantity</label>
           <input type="number" id="stockQuantity" name="stockQuantity" min="0" class="p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
         </div>
-      </div>
-
-
-        
+</div>
 
       <button type="submit" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
         Add Product
