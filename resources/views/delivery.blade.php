@@ -154,15 +154,26 @@
     </div>
     </div>
       <!-- ✅ RIGHT SIDE: ORDER SUMMARY -->
-      <div class="lg:col-span-1 bg-gray-100 p-6 rounded-lg space-y-4">
+    <button
+        type="button"
+        id="toggle-order-summary"
+        class="block lg:hidden bg-gray-100 p-6 rounded-lg order-1 lg:order-2 mb-0"
+      >
+        Toggle Order Summary
+      </button>
+
+      <div
+        id="orderSummary"
+        class="bg-gray-100 p-6 rounded-lg order-1 lg:order-2 hidden lg:block mt-0"
+      >
         <h2 class="text-xl font-dm-sans text-left">Your order from <span class="font-bold font-poppins">Sabrosa</span></h2>
-        <div class="space-y-4 font-dm-sans">
+        <div class="space-y-4 font-dm-sans mt-5 mb-5">
           @foreach ($cartItems as $item)
             @php $product = optional($item->productDetail->product); @endphp
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <div class="relative">
-                  <img src="{{ asset($product->image_URL) }}" class="w-14 h-14 object-contain rounded border" />
+                  <img src="{{ asset($product->image_URL) }}" class="bg-white w-14 h-14 object-contain rounded border" />
                   <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">{{ $item->quantity }}</span>
                 </div>
                 <p class="text-sm w-[150px]">{{ $product->name }}</p>
