@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
     Route::post('/complete-purchase', [CheckoutController::class, 'completePurchase'])->name('complete.purchase');
-    Route::get('/transaction', [CheckoutController::class, 'processTransaction'])->name('transaction');
+    Route::get('/transaction/{transaction_id}', [CheckoutController::class, 'processTransaction'])->name('transaction');
 
     Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment.methods');
     Route::get('/payment-methods/{id}', [PaymentMethodController::class, 'show'])->name('payment.methods.show');

@@ -20,6 +20,7 @@ class CheckoutController extends Controller
 
         $cartItems = CartItem::with(['productDetail.product'])
             ->where('customer_ID', $customer->customer_ID)
+            ->where('item_status', 'Pending') // Make sure this is filtered
             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -28,7 +29,7 @@ class CheckoutController extends Controller
 
         $shippingMethods = Shipping::all();
         $paymentDetails = $customer->paymentMethod;
-        $shippingFee = 254;
+        $shippingFee = 50;
 
         $subtotal = $cartItems->sum(fn($item) =>
             optional($item->productDetail->product)->price * $item->quantity
@@ -54,6 +55,7 @@ class CheckoutController extends Controller
 
         $cartItems = CartItem::with(['productDetail.product'])
             ->where('customer_ID', $customer->customer_ID)
+            ->where('item_status', 'Pending')
             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -103,34 +105,40 @@ class CheckoutController extends Controller
         return redirect()->route('transaction')->with('success', 'Payment method saved.');
     }
 
-    public function processTransaction(Request $request)
+    public function processTransaction($transaction_id)
     {
         $user = Auth::user();
         $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
 
+        // Get only cart items that were part of the specified transaction
+        $orderCartItemIDs = DB::table('orders')
+            ->where('transaction_id', $transaction_id)
+            ->pluck('cart_item_ID');
+
         $cartItems = CartItem::with(['productDetail.product'])
-            ->where('customer_ID', $customer->customer_ID)
+            ->whereIn('cart_item_ID', $orderCartItemIDs)
             ->get();
 
         if ($cartItems->isEmpty()) {
-            return redirect()->route('cart')->with('error', 'Your cart is empty.');
+            return redirect()->route('cart')->with('error', 'No items found for this transaction.');
         }
 
-        $shippingMethodId = session('shipping_method_id');
-        if (!$shippingMethodId) {
-            return redirect()->route('checkout')->with('error', 'Shipping method not found.');
-        }
+        $shippingID = DB::table('orders')->where('transaction_id', $transaction_id)->value('shipping_ID');
+        $shipping = Shipping::findOrFail($shippingID);
 
-        $shipping = Shipping::findOrFail($shippingMethodId);
         $paymentMethod = $customer->paymentMethod;
 
-        $shippingFee = 254;
         $subtotal = $cartItems->sum(fn($item) =>
             optional($item->productDetail->product)->price * $item->quantity
         );
+
+        $baseShipping = 50;
+        $additionalFee = $shipping && $shipping->shipping_method === 'Premium' ? 50 : 0;
+        $shippingFee = $baseShipping + $additionalFee;
+
         $total = $subtotal + $shippingFee;
 
-        $transactionToken = session('transaction_token');
+        $transactionToken = DB::table('transaction')->where('transaction_ID', $transaction_id)->value('transaction_token');
 
         return view('transaction', compact(
             'customer',
@@ -142,16 +150,6 @@ class CheckoutController extends Controller
             'total',
             'transactionToken'
         ));
-    }
-
-    public function process(Request $request)
-    {
-        $request->validate([
-            'payment_method' => 'required|integer|min:1|max:6',
-            'shipping_address' => 'required|string',
-        ]);
-
-        return redirect()->route('home')->with('success', 'Checkout process placeholder—no order created yet!');
     }
 
     public function completePurchase(Request $request)
@@ -199,6 +197,6 @@ class CheckoutController extends Controller
                 ->where('item_status', 'Pending')
                 ->update(['item_status' => 'Completed']);
 
-        return redirect()->route('transaction');
+        return redirect()->route('transaction', ['transaction_id' => $transactionID]);
     }
 }

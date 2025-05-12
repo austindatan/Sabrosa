@@ -10,9 +10,6 @@ use App\Models\ProductDetail;
 
 class CartController extends Controller
 {
-    /**
-     * Add a product to the customer's cart.
-     */
     public function add(Request $request)
     {
         $request->validate([
@@ -27,10 +24,11 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Customer not found.');
         }
 
-        // Check if item already exists in cart
+        // ✅ Only check for cart items that are still pending
         $cartItem = CartItem::where([
             'customer_ID' => $customer->customer_ID,
             'product_details_ID' => $request->product_details_ID,
+            'item_status' => 'Pending',
         ])->first();
 
         if ($cartItem) {
@@ -51,9 +49,6 @@ class CartController extends Controller
         return redirect()->back()->with('success', '' . $productName . ' successfully added to cart!');
     }
 
-    /**
-     * Display the customer's cart contents.
-     */
     public function show()
     {
         $user = Auth::user();
