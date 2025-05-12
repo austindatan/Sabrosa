@@ -3,19 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OwnerDashboardController;
-use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\DeliveryController;
-
+use App\Http\Controllers\OwnerDashboardController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ManageUserController;
 
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
 Route::get('/shop', [ProductController::class, 'showShop'])->name('shop');
@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/employee/dashboard', fn() => view('pages.employeedashboard'))->name('employee.dashboard');
     
-    Route::get('/user/dashboard', fn() => view('user_side.userdashboard'))->name('user.dashboard');
+    Route::get('/user/dashboard', [UserController::class, 'user_dashboard'])->name('user.dashboard');
 });
 
 Route::get('/cart-not-logged-in', fn() => view('pages.cart_not_logged_in'))->name('cart.not_logged_in');

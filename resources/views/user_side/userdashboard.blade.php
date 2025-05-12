@@ -30,15 +30,15 @@
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-gray-600">Name</span>
-              <span id="displayName" class="text-gray-900 font-medium"></span>
+              <span id="displayName" class="text-gray-900 font-medium">{{ $customer->firstname }} {{ $customer->lastname }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-gray-600">Email</span>
-              <span id="displayEmail" class="text-gray-900 font-medium"></span>
+              <span id="displayEmail" class="text-gray-900 font-medium">{{ $customer->email }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-gray-600">Phone Number</span>
-              <span id="displayPhone" class="text-gray-900 font-medium"></span>
+              <span id="displayPhone" class="text-gray-900 font-medium">{{ $customer->phone }}</span>
             </div>
           </div>
         </div>
@@ -71,6 +71,7 @@
       <div class="col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2 w-full">
         <h2 class="text-xl font-poppins font-semibold text-left">Order History</h2>
         <div class="space-y-4 font-dm-sans">
+          <!-- Sample Static Items -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3 relative">
               <div class="relative">
@@ -81,28 +82,7 @@
             </div>
             <p class="text-sm font-semibold">P145</p>
           </div>
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Tea Chest Jubilee Petite Pyramid.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">2</span>
-              </div>
-              <p class="text-sm text-left w-[150px]">Tea Chest Jubilee Petite Pyramid</p>
-            </div>
-            <p class="text-sm font-semibold">P1270</p>
-          </div>
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Tropical Mango and Passionfruit Cookie.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
-              </div>
-              <p class="text-sm text-left w-[150px]">Tropical Mango and Passionfruit Cookie</p>
-            </div>
-            <p class="text-sm font-semibold">P85</p>
-          </div>
+          <!-- Repeat sample as needed -->
         </div>
         <div class="mt-6 flex justify-end">
           <form method="POST" action="{{ route('logout') }}">
@@ -114,8 +94,8 @@
     </div>
   </main>
 
-  <!-- Popups -->
-  <div id="popup" class="fixed inset-0 flex items-center justify-center hidden">
+  <!-- Edit Profile Popup -->
+  <div id="popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg">
       <h3 class="text-xl font-semibold mb-4">Edit Profile</h3>
       <form id="editProfileForm" onsubmit="updateProfile(event)">
@@ -139,6 +119,7 @@
     </div>
   </div>
 
+  <!-- Change Password Popup -->
   <div id="passwordPopup" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg">
       <h3 class="text-xl font-semibold mb-4">Change Password</h3>
@@ -159,6 +140,7 @@
     </div>
   </div>
 
+  <!-- Delete Account Popup -->
   <div id="deletePopup" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg text-center">
       <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete your account?</h3>
@@ -170,11 +152,17 @@
   </div>
 
   <script>
+    const customerData = {
+      name: @json($customer->firstname . ' ' . $customer->lastname),
+      email: @json($customer->email),
+      phone: @json($customer->phone)
+    };
+
     function showPopup() {
       document.getElementById('popup').classList.remove('hidden');
-      document.getElementById('name').value = document.getElementById('displayName').textContent;
-      document.getElementById('email').value = document.getElementById('displayEmail').textContent;
-      document.getElementById('phone').value = document.getElementById('displayPhone').textContent;
+      document.getElementById('name').value = customerData.name;
+      document.getElementById('email').value = customerData.email;
+      document.getElementById('phone').value = customerData.phone;
     }
 
     function closePopup() {
