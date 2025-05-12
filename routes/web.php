@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
 
     Route::get('/employee/dashboard', fn() => view('pages.employeedashboard'))->name('employee.dashboard');
+    
     Route::get('/user/dashboard', fn() => view('user_side.userdashboard'))->name('user.dashboard');
 });
 
