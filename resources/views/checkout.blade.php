@@ -80,7 +80,7 @@
             <div class="col-span-9 flex flex-col items-start gap-2">
               <div class="flex items-center gap-2">
                 @if($paymentDetails && $paymentDetails->card_image)
-                  <img src="{{ asset($paymentDetails->card_image) }}" alt="{{ $paymentDetails->name }}" class="flex-1 min-w-0 h-10 bg-white rounded-lg shadow-md flex items-center justify-center">
+                  <img src="{{ asset($paymentDetails->card_image) }}" alt="{{ $paymentDetails->name }}" class="flex-1 min-w-0 h-8 bg-white rounded-lg shadow-md flex items-center justify-center">
                 @endif
                 <p class="text-lg font-semibold text-gray-800 text-left">
                   {{ $paymentDetails->name ?? 'No Payment Method Selected' }}
