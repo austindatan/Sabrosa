@@ -159,7 +159,9 @@ class CheckoutController extends Controller
         $user = Auth::user();
         $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
 
-        $cartItems = CartItem::where('customer_ID', $customer->customer_ID)->get();
+        $cartItems = CartItem::where('customer_ID', $customer->customer_ID)
+                            ->where('item_status', 'Pending') // Only process pending items
+                            ->get();
 
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart')->with('error', 'Your cart is empty.');
@@ -191,6 +193,11 @@ class CheckoutController extends Controller
                 'date' => now(),
             ]);
         }
+
+        // ✅ Mark cart items as Completed
+        CartItem::where('customer_ID', $customer->customer_ID)
+                ->where('item_status', 'Pending')
+                ->update(['item_status' => 'Completed']);
 
         return redirect()->route('transaction');
     }

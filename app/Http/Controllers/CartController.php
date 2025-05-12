@@ -40,6 +40,7 @@ class CartController extends Controller
                 'product_details_ID' => $request->product_details_ID,
                 'quantity' => $request->quantity,
                 'date_Added' => now(),
+                'item_status' => 'Pending',
             ]);
         }
 
@@ -56,6 +57,7 @@ class CartController extends Controller
 
         $cartItems = CartItem::with(['productDetail.product'])
             ->where('customer_ID', $customer->customer_ID)
+            ->where('item_status', 'Pending') // 🔥 Only show pending items
             ->get();
 
         return view('cart', ['cartItems' => collect($cartItems)]);

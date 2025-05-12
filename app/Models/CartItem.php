@@ -15,6 +15,7 @@ class CartItem extends Model
         'product_details_ID',
         'quantity',
         'date_Added',
+        'item_status',
     ];
 
     /**
