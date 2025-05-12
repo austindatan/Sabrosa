@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CartItem;
 use App\Models\Customer;
+use App\Models\ProductDetail;
 
 class CartController extends Controller
 {
@@ -44,7 +45,10 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', '✅ Item successfully added to cart!');
+        $productDetail = ProductDetail::with('product')->find($request->product_details_ID);
+        $productName = $productDetail->product->name ?? 'Product';
+
+        return redirect()->back()->with('success', '' . $productName . ' successfully added to cart!');
     }
 
     /**
