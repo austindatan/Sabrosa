@@ -19,16 +19,6 @@
           <h2 class="text-2xl font-bold text-right font-poppins">Review and Pay</h2>
         </div>
 
-        @php
-            $customer = \App\Models\Customer::where('user_account_ID', Auth::user()->user_account_ID)->first();
-            $cartItems = \App\Models\CartItem::where('customer_ID', optional($customer)->customer_ID)->with('productDetail.product')->get();
-            $subtotal = $cartItems->sum(fn($item) => optional($item->productDetail->product)->price * $item->quantity);
-            $shippingFee = 50;
-            $paymentDetails = optional($customer)->paymentMethod;
-            $shippingMethods = \App\Models\Shipping::all();
-            $selectedPayment = request('payment_method_ID');
-        @endphp
-
         <!-- Email -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <div class="grid grid-cols-12 gap-x-4 font-dm-sans items-start">
@@ -97,6 +87,7 @@
         <button type="submit" class="block text-center w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded transition duration-200 font-dm-sans">Complete Purchase</button>
       </div>
 
+      <!-- Toggle Order Summary Button (Mobile) -->
       <button
         type="button"
         id="toggle-order-summary"
@@ -105,6 +96,7 @@
         Toggle Order Summary
       </button>
 
+      <!-- Order Summary -->
       <div
         id="orderSummary"
         class="bg-gray-100 p-6 rounded-lg order-1 lg:order-2 hidden lg:block mt-0"
@@ -142,7 +134,7 @@
 
         <div class="flex justify-between text-lg font-bold border-t pt-4">
           <span class="font-poppins">Total</span>
-          <span class="font-poppins" data-total-amount>₱{{ number_format($subtotal + $shippingFee) }}</span>
+          <span class="font-poppins" data-total-amount>₱{{ number_format($totalAmount) }}</span>
         </div>
 
         <p class="text-sm text-gray-500 text-right font-dm-sans">
@@ -162,7 +154,7 @@
     const shippingAmountLabel = document.querySelector('[data-shipping-amount]');
     const totalAmountLabel = document.querySelector('[data-total-amount]');
     const baseSubtotal = {{ $subtotal }};
-    const baseShipping = 50;
+    const baseShipping = {{ $shippingFee }};
 
     function updateDeliveryInfo() {
       const selected = dropdown.options[dropdown.selectedIndex];
