@@ -68,18 +68,18 @@ class CartController extends Controller
     public function update(Request $request, CartItem $cartItem, $action)
     {
         if (!$cartItem) {
-            return redirect()->back()->with('error', '❌ Cart item not found.');
+            return redirect()->back()->with('error', ' Cart item not found.');
         }
 
         if ($action === 'increase') {
             $cartItem->increment('quantity');
-            return redirect()->back()->with('success', '✅ Item quantity increased.');
+            return redirect()->back()->with('success', ' Item quantity increased.');
         } elseif ($action === 'decrease' && $cartItem->quantity > 1) {
             $cartItem->decrement('quantity');
-            return redirect()->back()->with('success', '✅ Item quantity decreased.');
+            return redirect()->back()->with('success', ' Item quantity decreased.');
         }
 
-        return redirect()->back()->with('error', '⚠️ Unable to update cart item.');
+        return redirect()->back()->with('error', ' Unable to update cart item.');
     }
 
     /**
@@ -88,10 +88,10 @@ class CartController extends Controller
     public function remove(CartItem $cartItem)
     {
         if (!$cartItem) {
-            return redirect()->back()->with('error', '❌ Cart item not found.');
+            return redirect()->back()->with('error', ' Cart item not found.');
         }
 
         $cartItem->delete();
-        return redirect()->back()->with('success', '🗑️ Item successfully removed from cart.');
+        return redirect()->back()->with('success', ' Item successfully removed from cart.');
     }
 }
