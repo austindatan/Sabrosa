@@ -78,22 +78,6 @@ class CheckoutController extends Controller
         ));
     }
 
-    public function updateCustomer(Request $request)
-    {
-        $user = Auth::user();
-        $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
-
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
-            'last_name'  => 'required|string|max:100',
-            'email'      => 'required|email|max:255',
-        ]);
-
-        $customer->update($validated);
-
-        return redirect()->route('delivery')->with('success', 'Customer info updated successfully.');
-    }
-
     public function storePaymentMethod(Request $request)
     {
         $request->validate([
