@@ -26,18 +26,36 @@ class UserController extends Controller
             'city' => 'required|string|max:255',
             'province' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
         ]);
 
         $customer = Customer::findOrFail($id);
         $customer->update($request->only([
             'street', 'barangay', 'city', 'province', 'country',
-            'email', 'phone', 'company'
+            'company'
         ]));
 
         return redirect()->route('user.dashboard')->with('success', 'Customer updated successfully!');
+    }
+
+    public function updateProfilePopup(Request $request, $id)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:255',
+        ]);
+
+        $customer = Customer::findOrFail($id);
+        $customer->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+
+        return redirect()->route('user.dashboard')->with('success', 'Profile updated successfully!');
     }
 
 }

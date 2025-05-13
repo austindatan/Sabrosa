@@ -49,7 +49,7 @@
       <div>
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
           <h3 class="text-md font-semibold">Address</h3>
-          @foreach(['street', 'barangay', 'city', 'province', 'country', 'email', 'phone', 'company'] as $field)
+          @foreach(['street', 'barangay', 'city', 'province', 'country', 'company'] as $field)
             <div class="relative">
               <input type="text" id="{{ $field }}" name="{{ $field }}" value="{{ old($field, $customer->$field) }}"
                 class="peer mb-4 w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -121,24 +121,33 @@
   <div id="popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg">
       <h3 class="text-xl font-semibold mb-4">Edit Profile</h3>
-      <form id="editProfileForm" onsubmit="updateProfile(event)">
-        <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-          <input type="text" id="name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="mb-4">
-          <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-          <input type="text" id="phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="flex justify-between">
-          <button type="button" onclick="closePopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
-          <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md">Save</button>
-        </div>
-      </form>
+      <form id="editProfileForm" action="{{ route('user.updatePopup', $customer->customer_ID) }}" method="POST">
+  @csrf
+  <div class="mb-4">
+    <label for="firstname" class="block text-sm font-medium text-gray-700">First Name</label>
+    <input type="text" id="firstname" name="firstname" value="{{ old('firstname', $customer->firstname) }}"
+           class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+  </div>
+  <div class="mb-4">
+    <label for="lastname" class="block text-sm font-medium text-gray-700">Last Name</label>
+    <input type="text" id="lastname" name="lastname" value="{{ old('lastname', $customer->lastname) }}"
+           class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+  </div>
+  <div class="mb-4">
+    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+    <input type="email" id="email" name="email" value="{{ old('email', $customer->email) }}"
+           class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+  </div>
+  <div class="mb-4">
+    <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+    <input type="text" id="phone" name="phone" value="{{ old('phone', $customer->phone) }}"
+           class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+  </div>
+  <div class="flex justify-between">
+    <button type="button" onclick="closePopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+    <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md">Save</button>
+  </div>
+</form>
     </div>
   </div>
 

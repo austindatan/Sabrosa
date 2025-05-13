@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/user/dashboard', [UserController::class, 'user_dashboard'])->name('user.dashboard');
     Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/user/update-popup/{id}', [UserController::class, 'updateProfilePopup'])->name('user.updatePopup');
+
 });
 
 Route::get('/cart-not-logged-in', fn() => view('pages.cart_not_logged_in'))->name('cart.not_logged_in');
