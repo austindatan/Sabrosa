@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/addproduct', [AdminController::class, 'storeProduct'])->name('admin.storeProduct');
     Route::get('/admin/employees', [AdminController::class, 'admin_employees'])->name('admin.employees');
     Route::get('/admin/addemployees', [AdminController::class, 'admin_addemployees'])->name('admin.addemployees');
+    Route::post('/admin/addemployees', [AdminController::class, 'storeEmployees'])->name('admin.storeEmployees');
     Route::get('/admin/handleusers', [AdminController::class, 'admin_handleusers'])->name('admin.handleusers');
     Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
 
@@ -102,3 +103,4 @@ Route::middleware(['auth', 'can:manage-users'])->group(function () {
 
 Route::view('/tos', 'tos');
 Route::view('/privacy', 'privacy');
+

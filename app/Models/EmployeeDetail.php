@@ -9,6 +9,8 @@ class EmployeeDetail extends Model
     protected $table = 'employee_details';
     protected $primaryKey = 'employee_details_ID';
     public $timestamps = false;
+    
+    protected $fillable = ['employee_ID', 'employee_positions_ID'];
 
     public function employee()
     {
