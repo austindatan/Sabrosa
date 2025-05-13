@@ -44,16 +44,39 @@
         </div>
 
         <!-- Addresses -->
+    <form action="{{ route('user.update', $customer->customer_ID) }}" method="POST" class="space-y-6">
+    @csrf
+      <div>
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-md font-semibold">Addresses</h3>
-            <button class="text-sm text-blue-600 hover:underline font-medium">+ Add</button>
+          <h3 class="text-md font-semibold">Address</h3>
+          @foreach(['street', 'barangay', 'city', 'province', 'country', 'email', 'phone', 'company'] as $field)
+            <div class="relative">
+              <input type="text" id="{{ $field }}" name="{{ $field }}" value="{{ old($field, $customer->$field) }}"
+                class="peer mb-4 w-full border border-gray-300 rounded px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                readonly style="background-color: white; cursor: not-allowed;" />
+              <label for="{{ $field }}"
+                class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-focus:top-2 peer-focus:text-sm peer-focus:text-pink-500">
+                {{ ucwords(str_replace('_', ' ', $field)) }} {{ in_array($field, ['phone', 'company']) ? '(Optional)' : '' }}
+              </label>
+              <button type="button" onclick="toggleEdit('{{ $field }}')"
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-pink-500 text-lg transition duration-200 ease-in-out 
+                hover:bg-pink-200 hover:rounded-lg hover:px-1 hover:text-pink-700 
+                active:bg-pink-500 active:text-white cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                </svg>
+              </button>
+            </div>
+          @endforeach
+          <div class="text-right">
+            <button type="submit"
+              class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-md text-lg font-semibold">
+              Save Changes
+            </button>
           </div>
-          <div class="border border-dashed border-gray-300 p-4 rounded-md text-gray-500 flex items-center gap-2">
-            <span>ℹ️</span>
-            <span>No addresses added</span>
-          </div>
-        </div>
+        </form>
+      </div>
+    </div>
 
         <!-- Settings -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
@@ -203,6 +226,32 @@
       alert("Account deleted.");
       closeDeletePopup();
     }
+
+    function toggleEdit(fieldId) {
+        let field = document.getElementById(fieldId);
+        let button = document.getElementById("btn-" + fieldId);
+
+        if (field.readOnly) {
+            field.readOnly = false;
+            field.style.backgroundColor = "#FFF8F8"; // ✅ Highlight when editable
+            field.style.cursor = "text";
+            button.style.backgroundColor = "#E55182"; 
+            button.style.color = "bg-pink-100"; // ✅ Active effect
+            field.dataset.previousValue = field.value; // ✅ Store previous value before editing
+        } else {
+            field.readOnly = true;
+            field.style.backgroundColor = "white"; 
+            field.style.cursor = "not-allowed"; 
+            button.style.backgroundColor = "transparent";
+            button.style.color = "#E55182"; 
+
+            // ✅ Ensure field doesn't revert back to original value
+            if (field.value !== field.dataset.previousValue) {
+                document.getElementById("save-form").dataset.edited = "true";
+            }
+        }
+    }
+
   </script>
 </body>
 </html>

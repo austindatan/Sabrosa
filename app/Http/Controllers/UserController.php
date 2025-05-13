@@ -17,4 +17,27 @@ class UserController extends Controller
 
         return view('user_side.userdashboard', compact('customer'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'street' => 'required|string|max:255',
+            'barangay' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+        ]);
+
+        $customer = Customer::findOrFail($id);
+        $customer->update($request->only([
+            'street', 'barangay', 'city', 'province', 'country',
+            'email', 'phone', 'company'
+        ]));
+
+        return redirect()->route('user.dashboard')->with('success', 'Customer updated successfully!');
+    }
+
 }
