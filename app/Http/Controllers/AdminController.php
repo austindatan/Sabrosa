@@ -106,5 +106,43 @@ class AdminController extends Controller
     }
 
 
+
+
+
+     public function storeEmployees(Request $request)
+    {
+    $validated = $request->validate([
+        'firstName' => 'required|string|max:255',
+        'middleName' => 'nullable|string',
+        'lastName' => 'nullable|string',
+        'street' => 'required|string',
+        'city' => 'nullable|string',
+        'province' => 'nullable|string',
+        'country' => 'nullable|string',
+    ]);
+
+
+    // Create product
+    $employee = \App\Models\Employee::create([
+        'firstname' => $validated['firstName']??null,
+        'middlename' => $validated['middleName'] ?? null,
+        'lastname' => $validated['lastName'] ?? null,
+        'street' => $validated['street']?? null,
+        'city' => $validated['city'] ?? null,
+        'province' => $validated['city'] ?? null,
+        'country' => $validated['country'] ?? null,
+    ]);
+
+    // Create product detail
+    EmployeeDetail::create([
+        'employee_details_ID' => $employee->employee_ID,
+        'employee_ID' => $validated['employee_ID'] ?? null,
+        'employee_positions_ID ' => $validated['employee_positions_ID'] ?? null,
+    ]);
+
+    return redirect()->route('admin.addemployees')->with('success', 'Employee added successfully!');
+    }
+
+
 }
 

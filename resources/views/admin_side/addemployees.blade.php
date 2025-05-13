@@ -13,7 +13,8 @@
       <div class="flex justify-between items-center mb-4 gap-24">
         <h2 class="text-2xl font-bold text-right font-poppins">Add Employee</h2>
       </div>
-
+    <form method="POST" action="{{ route('admin.storeEmployees') }}" enctype="multipart/form-data">
+      @csrf
     <div class="mb-5 flex flex-row gap-4">
       <div class="flex flex-col w-1/3">
         <label for="firstName" class="font-semibold mb-2 font-poppins">First Name
@@ -62,20 +63,17 @@
 
         
       <div class="mb-5 flex flex-col">
-        <label for="position" class="font-semibold mb-2 font-poppins">Position <span class="text-red-500">*</span></label>
-        <input type="text" id="position" required name="position"class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]"placeholder="Enter position">
-      </div>
-
-
-        <div class="mb-5 flex flex-col">
-          <label for="jobDescription" class="font-semibold mb-2 font-poppins">Job Description</label>
-          <textarea id="jobDescription" name="jobDescription" rows="4" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]" placeholder="Enter job description"></textarea>
-        </div>
-
-        <div class="mb-5 flex flex-col">
-          <label for="salaryGrade" class="font-semibold mb-2 font-poppins">Salary Grade</label>
-          <input type="text" id="salaryGrade" name="salaryGrade" step="1" class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]" placeholder="Enter salary grade">
-        </div>
+        <label for="position" class="font-semibold mb-2 font-poppins">Position<span class="text-red-500">*</span></label>
+        <select id="position" name="position" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+          <option value="">Select a position</option>
+          <option value="1">Delivery Rider</option>
+          <option value="2">Customer Support Representative</option>
+          <option value="3">Web Developer (Frontend/Backend)</option>
+          <option value="4">Product Manager</option>
+          <option value="5">Logistics Coordinator</option>
+          <option value="6">Data Analyst</option>
+          <option value="7">Marketing Specialist</option>
+        </select>
 
         <button type="button" id="addEmployeeBtn" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
           Add Employee
