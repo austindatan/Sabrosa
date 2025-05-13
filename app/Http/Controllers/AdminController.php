@@ -105,11 +105,7 @@ class AdminController extends Controller
     return redirect()->route('admin.productlist')->with('success', 'Product added successfully!');
     }
 
-
-
-
-
-     public function storeEmployees(Request $request)
+    public function storeEmployees(Request $request)
     {
     $validated = $request->validate([
         'firstName' => 'required|string|max:255',
@@ -119,10 +115,9 @@ class AdminController extends Controller
         'city' => 'nullable|string',
         'province' => 'nullable|string',
         'country' => 'nullable|string',
+        'employee_positions_id' => 'nullable|integer',
     ]);
 
-
-    // Create product
     $employee = \App\Models\Employee::create([
         'firstname' => $validated['firstName']??null,
         'middlename' => $validated['middleName'] ?? null,
@@ -133,12 +128,11 @@ class AdminController extends Controller
         'country' => $validated['country'] ?? null,
     ]);
 
-    // Create product detail
     EmployeeDetail::create([
-        'employee_details_ID' => $employee->employee_ID,
-        'employee_ID' => $validated['employee_ID'] ?? null,
-        'employee_positions_ID ' => $validated['employee_positions_ID'] ?? null,
+        'employee_ID' => $employee->employee_ID, // use the value from the newly created employee
+        'employee_positions_ID' => $validated['employee_positions_id'] ?? null, // fix key casing and spacing
     ]);
+
 
     return redirect()->route('admin.addemployees')->with('success', 'Employee added successfully!');
     }

@@ -62,9 +62,9 @@
         </div>
 
         
-      <div class="mb-5 flex flex-col">
-        <label for="position" class="font-semibold mb-2 font-poppins">Position<span class="text-red-500">*</span></label>
-        <select id="position" name="position" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+      <div class="mb-5 flex flex-col mb-16">
+        <label for="employee_positions_id" class="font-semibold mb-2 font-poppins">Position<span class="text-red-500">*</span></label>
+        <select id="employee_positions_id" name="employee_positions_id" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
           <option value="">Select a position</option>
           <option value="1">Delivery Rider</option>
           <option value="2">Customer Support Representative</option>
@@ -75,7 +75,7 @@
           <option value="7">Marketing Specialist</option>
         </select>
 
-        <button type="button" id="addEmployeeBtn" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
+        <button type="button" id="addEmployeeBtn" class="mt-5 font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-white px-6 py-3 text-base rounded-lg font-medium transition-colors">
           Add Employee
         </button>
       </form>
