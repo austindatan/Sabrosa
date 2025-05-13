@@ -10,6 +10,8 @@ class ProductDetail extends Model
     protected $primaryKey = 'product_details_ID';
     public $timestamps = false;
 
+    protected $fillable = ['name', 'price', 'product_ID', 'category_id', 'store_id', 'supplier_id'];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_ID', 'product_ID');

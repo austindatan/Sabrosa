@@ -16,7 +16,7 @@
       <h2 class="text-2xl font-bold text-right font-poppins">Add Product</h2>
     </div>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.storeProduct') }}" enctype="multipart/form-data">
       @csrf
       <div class="mb-8">
         <h3 class="text-xl font-semibold mb-4 font-poppins">Product Images</h3>
@@ -70,35 +70,36 @@
       </div>
 
       <div class="mb-5 flex flex-col">
-        <label for="productBrand" class="font-semibold mb-2 font-poppins">Brand <span class="text-red-500">*</span></label>
-        <select id="productBrand" name="productBrand" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+        <label for="store_id" class="font-semibold mb-2 font-poppins">Brand <span class="text-red-500">*</span></label>
+        <select id="store_id" name="store_id" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
           <option value="">Select a brand</option>
-          <option value="Sweets Paradise">Sweets Paradise</option>
-          <option value="Byron Bay">Byron Bay</option>
-          <option value="Krispy Kreme">Krispy Kreme</option>
-          <option value="Olipop">Olipop</option>
-          <option value="Tea Forte">Tea Forte</option>
-          <option value="Compartes">Compartes</option>
-          <option value="Sugarfina">Sugarfina</option>
-          <option value="Chobani">Chobani</option>
-          <option value="Laduree">Laduree</option>
-          <option value="Bluestar">Bluestar</option>
-          <option value="Graze">Graze</option>
-          <option value="Granblue Kitchen">Granblue Kitchen</option>
+          <option value="10">Sweets Paradise</option>
+          <option value="1">Byron Bay</option>
+          <option value="6">Krispy Kreme</option>
+          <option value="11">Olipop</option>
+          <option value="12">Tea Forte</option>
+          <option value="7">Compartes</option>
+          <option value="9">Sugarfina</option>
+          <option value="8">Chobani</option>
+          <option value="3">Laduree</option>
+          <option value="4">Bluestar</option>
+          <option value="5">Bluestar</option>
+          <option value="2">Graze</option>
+          <option value="13">Granblue Kitchen</option>
         </select>
 
         <div class="mb-5 flex flex-col mt-4">
-        <label for="productBrand" class="font-semibold mb-2 font-poppins">Category <span class="text-red-500">*</span></label>
-        <select id="productBrand" name="productBrand" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
-          <option value="">Select a category</option>
-          <option value="cookies">Cookies</option>
-          <option value="donuts">Donuts</option>
-          <option value="cakes & chocolates">Cakes & Chocolates</option>
-          <option value="drinks & tea">Drinks & Tea</option>
-          <option value="meals">Meals</option>
-          <option value="we also have!">We also have!</option>
-        </select>
-      </div>
+          <label for="category_id" class="font-semibold mb-2 font-poppins">Category <span class="text-red-500">*</span></label>
+          <select id="category_id" name="category_id" required class="font-dm-sans p-2.5 border border-gray-300 rounded-lg text-sm bg-white text-[#4d2c3d] focus:outline-none focus:border-[#f8c9d8]">
+            <option value="">Select a category</option>
+            <option value="1">Cookies</option>
+            <option value="2">Donuts</option>
+            <option value="3">Cakes & Chocolates</option>
+            <option value="4">Drinks & Tea</option>
+            <option value="5">Meals</option>
+            <option value="6">We Also Have!</option>
+          </select>
+        </div>
       </div>
 
       <div class="mb-5 flex flex-col">
