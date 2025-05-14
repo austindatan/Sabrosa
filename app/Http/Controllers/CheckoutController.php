@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\Customer;
 use App\Models\Shipping;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\DB;
 
@@ -174,6 +175,20 @@ class CheckoutController extends Controller
                 'transaction_id' => $transactionID,
                 'date' => now(),
             ]);
+
+            // ✅ Get the correct product_ID from product_details table
+            $productDetails = DB::table('product_details')
+                                ->where('product_details_ID', $item->product_details_ID)
+                                ->first();
+
+            if (!$productDetails) {
+                return redirect()->route('cart')->with('error', 'Product details not found.');
+            }
+
+            // ✅ Deduct stock_quantity for the corresponding product
+            DB::table('product')
+                ->where('product_ID', $productDetails->product_ID)
+                ->decrement('stock_quantity', $item->quantity);
         }
 
         // ✅ Mark cart items as Completed

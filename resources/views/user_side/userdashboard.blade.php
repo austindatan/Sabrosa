@@ -48,7 +48,7 @@
     @csrf
       <div>
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <h3 class="text-md font-semibold">Address</h3>
+          <h3 class="text-lg text-left font-semibold mb-4">Address</h3>
           @foreach(['street', 'barangay', 'city', 'province', 'country', 'company'] as $field)
             <div class="relative">
               <input type="text" id="{{ $field }}" name="{{ $field }}" value="{{ old($field, $customer->$field) }}"
@@ -59,7 +59,7 @@
                 {{ ucwords(str_replace('_', ' ', $field)) }} {{ in_array($field, ['phone', 'company']) ? '(Optional)' : '' }}
               </label>
               <button type="button" onclick="toggleEdit('{{ $field }}')"
-                class="absolute right-2 top-1/2 -translate-y-1/2 text-pink-500 text-lg transition duration-200 ease-in-out 
+                class="absolute right-2 top-1/4 -translate-y-1/2 text-pink-500 text-lg transition duration-200 ease-in-out 
                 hover:bg-pink-200 hover:rounded-lg hover:px-1 hover:text-pink-700 
                 active:bg-pink-500 active:text-white cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -121,6 +121,7 @@
   <div id="popup" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg">
       <h3 class="text-xl font-semibold mb-4">Edit Profile</h3>
+
       <form id="editProfileForm" action="{{ route('user.updatePopup', $customer->customer_ID) }}" method="POST">
   @csrf
   <div class="mb-4">
@@ -155,20 +156,39 @@
   <div id="passwordPopup" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg">
       <h3 class="text-xl font-semibold mb-4">Change Password</h3>
-      <form id="changePasswordForm" onsubmit="submitPasswordChange(event)">
-        <div class="mb-4">
-          <label for="currentPassword" class="block text-sm font-medium text-gray-700">Current Password</label>
-          <input type="password" id="currentPassword" name="currentPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
-        </div>
-        <div class="mb-4">
-          <label for="newPassword" class="block text-sm font-medium text-gray-700">New Password</label>
-          <input type="password" id="newPassword" name="newPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
-        </div>
-        <div class="flex justify-between">
-          <button type="button" onclick="closePasswordPopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
-          <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md">Change</button>
-        </div>
-      </form>
+
+      <form method="POST" action="{{ route('user.change') }}">
+  @csrf
+                <!-- ✅ Username Field -->
+                <div class="w-full mb-5">
+                    <label for="username" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> Username </label>
+                    <input type="text" id="username" name="username" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
+                </div>
+
+                <!-- ✅ Email Field -->
+                <div class="w-full mb-5">
+                    <label for="email" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> Email </label>
+                    <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
+                </div>
+
+                <!-- ✅ New Password Field -->
+                <div class="w-full mb-5">
+                    <label for="password" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> New Password </label>
+                    <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
+                </div>
+
+                <!-- ✅ Confirm Password Field -->
+                <div class="w-full mb-5">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> Confirm Password </label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
+                </div>
+
+
+  <div class="flex justify-between">
+    <button type="button" onclick="closePasswordPopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+    <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md">Change</button>
+  </div>
+</form>
     </div>
   </div>
 

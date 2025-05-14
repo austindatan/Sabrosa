@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\ProductDetail;
 use App\Models\EmployeeDetail;
 use App\Models\Customer;
+
+
 
 class UserController extends Controller
 {
@@ -56,6 +59,33 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('user.dashboard')->with('success', 'Profile updated successfully!');
+    }
+
+   public function change(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        // ✅ Locate user
+        $user = DB::table('user_account')
+                  ->where('email', $request->email)
+                  ->where('username', $request->username)
+                  ->first();
+
+        if (!$user) {
+            return back()->withErrors(['error' => 'No matching user found']);
+        }
+
+        // ✅ Update password
+        DB::table('user_account')
+            ->where('email', $request->email)
+            ->where('username', $request->username)
+            ->update(['password' => Hash::make($request->password)]);
+
+        return redirect()->route('user.dashboard')->with('success', 'Your password has been updated successfully.');
     }
 
 }

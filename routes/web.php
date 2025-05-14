@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/dashboard', [UserController::class, 'user_dashboard'])->name('user.dashboard');
         Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
         Route::post('/user/update-popup/{id}', [UserController::class, 'updateProfilePopup'])->name('user.updatePopup');
+        Route::post('/user/update-password', [UserController::class, 'change'])->name('user.change');
     });
 
     // Employee Routes
