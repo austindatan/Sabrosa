@@ -9,9 +9,9 @@ class Shipping extends Model
 {
     use HasFactory;
 
-    protected $table = 'shipping'; // Define correct table name
+    protected $table = 'shipping';
 
-    protected $primaryKey = 'shipping_ID'; // Define primary key
+    protected $primaryKey = 'shipping_ID';
 
-    protected $fillable = ['shipping_method', 'delivery_time']; // Mass assignable fields
+    protected $fillable = ['shipping_method', 'delivery_time'];
 }

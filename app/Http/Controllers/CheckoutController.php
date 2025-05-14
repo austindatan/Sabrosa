@@ -21,7 +21,7 @@ class CheckoutController extends Controller
 
         $cartItems = CartItem::with(['productDetail.product'])
             ->where('customer_ID', $customer->customer_ID)
-            ->where('item_status', 'Pending') // Make sure this is filtered
+            ->where('item_status', 'Pending')
             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -95,7 +95,7 @@ class CheckoutController extends Controller
         $user = Auth::user();
         $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
 
-        // Get only cart items that were part of the specified transaction
+
         $orderCartItemIDs = DB::table('orders')
             ->where('transaction_id', $transaction_id)
             ->pluck('cart_item_ID');
@@ -143,7 +143,7 @@ class CheckoutController extends Controller
         $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
 
         $cartItems = CartItem::where('customer_ID', $customer->customer_ID)
-                            ->where('item_status', 'Pending') // Only process pending items
+                            ->where('item_status', 'Pending')
                             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -158,7 +158,7 @@ class CheckoutController extends Controller
 
         session(['shipping_method_id' => $shipping->shipping_ID]);
 
-        // Generate token and store in session
+
         $transactionToken = strtoupper(bin2hex(random_bytes(5)));
         session(['transaction_token' => $transactionToken]);
 
@@ -176,7 +176,7 @@ class CheckoutController extends Controller
                 'date' => now(),
             ]);
 
-            // ✅ Get the correct product_ID from product_details table
+
             $productDetails = DB::table('product_details')
                                 ->where('product_details_ID', $item->product_details_ID)
                                 ->first();
@@ -185,13 +185,13 @@ class CheckoutController extends Controller
                 return redirect()->route('cart')->with('error', 'Product details not found.');
             }
 
-            // ✅ Deduct stock_quantity for the corresponding product
+
             DB::table('product')
                 ->where('product_ID', $productDetails->product_ID)
                 ->decrement('stock_quantity', $item->quantity);
         }
 
-        // ✅ Mark cart items as Completed
+
         CartItem::where('customer_ID', $customer->customer_ID)
                 ->where('item_status', 'Pending')
                 ->update(['item_status' => 'Completed']);

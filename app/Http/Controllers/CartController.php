@@ -24,7 +24,7 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Customer not found.');
         }
 
-        // ✅ Only check for cart items that are still pending
+
         $cartItem = CartItem::where([
             'customer_ID' => $customer->customer_ID,
             'product_details_ID' => $request->product_details_ID,
@@ -56,7 +56,7 @@ class CartController extends Controller
 
         $cartItems = CartItem::with(['productDetail.product'])
             ->where('customer_ID', $customer->customer_ID)
-            ->where('item_status', 'Pending') // 🔥 Only show pending items
+            ->where('item_status', 'Pending')
             ->get();
 
         return view('cart', ['cartItems' => collect($cartItems)]);

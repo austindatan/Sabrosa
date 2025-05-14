@@ -25,13 +25,13 @@ class Product extends Model
     'date_Added',
     ];
 
-    // Relationship to ProductDetail
+
     public function productDetail()
     {
         return $this->hasOne(ProductDetail::class, 'product_ID', 'product_ID');
     }
 
-    // Ensure route binding uses correct primary key
+
     public function getRouteKeyName()
     {
         return 'product_ID';

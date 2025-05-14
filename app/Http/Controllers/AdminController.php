@@ -69,7 +69,6 @@ class AdminController extends Controller
         'supplier_id' => 'nullable|integer',
     ]);
 
-    // Handle image uploads with original filename + timestamp
     $photo1Path = null;
     $photo2Path = null;
 
@@ -87,7 +86,7 @@ class AdminController extends Controller
         $photo2Path = 'products/' . $photo2Name;
     }
 
-    // Create product
+
     try {
     $product = \App\Models\Product::create([
         'name' => $validated['productName'],
@@ -103,7 +102,6 @@ class AdminController extends Controller
         dd('Error creating product:', $e->getMessage());
     }
 
-    // Create product detail
     ProductDetail::create([
         'product_ID' => $product->product_ID,
         'category_id' => $validated['category_id'] ?? null,
@@ -138,8 +136,8 @@ class AdminController extends Controller
     ]);
 
     EmployeeDetail::create([
-        'employee_ID' => $employee->employee_ID, // use the value from the newly created employee
-        'employee_positions_ID' => $validated['employee_positions_id'] ?? null, // fix key casing and spacing
+        'employee_ID' => $employee->employee_ID, 
+        'employee_positions_ID' => $validated['employee_positions_id'] ?? null, 
     ]);
 
 
@@ -160,13 +158,13 @@ class AdminController extends Controller
         $product = Product::findOrFail($productId);
         $productDetail = ProductDetail::where('product_ID', $productId)->firstOrFail();
 
-        // Update product fields
+        
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
         $product->stock_quantity = $request->input('stock_quantity');
 
-        // Handle image_URL upload (product_sprites)
+        
         if ($request->hasFile('image_URL')) {
             $file = $request->file('image_URL');
             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
@@ -180,7 +178,6 @@ class AdminController extends Controller
             $product->image_URL = 'images/product/product_sprites/' . $filename;
         }
 
-        // Handle image_display upload (product_display)
         if ($request->hasFile('image_display')) {
             $file = $request->file('image_display');
             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
@@ -196,7 +193,7 @@ class AdminController extends Controller
 
         $product->save();
 
-        // Update category and store relation
+        
         $productDetail->category_ID = $request->input('category_ID');
         $productDetail->store_ID = $request->input('store_ID');
         $productDetail->save();
@@ -208,7 +205,7 @@ class AdminController extends Controller
     {
         $product = Product::findOrFail($productId);
 
-        // Optionally delete related product details
+        
         ProductDetail::where('product_ID', $productId)->delete();
 
         $product->delete();

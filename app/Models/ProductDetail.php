@@ -36,7 +36,7 @@ class ProductDetail extends Model
 
     public function orderHistory()
     {
-        $userId = Auth::id(); // Retrieves from user_account (as default auth table)
+        $userId = Auth::id();
 
         $products = DB::table('transaction')
             ->join('orders', 'transaction.transaction_id', '=', 'orders.transaction_id')

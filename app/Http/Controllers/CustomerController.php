@@ -1,6 +1,6 @@
 <?php
 
-// app/Http/Controllers/CustomerController.php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +16,14 @@ class CustomerController extends Controller
 
         $customer = Customer::where('user_account_ID', $user->user_account_ID)->firstOrFail();
 
-        // ✅ Retrieve cart items linked to the customer
+
         $cartItems = CartItem::where('customer_ID', $customer->customer_ID)
                             ->with('productDetail.product')
                             ->get();
 
-        // ✅ Calculate totals
+
         $subtotal = $cartItems->sum(fn($item) => optional($item->productDetail->product)->price * $item->quantity);
-        $shippingFee = 50; // Example static shipping fee
+        $shippingFee = 50;
         $totalAmount = $subtotal + $shippingFee;
 
         return view('delivery', compact('customer', 'cartItems', 'subtotal', 'shippingFee', 'totalAmount'));

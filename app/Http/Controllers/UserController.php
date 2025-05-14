@@ -24,7 +24,7 @@ class UserController extends Controller
     $products = DB::table('transaction')
         ->join('orders', 'transaction.transaction_id', '=', 'orders.transaction_id')
         ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
-        ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID') // ← fixed table name
+        ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
         ->join('product', 'product_details.product_ID', '=', 'product.product_ID')
         ->join('customer', 'cart_item.customer_ID', '=', 'customer.customer_ID')
         ->where('customer.user_account_ID', $user->user_account_ID)
@@ -93,7 +93,7 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        // ✅ Locate user
+
         $user = DB::table('user_account')
                   ->where('email', $request->email)
                   ->where('username', $request->username)
@@ -103,7 +103,7 @@ class UserController extends Controller
             return back()->withErrors(['error' => 'No matching user found']);
         }
 
-        // ✅ Update password
+
         DB::table('user_account')
             ->where('email', $request->email)
             ->where('username', $request->username)
@@ -155,7 +155,7 @@ class UserController extends Controller
         ->select('shipping.shipping_method')
         ->first();
 
-    // Base shipping fee + conditional premium fee
+
     $baseShippingFee = 50;
     $shippingFee = $baseShippingFee + (
         ($shipping->shipping_method === 'Premium' || $shipping->shipping_method == 2) ? 50 : 0

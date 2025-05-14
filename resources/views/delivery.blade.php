@@ -201,11 +201,11 @@
 
         if (field.readOnly) {
             field.readOnly = false;
-            field.style.backgroundColor = "#FFF8F8"; // ✅ Highlight when editable
+            field.style.backgroundColor = "#FFF8F8";
             field.style.cursor = "text";
             button.style.backgroundColor = "#E55182"; 
-            button.style.color = "bg-pink-100"; // ✅ Active effect
-            field.dataset.previousValue = field.value; // ✅ Store previous value before editing
+            button.style.color = "bg-pink-100";
+            field.dataset.previousValue = field.value;
         } else {
             field.readOnly = true;
             field.style.backgroundColor = "white"; 
@@ -213,7 +213,7 @@
             button.style.backgroundColor = "transparent";
             button.style.color = "#E55182"; 
 
-            // ✅ Ensure field doesn't revert back to original value
+
             if (field.value !== field.dataset.previousValue) {
                 document.getElementById("save-form").dataset.edited = "true";
             }
@@ -221,17 +221,17 @@
     }
 
     function showTab(index) {
-            // Show selected tab and hide others
+
             let tabs = document.querySelectorAll('.tab');
             tabs.forEach((tab, i) => {
                 tab.classList.toggle('hidden', i !== index);
                 tab.style.display = (i === index) ? 'block' : 'none';
             });
 
-            // Update hidden input
+
             document.getElementById('payment_method_ID').value = index + 1;
 
-            // Update button styles
+
             let buttons = document.querySelectorAll('.payment-btn');
             buttons.forEach((btn, i) => {
                 if (i === index) {
