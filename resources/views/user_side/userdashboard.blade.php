@@ -101,34 +101,37 @@
 
       <!-- RIGHT SIDE: Order History -->
       <div class="col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2 w-full">
-  <h2 class="text-xl font-poppins font-semibold text-left">Order History</h2>
-  <div class="space-y-4 font-dm-sans">
-    @forelse($products as $product)
-      <a href="{{ route('user.transactionHistory', ['id' => $product->transaction_id]) }}" class="block">
-        <div class="flex justify-between hover:bg-gray-200 transition rounded-lg p-2">
-          {{-- LEFT: Image + Text --}}
-          <div class="flex items-start gap-3 w-full max-w-[80%]">
-            <img src="{{ asset($product->image_URL) }}" alt="{{ $product->name }}"
-              class="bg-white w-14 h-14 object-contain rounded border" />
-            <div class="flex flex-col">
-              <p class="text-sm text-left leading-snug break-words">
-                {{ $product->name }}
-              </p>
-              <p class="text-xs text-left text-gray-500">Qty: {{ $product->quantity }}</p>
-            </div>
-          </div>
+        <h2 class="text-xl font-poppins font-semibold text-left">Order History</h2>
+        <div class="space-y-4 font-dm-sans">
+          @forelse($products as $product)
+            <a href="{{ route('user.transactionHistory', ['id' => $product->transaction_id]) }}" class="block">
+              <div class="flex justify-between hover:bg-gray-200 transition rounded-lg p-2">
+                {{-- LEFT: Image + Text --}}
+                <div class="flex items-start gap-3 w-full max-w-[80%]">
+                  <img src="{{ asset($product->image_URL) }}" alt="{{ $product->name }}"
+                    class="bg-white w-14 h-14 object-contain rounded border" />
+                  <div class="flex flex-col">
+                    <p class="text-sm text-left leading-snug break-words">
+                      {{ $product->name }}
+                    </p>
+                    <p class="text-xs text-left text-gray-500">Qty: {{ $product->quantity }}</p>
+                  </div>
+                </div>
 
-          {{-- RIGHT: Price --}}
-          <div class="text-sm font-semibold text-right whitespace-nowrap">
-            ₱{{ number_format($product->price, 2) }}
-          </div>
+                {{-- RIGHT: Price and Status --}}
+                <div class="text-sm font-semibold text-right whitespace-nowrap">
+                  ₱{{ number_format($product->price, 2) }}
+                  <p class="text-xs mt-1 font-normal {{ $product->status == 'Completed' ? 'text-green-600' : 'text-red-600' }}">
+                    {{ $product->status }}
+                  </p>
+                </div>
+              </div>
+            </a>
+          @empty
+            <p class="text-gray-500">No past orders found.</p>
+          @endforelse
         </div>
-      </a>
-    @empty
-      <p class="text-gray-500">No past orders found.</p>
-    @endforelse
-  </div>
-</div>
+      </div>
     </div>
   </main>
 
