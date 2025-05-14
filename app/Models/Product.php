@@ -20,7 +20,6 @@ class Product extends Model
     'weight',
     'price',
     'stock_quantity',
-    'quantity',
     'image_URL',
     'image_display',
     'date_Added',

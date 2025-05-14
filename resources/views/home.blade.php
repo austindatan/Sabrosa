@@ -20,22 +20,26 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        @foreach (['Donuts' => 'treats_donut.png', 'Cookies' => 'treats_cookies.png', 'Drinks' => 'treats_drinks.png', 'Meals' => 'treats_meals.png'] as $title => $image)
-          <a href="{{ route('shop') }}" class="block">
-            <div class="bg-[#FDC0D0] border-2 border-[#E55182] rounded-[20px] flex flex-col justify-between transition duration-300 ease-in-out hover:shadow-md hover:scale-[1.02]">
-              <div class="aspect-[3/2] overflow-hidden rounded-t-[20px]">
-                <img src="{{ asset('images/' . $image) }}" alt="{{ $title }}" class="w-full h-full object-cover">
-              </div>
-              <div class="bg-white p-4 flex items-center justify-between rounded-b-[20px]">
-                <p class="font-[Barlow] text-sm sm:text-base text-black font-medium ml-[5px]">{{ $title }}</p>
-                <div class="w-[20px] h-[20px] rounded-full flex items-center justify-center mr-[3px]">
-                  <img src="{{ asset('images/arrow.png') }}" class="w-[17px] h-[17px]">
-                </div>
-              </div>
-            </div>
-          </a>
-        @endforeach
+  @foreach (['Donuts' => 'treats_donut.png', 'Cookies' => 'treats_cookies.png', 'Drinks' => 'treats_drinks.png', 'Meals' => 'treats_meals.png'] as $title => $image)
+    @php
+      $anchor = strtolower(str_replace(' ', '', $title)); // e.g., "Donuts" -> "donuts"
+    @endphp
+    <a href="{{ route('shop') }}#{{ $anchor }}" class="block">
+      <div class="bg-[#FDC0D0] border-2 border-[#E55182] rounded-[20px] flex flex-col justify-between transition duration-300 ease-in-out hover:shadow-md hover:scale-[1.02]">
+        <div class="aspect-[3/2] overflow-hidden rounded-t-[20px]">
+          <img src="{{ asset('images/' . $image) }}" alt="{{ $title }}" class="w-full h-full object-cover">
+        </div>
+        <div class="bg-white p-4 flex items-center justify-between rounded-b-[20px]">
+          <p class="font-[Barlow] text-sm sm:text-base text-black font-medium ml-[5px]">{{ $title }}</p>
+          <div class="w-[20px] h-[20px] rounded-full flex items-center justify-center mr-[3px]">
+            <img src="{{ asset('images/arrow.png') }}" class="w-[17px] h-[17px]">
+          </div>
+        </div>
       </div>
+    </a>
+  @endforeach
+</div>
+
     </section>
 
     <section class="max-w-[1200px] mx-auto pt-[50px] px-6 sm:px-10 md:px-[60px] lg:px-[100px] flex items-center justify-center">

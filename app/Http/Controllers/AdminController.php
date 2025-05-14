@@ -83,16 +83,20 @@ class AdminController extends Controller
     }
 
     // Create product
+    try {
     $product = \App\Models\Product::create([
         'name' => $validated['productName'],
         'description' => $validated['productDescription'] ?? null,
         'weight' => $validated['productWeight'] ?? null,
         'price' => $validated['productPrice'],
-        'stock_Quantity' => $validated['stockQuantity'] ?? 0,
+        'stock_quantity' => $validated['stockQuantity'] ?? 0,
         'image_URL' => $photo1Path,
         'image_display' => $photo2Path,
         'date_Added' => Carbon::now()->toDateString(),
     ]);
+    } catch (\Exception $e) {
+        dd('Error creating product:', $e->getMessage());
+    }
 
     // Create product detail
     ProductDetail::create([

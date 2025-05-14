@@ -108,7 +108,7 @@
                 <td class="px-4 py-4 truncate">{{ $product->store->name ?? 'N/A' }}</td>
                 <td class="px-4 py-4 truncate">{{ $product->product->description ?? 'N/A' }}</td>
                 <td class="px-4 py-4 truncate">{{ $product->product->price }}</td>
-                <td class="px-4 py-4 truncate">{{ $product->product->stock_Quantity }}</td>
+                <td class="px-4 py-4 truncate">{{ $product->product->stock_quantity }}</td>
                 <td class="px-4 py-4 truncate">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />

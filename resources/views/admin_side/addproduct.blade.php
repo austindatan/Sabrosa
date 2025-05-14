@@ -16,7 +16,7 @@
       <h2 class="text-2xl font-bold text-right font-poppins">Add Product</h2>
     </div>
 
-    <form method="POST" action="{{ route('admin.storeProduct') }}" enctype="multipart/form-data">
+    <form id="addProductForm" method="POST" action="{{ route('admin.storeProduct') }}" enctype="multipart/form-data">
       @csrf
       <div class="mb-8">
         <h3 class="text-xl font-semibold mb-4 font-poppins">Product Images</h3>
@@ -140,7 +140,7 @@
         </div>
 </div>
 
-      <button type="submit" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
+      <button type="button" id="addProductBtn" class="font-poppins bg-[#f8c9d8] hover:bg-[#e4a6b8] text-[#4d2c3d] px-6 py-3 text-base rounded-lg font-medium transition-colors">
         Add Product
       </button>
     </form>
@@ -151,6 +151,16 @@
 <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50">
   <span onclick="closeModal()" class="absolute top-4 right-6 text-white text-3xl cursor-pointer">&times;</span>
   <img id="modalImage" src="" class="max-w-full max-h-[90vh] rounded-lg shadow-xl border-4 border-white">
+</div>
+
+<div id="confirmationModal" class="fixed inset-0 flex justify-center items-center hidden z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-xs w-full border-2 border-[#E55182]">
+    <h3 class="text-xl font-poppins font-semibold text-center mb-4">Are you sure you want to add this product?</h3>
+    <div class="flex justify-around">
+      <button id="confirmButton" class="bg-[#f8c9d8] text-[#4d2c3d] px-4 py-2 rounded-lg hover:bg-[#e4a6b8]">Yes</button>
+      <button id="cancelButton" class="bg-[#f8c9d8] text-[#4d2c3d] px-4 py-2 rounded-lg hover:bg-[#e4a6b8]">No</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -190,6 +200,40 @@ document.addEventListener('DOMContentLoaded', function () {
   previewImage('productPhoto1', 'productPhotoPreview1');
   previewImage('productPhoto2', 'productPhotoPreview2');
 });
+</script>
+
+<script>
+document.getElementById('addProductBtn').addEventListener('click', function () {
+  // Validate required fields
+  let isFormValid = true;
+  const requiredFields = document.querySelectorAll('#addProductForm input[required], #addProductForm select[required], #addProductForm textarea[required]');
+  
+  requiredFields.forEach(function (field) {
+    if (!field.value.trim()) {
+      isFormValid = false;
+      field.classList.add('border-red-500');
+    } else {
+      field.classList.remove('border-red-500');
+    }
+  });
+
+  if (!isFormValid) {
+    alert("Please fill in all required fields.");
+  } else {
+    document.getElementById('confirmationModal').classList.remove('hidden');
+  }
+});
+
+// Confirm submission
+document.getElementById('confirmButton').addEventListener('click', function () {
+  document.getElementById('addProductForm').submit();
+});
+
+// Cancel submission
+document.getElementById('cancelButton').addEventListener('click', function () {
+  document.getElementById('confirmationModal').classList.add('hidden');
+});
+
 </script>
 
 </body>
