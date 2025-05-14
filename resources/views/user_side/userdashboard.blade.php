@@ -101,25 +101,34 @@
 
       <!-- RIGHT SIDE: Order History -->
       <div class="col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2 w-full">
-        <h2 class="text-xl font-poppins font-semibold text-left">Order History</h2>
-        <div class="space-y-4 font-dm-sans">
-          <!-- Sample Static Items -->
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Way of the Strong Special Mixed Yakisoba.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
-              </div>
-              <p class="text-sm text-left w-[150px]">Way of the Strong Special Mixed Yakisoba</p>
+  <h2 class="text-xl font-poppins font-semibold text-left">Order History</h2>
+  <div class="space-y-4 font-dm-sans">
+    @forelse($products as $product)
+      <a href="{{ route('user.transactionHistory', ['id' => $product->transaction_id]) }}" class="block">
+        <div class="flex justify-between hover:bg-gray-200 transition rounded-lg p-2">
+          {{-- LEFT: Image + Text --}}
+          <div class="flex items-start gap-3 w-full max-w-[80%]">
+            <img src="{{ asset($product->image_URL) }}" alt="{{ $product->name }}"
+              class="bg-white w-14 h-14 object-contain rounded border" />
+            <div class="flex flex-col">
+              <p class="text-sm text-left leading-snug break-words">
+                {{ $product->name }}
+              </p>
+              <p class="text-xs text-left text-gray-500">Qty: {{ $product->quantity }}</p>
             </div>
-            <p class="text-sm font-semibold">P145</p>
           </div>
-          <!-- Repeat sample as needed -->
+
+          {{-- RIGHT: Price --}}
+          <div class="text-sm font-semibold text-right whitespace-nowrap">
+            ₱{{ number_format($product->price, 2) }}
+          </div>
         </div>
-        <div class="mt-6 flex justify-end">
-          
-        </div>
-      </div>
+      </a>
+    @empty
+      <p class="text-gray-500">No past orders found.</p>
+    @endforelse
+  </div>
+</div>
     </div>
   </main>
 
