@@ -13,13 +13,64 @@ use App\Models\Category;
 use App\Models\Store;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
 
-    public function admin_dashboard() {
-        return view('admin_side.admindashboard');
-    }
+   public function admin_dashboard()
+{
+    // Line Chart: Top Ordered Products by Quantity
+    $topOrderedProducts = DB::table('orders')
+        ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
+        ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
+        ->join('product', 'product_details.product_ID', '=', 'product.product_ID')
+        ->join('transaction', 'orders.transaction_id', '=', 'transaction.transaction_id')
+        ->where('transaction.status', 'Completed')
+        ->select(
+            DB::raw('MONTH(orders.date) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+        ->groupBy(DB::raw('MONTH(orders.date)'))
+        ->orderBy(DB::raw('MONTH(orders.date)'))
+        ->get();
+
+    // Pie Chart: Sales by Category (based only on completed transactions)
+    $categorySales = DB::table('orders')
+        ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
+        ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
+        ->join('product', 'product_details.product_ID', '=', 'product.product_ID')
+        ->join('category', 'product_details.category_ID', '=', 'category.category_ID')
+        ->join('transaction', 'orders.transaction_id', '=', 'transaction.transaction_id')
+        ->where('transaction.status', 'Completed')
+        ->select('category.name as category_name', DB::raw('SUM(cart_item.quantity) as total_quantity'))
+        ->groupBy('category.name')
+        ->get();
+
+    // Admin Metrics
+    $totalTransactions = DB::table('transaction')->count();
+    $completedTransactions = DB::table('transaction')->where('status', 'Completed')->count();
+    $pendingTransactions = DB::table('transaction')->where('status', 'Pending')->count();
+
+    $totalRevenue = DB::table('orders')
+        ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
+        ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
+        ->join('product', 'product_details.product_ID', '=', 'product.product_ID')
+        ->join('transaction', 'orders.transaction_id', '=', 'transaction.transaction_id')
+        ->where('transaction.status', 'Completed')
+        ->select(DB::raw('SUM(product.price * cart_item.quantity) as revenue'))
+        ->value('revenue');
+
+    return view('admin_side.admindashboard', [
+        'topOrderedProducts' => $topOrderedProducts,
+        'categorySales' => $categorySales,
+        'totalTransactions' => $totalTransactions,
+        'completedTransactions' => $completedTransactions,
+        'pendingTransactions' => $pendingTransactions,
+        'totalRevenue' => $totalRevenue,
+    ]);
+}
 
     public function admin_productlist()
     {
