@@ -101,8 +101,10 @@
               <tr class="bg-white border-b border-pink-200 hover:bg-pink-50" data-category="{{ strtolower($product->category->name ?? 'uncategorized') }}" data-brand="{{ strtolower($product->store->name ?? 'uncategorized') }}">
 
                 <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2 product-name">
-                  <img src="{{ asset($product->product->image_URL) }}" class="bg-white w-8 h-8 object-contain rounded border" />
-                  {{ $product->product->name }}
+                  <a href="{{ route('admin.productdetail', $product->product->product_ID) }}" class="flex items-center gap-2 hover:underline">
+                    <img src="{{ asset($product->product->image_URL) }}" class="bg-white w-8 h-8 object-contain rounded border" />
+                    {{ $product->product->name }}
+                  </a>
                 </td>
                 <td class="px-4 py-4 truncate">{{ $product->category->name ?? 'N/A' }}</td>
                 <td class="px-4 py-4 truncate">{{ $product->store->name ?? 'N/A' }}</td>

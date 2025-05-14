@@ -80,13 +80,22 @@
 
         <!-- Settings -->
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
-          <h2 class="text-lg font-semibold text-left mb-4">Account Settings</h2>
-          <div class="flex items-center justify-between mb-4">
-            <button onclick="showPasswordPopup()" class="text-gray-600 hover:underline">Change Password</button>
-          </div>
-          <div class="flex items-center justify-between">
-            <button onclick="showDeletePopup()" class="text-red-600 hover:underline">Delete Account</button>
-          </div>
+            <h2 class="text-lg font-semibold text-left mb-4">Account Settings</h2>
+
+            <div class="flex items-center justify-between mb-4">
+                <button onclick="showPasswordPopup()" class="text-gray-600 hover:underline">Change Password</button>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button onclick="showDeletePopup()" class="text-red-600 hover:underline">Delete Account</button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="font-dm-sans px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition">
+                        Logout
+                    </button>
+                </form>
+            </div>
+            
         </div>
       </div>
 
@@ -108,10 +117,7 @@
           <!-- Repeat sample as needed -->
         </div>
         <div class="mt-6 flex justify-end">
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="font-dm-sans px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition">Logout</button>
-          </form>
+          
         </div>
       </div>
     </div>

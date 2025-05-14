@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\ProductDetail;
 use App\Models\EmployeeDetail;
 use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\Models\Category;
+use App\Models\Store;
 
 class AdminController extends Controller
 {
@@ -141,6 +144,56 @@ class AdminController extends Controller
     return redirect()->route('admin.addemployees')->with('success', 'Employee added successfully!');
     }
 
+    public function admin_productdetail(Product $product)
+    {
+        $productDetails = ProductDetail::where('product_ID', $product->product_ID)->first();
+        $categories = Category::all();
+        $stores = Store::all();
 
+        return view('admin_side.productdetail', compact('product', 'productDetails', 'categories', 'stores'));
+    }
+
+    public function updateProduct(Request $request, $productId)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'category_ID' => 'required|exists:category,category_ID',
+            'store_ID' => 'required|exists:store,store_ID',
+        ]);
+
+        $product = Product::findOrFail($productId);
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock_quantity' => $request->stock_quantity,
+        ]);
+
+        // Update the product details (brand/category)
+        $productDetails = ProductDetail::where('product_ID', $productId)->first();
+        if ($productDetails) {
+            $productDetails->update([
+                'category_ID' => $request->category_ID,
+                'store_ID' => $request->store_ID,
+            ]);
+        }
+
+        return redirect()->route('admin.productlist')->with('success', 'Product updated successfully.');
+    }
+
+    public function deleteProduct($productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        // Optionally delete related product details
+        ProductDetail::where('product_ID', $productId)->delete();
+
+        $product->delete();
+
+        return redirect()->route('admin.productlist')->with('success', 'Product deleted successfully.');
+    }
 }
 
