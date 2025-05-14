@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Models\Category;
 use App\Models\Store;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -155,31 +157,49 @@ class AdminController extends Controller
 
     public function updateProduct(Request $request, $productId)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'stock_quantity' => 'required|integer|min:0',
-            'category_ID' => 'required|exists:category,category_ID',
-            'store_ID' => 'required|exists:store,store_ID',
-        ]);
-
         $product = Product::findOrFail($productId);
-        $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'stock_quantity' => $request->stock_quantity,
-        ]);
+        $productDetail = ProductDetail::where('product_ID', $productId)->firstOrFail();
 
-        // Update the product details (brand/category)
-        $productDetails = ProductDetail::where('product_ID', $productId)->first();
-        if ($productDetails) {
-            $productDetails->update([
-                'category_ID' => $request->category_ID,
-                'store_ID' => $request->store_ID,
-            ]);
+        // Update product fields
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->stock_quantity = $request->input('stock_quantity');
+
+        // Handle image_URL upload (product_sprites)
+        if ($request->hasFile('image_URL')) {
+            $file = $request->file('image_URL');
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $destination = public_path('images/product/product_sprites');
+
+            if (!File::exists($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+
+            $file->move($destination, $filename);
+            $product->image_URL = 'images/product/product_sprites/' . $filename;
         }
+
+        // Handle image_display upload (product_display)
+        if ($request->hasFile('image_display')) {
+            $file = $request->file('image_display');
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $destination = public_path('images/product/product_display');
+
+            if (!File::exists($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+
+            $file->move($destination, $filename);
+            $product->image_display = 'images/product/product_display/' . $filename;
+        }
+
+        $product->save();
+
+        // Update category and store relation
+        $productDetail->category_ID = $request->input('category_ID');
+        $productDetail->store_ID = $request->input('store_ID');
+        $productDetail->save();
 
         return redirect()->route('admin.productlist')->with('success', 'Product updated successfully.');
     }
