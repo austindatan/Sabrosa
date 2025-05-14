@@ -113,6 +113,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/handleorders', [AdminController::class, 'admin_handleorders'])->name('admin.handleorders');
         Route::get('/admin/product/{product}', [AdminController::class, 'admin_productdetail'])->name('admin.productdetail');
         Route::put('/admin/product/{product}', [AdminController::class, 'updateProduct'])->name('admin.updateproduct');
+        Route::delete('/admin/product/{product}', [AdminController::class, 'deleteProduct'])->name('admin.deleteproduct');
+
 
     });
 

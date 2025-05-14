@@ -71,6 +71,13 @@
         {{-- Submit --}}
         <div class="mt-4 flex items-center justify-between">
           <a href="{{ route('admin.productlist') }}" class="inline-block text-[#E55182] hover:underline">← Back to Product List</a>
+          <form action="{{ route('admin.deleteproduct', $product->product_ID) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" class="inline-block mt-4">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">
+                    Delete Product
+                </button>
+            </form>
           <button type="submit" class="bg-[#E55182] text-white px-6 py-2 rounded-full hover:bg-pink-600 transition">Save Changes</button>
         </div>
       </form>

@@ -159,7 +159,7 @@ class AdminController extends Controller
             'category_ID' => 'required|exists:category,category_ID',
             'store_ID' => 'required|exists:store,store_ID',
         ]);
-        
+
         $product = Product::findOrFail($productId);
         $product->update([
             'name' => $request->name,
@@ -178,6 +178,18 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.productlist')->with('success', 'Product updated successfully.');
+    }
+
+    public function deleteProduct($productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        // Optionally delete related product details
+        ProductDetail::where('product_ID', $productId)->delete();
+
+        $product->delete();
+
+        return redirect()->route('admin.productlist')->with('success', 'Product deleted successfully.');
     }
 }
 
