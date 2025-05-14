@@ -101,14 +101,16 @@
               <tr class="bg-white border-b border-pink-200 hover:bg-pink-50" data-category="{{ strtolower($product->category->name ?? 'uncategorized') }}" data-brand="{{ strtolower($product->store->name ?? 'uncategorized') }}">
 
                 <td class="px-4 py-4 truncate text-pink-900 flex items-center gap-2 product-name">
-                  <img src="{{ asset($product->product->image_URL) }}" class="bg-white w-8 h-8 object-contain rounded border" />
-                  {{ $product->product->name }}
+                  <a href="{{ route('admin.productdetail', $product->product->product_ID) }}" class="flex items-center gap-2 hover:underline">
+                    <img src="{{ asset($product->product->image_URL) }}" class="bg-white w-8 h-8 object-contain rounded border" />
+                    {{ $product->product->name }}
+                  </a>
                 </td>
                 <td class="px-4 py-4 truncate">{{ $product->category->name ?? 'N/A' }}</td>
                 <td class="px-4 py-4 truncate">{{ $product->store->name ?? 'N/A' }}</td>
                 <td class="px-4 py-4 truncate">{{ $product->product->description ?? 'N/A' }}</td>
                 <td class="px-4 py-4 truncate">{{ $product->product->price }}</td>
-                <td class="px-4 py-4 truncate">{{ $product->product->stock_Quantity }}</td>
+                <td class="px-4 py-4 truncate">{{ $product->product->stock_quantity }}</td>
                 <td class="px-4 py-4 truncate">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
