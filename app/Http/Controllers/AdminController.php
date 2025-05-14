@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Models\Category;
 use App\Models\Store;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -67,7 +69,6 @@ class AdminController extends Controller
         'supplier_id' => 'nullable|integer',
     ]);
 
-    // Handle image uploads with original filename + timestamp
     $photo1Path = null;
     $photo2Path = null;
 
@@ -85,7 +86,7 @@ class AdminController extends Controller
         $photo2Path = 'products/' . $photo2Name;
     }
 
-    // Create product
+
     try {
     $product = \App\Models\Product::create([
         'name' => $validated['productName'],
@@ -101,7 +102,6 @@ class AdminController extends Controller
         dd('Error creating product:', $e->getMessage());
     }
 
-    // Create product detail
     ProductDetail::create([
         'product_ID' => $product->product_ID,
         'category_id' => $validated['category_id'] ?? null,
@@ -136,8 +136,8 @@ class AdminController extends Controller
     ]);
 
     EmployeeDetail::create([
-        'employee_ID' => $employee->employee_ID, // use the value from the newly created employee
-        'employee_positions_ID' => $validated['employee_positions_id'] ?? null, // fix key casing and spacing
+        'employee_ID' => $employee->employee_ID, 
+        'employee_positions_ID' => $validated['employee_positions_id'] ?? null, 
     ]);
 
 
@@ -155,31 +155,48 @@ class AdminController extends Controller
 
     public function updateProduct(Request $request, $productId)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'stock_quantity' => 'required|integer|min:0',
-            'category_ID' => 'required|exists:category,category_ID',
-            'store_ID' => 'required|exists:store,store_ID',
-        ]);
-
         $product = Product::findOrFail($productId);
-        $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'stock_quantity' => $request->stock_quantity,
-        ]);
+        $productDetail = ProductDetail::where('product_ID', $productId)->firstOrFail();
 
-        // Update the product details (brand/category)
-        $productDetails = ProductDetail::where('product_ID', $productId)->first();
-        if ($productDetails) {
-            $productDetails->update([
-                'category_ID' => $request->category_ID,
-                'store_ID' => $request->store_ID,
-            ]);
+        
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->stock_quantity = $request->input('stock_quantity');
+
+        
+        if ($request->hasFile('image_URL')) {
+            $file = $request->file('image_URL');
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $destination = public_path('images/product/product_sprites');
+
+            if (!File::exists($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+
+            $file->move($destination, $filename);
+            $product->image_URL = 'images/product/product_sprites/' . $filename;
         }
+
+        if ($request->hasFile('image_display')) {
+            $file = $request->file('image_display');
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $destination = public_path('images/product/product_display');
+
+            if (!File::exists($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+
+            $file->move($destination, $filename);
+            $product->image_display = 'images/product/product_display/' . $filename;
+        }
+
+        $product->save();
+
+        
+        $productDetail->category_ID = $request->input('category_ID');
+        $productDetail->store_ID = $request->input('store_ID');
+        $productDetail->save();
 
         return redirect()->route('admin.productlist')->with('success', 'Product updated successfully.');
     }
@@ -188,7 +205,7 @@ class AdminController extends Controller
     {
         $product = Product::findOrFail($productId);
 
-        // Optionally delete related product details
+        
         ProductDetail::where('product_ID', $productId)->delete();
 
         $product->delete();

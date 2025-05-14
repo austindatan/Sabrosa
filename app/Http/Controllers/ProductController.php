@@ -92,7 +92,7 @@ class ProductController extends Controller
         $query = $request->get('query');
 
         $products = Product::where('name', 'like', '%' . $query . '%')
-                    ->select('product_ID', 'name', 'image_URL') // Ensure 'product_ID' is included
+                    ->select('product_ID', 'name', 'image_URL')
                     ->limit(6)
                     ->get();
 

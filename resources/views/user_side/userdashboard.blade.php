@@ -62,7 +62,7 @@
                 class="absolute right-2 top-1/4 -translate-y-1/2 text-pink-500 text-lg transition duration-200 ease-in-out 
                 hover:bg-pink-200 hover:rounded-lg hover:px-1 hover:text-pink-700 
                 active:bg-pink-500 active:text-white cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                <svg xmlns="http:
                   <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                 </svg>
               </button>
@@ -103,21 +103,33 @@
       <div class="col-span-1 bg-gray-100 p-6 rounded-lg space-y-4 order-1 lg:order-2 w-full">
         <h2 class="text-xl font-poppins font-semibold text-left">Order History</h2>
         <div class="space-y-4 font-dm-sans">
-          <!-- Sample Static Items -->
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 relative">
-              <div class="relative">
-                <img src="{{ asset('images/product/product_sprites/Way of the Strong Special Mixed Yakisoba.png') }}" class="bg-white w-14 h-14 object-contain rounded border" />
-                <span class="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
+          @forelse($products as $product)
+            <a href="{{ route('user.transactionHistory', ['id' => $product->transaction_id]) }}" class="block">
+              <div class="flex justify-between hover:bg-gray-200 transition rounded-lg p-2">
+                {{-- LEFT: Image + Text --}}
+                <div class="flex items-start gap-3 w-full max-w-[80%]">
+                  <img src="{{ asset($product->image_URL) }}" alt="{{ $product->name }}"
+                    class="bg-white w-14 h-14 object-contain rounded border" />
+                  <div class="flex flex-col">
+                    <p class="text-sm text-left leading-snug break-words">
+                      {{ $product->name }}
+                    </p>
+                    <p class="text-xs text-left text-gray-500">Qty: {{ $product->quantity }}</p>
+                  </div>
+                </div>
+
+                {{-- RIGHT: Price and Status --}}
+                <div class="text-sm font-semibold text-right whitespace-nowrap">
+                  ₱{{ number_format($product->price, 2) }}
+                  <p class="text-xs mt-1 font-normal {{ $product->status == 'Completed' ? 'text-green-600' : 'text-red-600' }}">
+                    {{ $product->status }}
+                  </p>
+                </div>
               </div>
-              <p class="text-sm text-left w-[150px]">Way of the Strong Special Mixed Yakisoba</p>
-            </div>
-            <p class="text-sm font-semibold">P145</p>
-          </div>
-          <!-- Repeat sample as needed -->
-        </div>
-        <div class="mt-6 flex justify-end">
-          
+            </a>
+          @empty
+            <p class="text-gray-500">No past orders found.</p>
+          @endforelse
         </div>
       </div>
     </div>
@@ -268,11 +280,11 @@
 
         if (field.readOnly) {
             field.readOnly = false;
-            field.style.backgroundColor = "#FFF8F8"; // ✅ Highlight when editable
+            field.style.backgroundColor = "#FFF8F8";
             field.style.cursor = "text";
             button.style.backgroundColor = "#E55182"; 
-            button.style.color = "bg-pink-100"; // ✅ Active effect
-            field.dataset.previousValue = field.value; // ✅ Store previous value before editing
+            button.style.color = "bg-pink-100";
+            field.dataset.previousValue = field.value;
         } else {
             field.readOnly = true;
             field.style.backgroundColor = "white"; 
@@ -280,7 +292,7 @@
             button.style.backgroundColor = "transparent";
             button.style.color = "#E55182"; 
 
-            // ✅ Ensure field doesn't revert back to original value
+
             if (field.value !== field.dataset.previousValue) {
                 document.getElementById("save-form").dataset.edited = "true";
             }
