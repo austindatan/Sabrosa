@@ -15,7 +15,6 @@
     const searchLogo = document.getElementById("search-logo");
     const searchInput = document.querySelector('input[name="query"]');
 
-    // Debounce function to limit API calls
     function debounce(func, delay = 300) {
       let timer;
       return function (...args) {
@@ -27,7 +26,6 @@
     const showSuggestions = debounce(function () {
       const keyword = searchInput.value.trim().toLowerCase();
 
-      // Always remove previous dropdown
       const oldDropdown = document.querySelector(".dropdown");
       if (oldDropdown) oldDropdown.remove();
 
@@ -36,7 +34,6 @@
       fetch(`/search-suggestions?query=${encodeURIComponent(keyword)}`)
         .then(res => res.json())
         .then(data => {
-          // Improve sorting logic to prioritize words that start with the keyword
           data.sort((a, b) => {
             const nameA = a.name.toLowerCase();
             const nameB = b.name.toLowerCase();
@@ -44,7 +41,6 @@
             const startsWithA = nameA.startsWith(keyword) ? -1 : 1;
             const startsWithB = nameB.startsWith(keyword) ? -1 : 1;
 
-            // If both start with keyword, sort alphabetically
             if (nameA.startsWith(keyword) && nameB.startsWith(keyword)) {
               return nameA.localeCompare(nameB);
             }
@@ -73,7 +69,6 @@
           for (const product of data) {
             if (count >= 5) break;
 
-            // Dynamically construct the product URL
             const productUrl = `/product/${product.product_ID}`;
 
             const item = document.createElement("a");
@@ -146,7 +141,7 @@
 
     const overlay = document.getElementById('overlay');
     const menu = document.getElementById('mobile-slide-menu');
-    const openMenuBtn = document.getElementById('open-menu'); // your open button
+    const openMenuBtn = document.getElementById('open-menu'); 
     const closeMenuBtn = document.getElementById('close-menu');
 
     openMenuBtn.addEventListener('click', () => {

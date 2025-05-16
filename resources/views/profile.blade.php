@@ -9,7 +9,6 @@
 
   <main class="flex-1 px-4 sm:px-6 py-6 max-w-full sm:max-w-3xl lg:max-w-6xl mx-auto mt-20 sm:mt-[200px] mb-12 sm:mb-[150px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {{-- LEFT SIDE: Delivery --}}
       <div class="lg:col-span-2 space-y-6 order-2 lg:order-1">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-2xl font-bold text-right font-poppins">Profile</h2>
@@ -71,7 +70,6 @@
         </div>
       </div>
 
-      {{-- SMALL SCREENS NI SHAAAA--}}
       <div class="mobile block lg:hidden bg-gray-100 rounded-md overflow-hidden text-sm text-center ">
 
         <details class="p-6 space-y-4">

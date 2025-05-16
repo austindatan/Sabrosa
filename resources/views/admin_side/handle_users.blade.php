@@ -13,35 +13,6 @@
 
     <main class="flex-1 px-4 py-6 sm:p-8 text-left max-w-6xl mx-auto text-base sm:text-lg mt-[20px] mb-[20px] bg-white border-2 border-[#E55182] rounded-lg shadow-lg md:ml-[calc(21%+1rem)]">
       <h1 class="text-2xl font-bold text-[#E55182] mb-4">Users List</h1>
-        <div class="relative overflow-x-auto sm:rounded-lg"><div class="pb-4 bg-white">
-          <div class="flex items-center justify-between gap-x-4">
-            
-            <div class="relative">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-pink-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="table-search"
-                class="block w-80 ps-10 py-2 text-sm text-pink-900 border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500 placeholder-pink-400"
-                placeholder="Search for users"
-              >
-            </div>
-
-            <div>
-              <select class="py-2 px-3 text-sm text-[#E55182] border border-pink-300 rounded-lg bg-pink-50 focus:ring-pink-500 focus:border-pink-500">
-                <option value="">All Categories</option>
-                <option value="snacks">Snacks</option>
-                <option value="drinks">Drinks</option>
-                <option value="desserts">Desserts</option>
-              </select>
-            </div>
-
-          </div>
-        </div>
 
 
           <table class="w-full table-fixed text-sm text-left text-pink-900">

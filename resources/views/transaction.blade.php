@@ -9,7 +9,6 @@
   <main class="flex-1 max-w-5xl mx-auto bg-white border-2 border-[#E55182] rounded-lg shadow-lg p-6 sm:p-10 mt-[150px] mb-[100px] w-full">
     <h1 class="text-2xl sm:text-3xl font-bold font-poppins mb-2 text-center">Order Confirmation</h1>
 
-    <!-- Transaction Token Display -->
     <div class="text-center mb-6">
       <p class="inline-block px-4 py-2 bg-yellow-100 text-yellow-900 border border-yellow-300 rounded-lg text-sm sm:text-base font-semibold tracking-wide">
         Transaction Token: {{ $transactionToken ?? 'N/A' }}
@@ -17,7 +16,6 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-dm-sans">
-      <!-- Left Column: Customer Details -->
       <div class="space-y-6">
         <div>
           <h2 class="text-xl font-semibold mb-2">Customer Information</h2>
@@ -46,7 +44,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Order Items -->
       <div class="bg-gray-50 p-6 rounded-lg border space-y-4">
         <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
 

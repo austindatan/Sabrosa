@@ -95,5 +95,5 @@ document.getElementById('employeeForm').addEventListener('submit', (event) => {
 
     alert(editEmployeeId ? "Employee updated successfully!" : "Employee added successfully!");
 
-    window.location.href = "EmployeeDetails.blade.php"; // Redirect to EmployeeDetails page
+    window.location.href = "EmployeeDetails.blade.php";
 });

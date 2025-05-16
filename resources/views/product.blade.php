@@ -67,7 +67,6 @@
         </script>
         @endif
 
-        <!-- Add to Cart Form -->
         <form method="POST" action="{{ route('cart.add') }}" class="flex flex-col sm:flex-row items-stretch gap-4 mt-6">
           @csrf
           <input type="hidden" name="product_details_ID" value="{{ $product->productDetail->product_details_ID }}">

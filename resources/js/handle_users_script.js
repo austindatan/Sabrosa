@@ -1,4 +1,4 @@
-// Sample users data
+
 const users = [
   {
     id: 1,
@@ -30,7 +30,6 @@ const users = [
   }
 ];
 
-// Function to render each user's card
 const renderUserCard = (user) => `
   <div class="user-card bg-white border border-gray-200 rounded-lg shadow p-4 flex justify-between items-start relative" data-user-id="${user.id}">
     <div class="flex items-center space-x-4">
@@ -61,24 +60,20 @@ const renderUserCard = (user) => `
   </div>
 `;
 
-// Function to render the list of users
 const renderUserList = () => {
   const container = document.getElementById('userList');
   container.innerHTML = users.map(renderUserCard).join('');
   setupEventListeners();
 };
 
-// Event listener for opening the modal
 document.getElementById('openModalBtn').addEventListener('click', () => {
   document.getElementById('userModal').classList.add('show');
 });
 
-// Event listener for closing the modal
 document.getElementById('closeModalBtn').addEventListener('click', () => {
   document.getElementById('userModal').classList.remove('show');
 });
 
-// Event listener for form submission to add a user
 document.getElementById('userForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -86,23 +81,22 @@ document.getElementById('userForm').addEventListener('submit', (e) => {
   const password = document.getElementById('password').value;
 
   const newUser = {
-    id: users.length + 1,  // Generate a new ID (could be handled better in a real scenario)
+    id: users.length + 1, 
     name,
     email,
-    created_at: new Date().toISOString().split('T')[0], // Format to YYYY-MM-DD
+    created_at: new Date().toISOString().split('T')[0], 
     updated_at: new Date().toISOString().split('T')[0]
   };
 
   users.push(newUser);
   renderUserList();
-  document.getElementById('userModal').classList.remove('show'); // Close the modal
+  document.getElementById('userModal').classList.remove('show'); 
 });
 
-// Event listeners for hamburger and delete buttons
 const setupEventListeners = () => {
   document.querySelectorAll('.hamburger-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent event bubbling to document
+      e.stopPropagation(); 
       const userId = btn.dataset.id;
       const card = document.querySelector(`.user-card[data-user-id="${userId}"]`);
       const deleteBtn = card.querySelector('.delete-btn');
@@ -112,23 +106,21 @@ const setupEventListeners = () => {
 
   document.querySelectorAll('.delete-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent event bubbling to document
+      e.stopPropagation(); 
       const id = parseInt(btn.dataset.id);
       const index = users.findIndex(u => u.id === id);
       if (index !== -1) {
-        users.splice(index, 1);  // Remove the user from the array
-        renderUserList();  // Re-render the list
+        users.splice(index, 1); 
+        renderUserList();  
       }
     });
   });
 
-  // Event listener to detect clicks anywhere in the document and hide all delete buttons
   document.addEventListener('click', () => {
     document.querySelectorAll('.delete-btn').forEach(deleteBtn => {
-      deleteBtn.classList.add('hidden'); // Hide all delete buttons when clicking anywhere
+      deleteBtn.classList.add('hidden'); 
     });
   });
 };
 
-// Initial load of user list
 renderUserList();

@@ -128,14 +128,12 @@ if (typeof window !== 'undefined') {
     const menu = document.getElementById('mobile-slide-menu');
     const overlay = document.getElementById('overlay');
   
-    // Open menu
     openBtn.addEventListener('click', () => {
       menu.classList.remove('-translate-x-full');
       menu.classList.add('translate-x-0');
       overlay.classList.remove('hidden');
     });
   
-    // Close menu
     const closeMenu = () => {
       menu.classList.add('-translate-x-full');
       menu.classList.remove('translate-x-0');
@@ -144,10 +142,8 @@ if (typeof window !== 'undefined') {
   
     closeBtn.addEventListener('click', closeMenu);
   
-    // Close when clicking outside (on overlay)
     overlay.addEventListener('click', closeMenu);
   
-    // Optional: Close with Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeMenu();

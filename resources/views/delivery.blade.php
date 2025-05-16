@@ -10,9 +10,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
 
-      <!-- ✅ LEFT SIDE: FORM -->
       <div class="lg:col-span-2 space-y-10 order-2 lg:order-1">
-        <!-- ✅ Delivery Form -->
         <form action="{{ route('delivery.update', $customer->customer_ID) }}" method="POST" class="space-y-6">
           @csrf
 
@@ -21,7 +19,6 @@
             <p class="text-sm text-gray-600 font-dm-sans">{{ old('email', $customer->email) }}</p>
           </div>
 
-          <!-- ✅ Editable fields: name -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             @foreach(['firstname', 'middlename', 'lastname'] as $field)
               <div class="relative">
@@ -44,7 +41,6 @@
             @endforeach
           </div>
 
-          <!-- ✅ Editable fields: address -->
           @foreach(['street', 'barangay', 'city', 'province', 'country', 'email', 'phone', 'company'] as $field)
             <div class="relative">
               <input type="text" id="{{ $field }}" name="{{ $field }}" value="{{ old($field, $customer->$field) }}"
@@ -101,23 +97,19 @@
             @csrf
             <input type="hidden" name="payment_method_ID" id="payment_method_ID" value="1">
 
-            <!-- Tabs -->
             <div id="tabs">
-                <!-- Cash -->
                 <div class="tab" style="display:block">
                     <p class="text-lg text-center font-semibold text-black border border-pink-300 p-3 rounded">
                         You selected <span class="font-bold">Cash on Delivery</span>. Kindly prepare the exact amount for the rider upon arrival. Thank you for your order!
                     </p>
                 </div>
 
-                <!-- GCash -->
                 <div class="tab hidden">
                     <input type="text" name="first_name" placeholder="First Name" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="last_name" placeholder="Last Name" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2">
                 </div>
 
-                <!-- Mastercard -->
                 <div class="tab hidden">
                     <input type="text" name="card_number" placeholder="Card Number" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="expiry" placeholder="MM/YY" class="w-full p-2 border rounded mb-2">
@@ -125,7 +117,6 @@
                     <input type="text" name="card_name" placeholder="Name on Card" class="w-full p-2 border rounded mb-2">
                 </div>
 
-                <!-- Visa -->
                 <div class="tab hidden">
                     <input type="text" name="card_number" placeholder="Card Number" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="expiry" placeholder="MM/YY" class="w-full p-2 border rounded mb-2">
@@ -133,14 +124,12 @@
                     <input type="text" name="card_name" placeholder="Name on Card" class="w-full p-2 border rounded mb-2">
                 </div>
 
-                <!-- Paymaya -->
                 <div class="tab hidden">
                     <input type="text" name="first_name" placeholder="First Name" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="last_name" placeholder="Last Name" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded mb-2">
                 </div>
 
-                <!-- Paypal -->
                 <div class="tab hidden">
                     <input type="text" name="first_name" placeholder="First Name" class="w-full p-2 border rounded mb-2">
                     <input type="text" name="last_name" placeholder="Last Name" class="w-full p-2 border rounded mb-2">
@@ -153,7 +142,6 @@
         </form>
     </div>
     </div>
-      <!-- ✅ RIGHT SIDE: ORDER SUMMARY -->
     <button
         type="button"
         id="toggle-order-summary"

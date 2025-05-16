@@ -21,7 +21,6 @@ class AdminController extends Controller
 
    public function admin_dashboard()
 {
-    // Line Chart: Top Ordered Products by Quantity
         $topOrderedProducts = DB::table('orders')
             ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
             ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
@@ -37,7 +36,6 @@ class AdminController extends Controller
             ->orderBy(DB::raw('MONTH(orders.date)'))
             ->get();
 
-    // Pie Chart: Sales by Category (based only on completed transactions)
     $categorySales = DB::table('orders')
         ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
         ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
@@ -49,7 +47,6 @@ class AdminController extends Controller
         ->groupBy('category.name')
         ->get();
 
-    // Admin Metrics
     $totalTransactions = DB::table('transaction')->count();
     $completedTransactions = DB::table('transaction')->where('status', 'Completed')->count();
     $pendingTransactions = DB::table('transaction')->where('status', 'Pending')->count();

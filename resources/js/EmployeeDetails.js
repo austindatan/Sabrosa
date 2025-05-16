@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const employeeTableBody = document.getElementById("employeeTableBody");
   const createButton = document.getElementById("createNewEmployee");
 
-  // Sample data
   const employee = {
     id: "001",
     firstName: "John",
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     status: "Active",
   };
 
-  // Handle button click
   createButton.addEventListener("click", function () {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `

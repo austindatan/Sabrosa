@@ -47,9 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   document.addEventListener('DOMContentLoaded', function () {
-    // (Charts code here...)
-  
-    // Collapsible sidebar logic
     const collapsibles = document.querySelectorAll('.collapsible');
     collapsibles.forEach(button => {
       button.addEventListener('click', () => {
