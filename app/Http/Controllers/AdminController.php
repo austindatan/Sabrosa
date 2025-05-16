@@ -22,19 +22,20 @@ class AdminController extends Controller
    public function admin_dashboard()
 {
     // Line Chart: Top Ordered Products by Quantity
-    $topOrderedProducts = DB::table('orders')
-        ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
-        ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
-        ->join('product', 'product_details.product_ID', '=', 'product.product_ID')
-        ->join('transaction', 'orders.transaction_id', '=', 'transaction.transaction_id')
-        ->where('transaction.status', 'Completed')
-        ->select(
-            DB::raw('MONTH(orders.date) as month'),
-            DB::raw('COUNT(*) as total')
-        )
-        ->groupBy(DB::raw('MONTH(orders.date)'))
-        ->orderBy(DB::raw('MONTH(orders.date)'))
-        ->get();
+        $topOrderedProducts = DB::table('orders')
+            ->join('cart_item', 'orders.cart_item_ID', '=', 'cart_item.cart_item_ID')
+            ->join('product_details', 'cart_item.product_details_ID', '=', 'product_details.product_details_ID')
+            ->join('product', 'product_details.product_ID', '=', 'product.product_ID')
+            ->join('transaction', 'orders.transaction_id', '=', 'transaction.transaction_id')
+            ->where('transaction.status', 'Completed')
+            ->select(
+                DB::raw('MONTH(orders.date) as month'),
+                'product.name as product_name',
+                DB::raw('SUM(cart_item.quantity) as total_quantity')
+            )
+            ->groupBy(DB::raw('MONTH(orders.date)'), 'product.name')
+            ->orderBy(DB::raw('MONTH(orders.date)'))
+            ->get();
 
     // Pie Chart: Sales by Category (based only on completed transactions)
     $categorySales = DB::table('orders')

@@ -52,7 +52,7 @@
         <canvas id="lineChart"></canvas>
       </div>
       <div class="chart-box">
-        <h3 class="text-xl font-semibold mb-2 text-center">Top Ordered Products</h3>
+        <h3 class="text-xl font-semibold mb-2 text-center">Top Ordered Category</h3>
         <canvas id="pieChart"></canvas>
       </div>
     </div>
@@ -88,125 +88,176 @@
 </div>
 
 <script>
-  // Top Ordered Products per Month (Line Chart)
-  const months = {!! json_encode($topOrderedProducts->pluck('month')->map(fn($m) => date('F', mktime(0, 0, 0, $m, 1)))) !!};
-  const transactionCounts = {!! json_encode($topOrderedProducts->pluck('total')) !!};
+  const rawData = {!! json_encode($topOrderedProducts) !!};
 
+  // Get unique months
+  const uniqueMonths = [...new Set(rawData.map(item => item.month))];
+  const monthLabels = uniqueMonths.map(m =>
+    new Date(0, m - 1).toLocaleString('default', { month: 'long' })
+  );
+
+  // Sum total quantity per month for line data
+  const monthlyTotals = uniqueMonths.map(month => {
+    return rawData
+      .filter(item => item.month === month)
+      .reduce((sum, item) => sum + Number(item.total_quantity), 0); // << fixed here
+  });
+
+  // Group top 5 products per month
+  const tooltipData = {};
+  uniqueMonths.forEach(month => {
+    const productsInMonth = rawData
+      .filter(item => item.month === month)
+      .sort((a, b) => b.total_quantity - a.total_quantity)
+      .slice(0, 5);
+
+    tooltipData[month] = productsInMonth.map(item =>
+      `${item.product_name}: ${item.total_quantity}`
+    );
+  });
+
+  // Chart config
   new Chart(document.getElementById('lineChart'), {
     type: 'line',
     data: {
-      labels: months,
+      labels: monthLabels,
       datasets: [{
-        label: 'Top Ordered Products',
-        data: transactionCounts,
+        label: 'Total Ordered Quantity',
+        data: monthlyTotals,
         borderColor: 'rgba(229, 81, 130, 1)',
         backgroundColor: 'rgba(229, 81, 130, 0.2)',
-        tension: 0.4,
-        fill: true
+        tension: 0.3,
+        borderWidth: 1,
+        fill: true,
+        pointRadius: 5,
+        pointHoverRadius: 7
       }]
     },
     options: {
       responsive: true,
+      interaction: {
+        mode: 'nearest',
+        intersect: false
+      },
+      plugins: {
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            label: function(context) {
+              const monthIndex = context.dataIndex;
+              const month = uniqueMonths[monthIndex];
+              const lines = tooltipData[month] || [];
+              return [`Total: ${monthlyTotals[monthIndex]}`, ...lines];
+            }
+          }
+        }
+      },
       scales: {
         y: {
+          beginAtZero: true,
           min: 0,
-          max: 50,
+          max: 50, // <-- set max here
           ticks: {
-            stepSize: 10
+            stepSize: 5 // optional: adjusts tick spacing
           }
         }
       }
     }
   });
 
+
   // Sales by Category (Pie Chart with Percentages)
-  const productLabels = {!! json_encode($categorySales->pluck('category_name')) !!};
-  const productQuantities = {!! json_encode($categorySales->pluck('total_quantity')) !!}.map(q => Number(q));
+const productLabels = {!! json_encode($categorySales->pluck('category_name')) !!};
+const productQuantities = {!! json_encode($categorySales->pluck('total_quantity')) !!}.map(q => Number(q));
 
-  const totalQuantity = productQuantities.reduce((a, b) => a + b, 0);
+const totalQuantity = productQuantities.reduce((a, b) => a + b, 0);
 
-  new Chart(document.getElementById('pieChart'), {
-    type: 'pie',
-    data: {
-      labels: productLabels,
-      datasets: [{
-        label: 'Top Categories',
-        data: productQuantities,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const label = context.label || '';
-              const value = context.raw || 0;
-              const percentage = ((value / totalQuantity) * 100).toFixed(1);
-              return `${label}: ${value} (${percentage}%)`;
-            }
-          }
-        },
-        legend: {
-          labels: {
-            generateLabels: function(chart) {
-              const data = chart.data;
-              if (data.labels.length && data.datasets.length) {
-                const dataset = data.datasets[0];
-                return data.labels.map(function(label, i) {
-                  const value = dataset.data[i];
-                  const percentage = ((value / totalQuantity) * 100).toFixed(1);
-                  return {
-                    text: `${label} (${percentage}%)`,
-                    fillStyle: dataset.backgroundColor[i],
-                    strokeStyle: dataset.borderColor[i],
-                    lineWidth: 1,
-                    index: i
-                  };
-                });
-              }
-              return [];
-            },
-            font: {
-              size: 14
-            },
-            padding: 20
-          }
-        },
-        datalabels: {
-          color: 'black',
-          font: {
-            weight: 'bold',
-            size: 10
-          },
-          formatter: function (value, context) {
-              const data = context.chart.data.datasets[0].data;
-              const total = data.reduce((sum, val) => sum + val, 0);
-              const percentage = ((value / total) * 100).toFixed(1);
-              const label = context.chart.data.labels[context.dataIndex];
-              return `${label}: ${percentage}%`;
+new Chart(document.getElementById('pieChart'), {
+  type: 'pie',
+  data: {
+    labels: productLabels,
+    datasets: [{
+      label: 'Top Categories',
+      data: productQuantities,
+      backgroundColor: [
+        'rgba(255, 179, 186, 0.7)',
+        'rgba(255, 223, 186, 0.7)',
+        'rgba(255, 255, 186, 0.7)',
+        'rgba(186, 255, 201, 0.7)',
+        'rgba(186, 225, 255, 0.7)'
+      ],
+      borderColor: [
+        'rgba(255, 179, 186, 1)',
+        'rgba(255, 223, 186, 1)',
+        'rgba(255, 255, 186, 1)',
+        'rgba(186, 255, 201, 1)',
+        'rgba(186, 225, 255, 1)'
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const label = context.label || '';
+            const value = context.raw || 0;
+            const percentage = ((value / totalQuantity) * 100).toFixed(1);
+            return `${label}: ${value} (${percentage}%)`;
           }
         }
+      },
+      legend: {
+        labels: {
+          generateLabels: function(chart) {
+            const data = chart.data;
+            if (data.labels.length && data.datasets.length) {
+              const dataset = data.datasets[0];
+              return data.labels.map(function(label, i) {
+                const value = dataset.data[i];
+                const percentage = ((value / totalQuantity) * 100).toFixed(1);
+                return {
+                  text: `${label} (${percentage}%)`,
+                  fillStyle: dataset.backgroundColor[i],
+                  strokeStyle: '#ec4899',
+                  lineWidth: 0.5,
+                  index: i
+                };
+              });
+            }
+            return [];
+          },
+          font: {
+            size: 14
+          },
+          padding: 20
+        }
+      },
+      datalabels: {
+        color: 'black',
+        font: {
+          weight: 'bold',
+          size: 12
+        },
+        align: 'center',
+        anchor: 'center',
+        clip: true,
+        formatter: function(value, context) {
+          const data = context.chart.data.datasets[0].data;
+          const total = data.reduce((sum, val) => sum + val, 0);
+          const percentage = ((value / total) * 100).toFixed(1);
+          return `${percentage}%`;
+        }
       }
-    },
-    plugins: [ChartDataLabels]
-  });
+    }
+  },
+  plugins: [ChartDataLabels]
+});
+
 </script>
 
 

@@ -66,13 +66,13 @@
           @endforeach
 
 
-          <div class="text-right">
-            <button type="submit"
-              class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-md text-lg font-semibold">
-              Save Changes
-            </button>
-          </div>
-        </form>
+            <div class="text-right">
+              <button type="submit"
+                class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-md text-lg font-semibold">
+                Save Changes
+              </button>
+            </div>
+          </form>
 
         <div class="">
         <h2 class="text-lg font-semibold mb-4 text-center">Select Your Payment Method</h2>
