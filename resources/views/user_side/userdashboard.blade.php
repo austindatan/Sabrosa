@@ -82,9 +82,6 @@
         <div class="w-full border border-gray-200 rounded-lg p-4 mb-4">
             <h2 class="text-lg font-semibold text-left mb-4">Account Settings</h2>
 
-            <div class="flex items-center justify-between mb-4">
-                <button onclick="showPasswordPopup()" class="text-gray-600 hover:underline">Change Password</button>
-            </div>
 
             <div class="flex items-center justify-between">
                 <button onclick="showDeletePopup()" class="text-red-600 hover:underline">Delete Account</button>
@@ -165,46 +162,6 @@
   <div class="flex justify-between">
     <button type="button" onclick="closePopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
     <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md">Save</button>
-  </div>
-</form>
-    </div>
-  </div>
-
-  <!-- Change Password Popup -->
-  <div id="passwordPopup" class="fixed inset-0 flex items-center justify-center hidden z-50">
-    <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg">
-      <h3 class="text-xl font-semibold mb-4">Change Password</h3>
-
-      <form method="POST" action="{{ route('user.change') }}">
-  @csrf
-                <!-- ✅ Username Field -->
-                <div class="w-full mb-5">
-                    <label for="username" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> Username </label>
-                    <input type="text" id="username" name="username" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
-                </div>
-
-                <!-- ✅ Email Field -->
-                <div class="w-full mb-5">
-                    <label for="email" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> Email </label>
-                    <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
-                </div>
-
-                <!-- ✅ New Password Field -->
-                <div class="w-full mb-5">
-                    <label for="password" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> New Password </label>
-                    <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
-                </div>
-
-                <!-- ✅ Confirm Password Field -->
-                <div class="w-full mb-5">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 font-dm-sans uppercase"> Confirm Password </label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"/>
-                </div>
-
-
-  <div class="flex justify-between">
-    <button type="button" onclick="closePasswordPopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
-    <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md">Change</button>
   </div>
 </form>
     </div>

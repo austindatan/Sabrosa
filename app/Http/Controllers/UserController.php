@@ -86,33 +86,6 @@ class UserController extends Controller
         return redirect()->route('user.dashboard')->with('success', 'Profile updated successfully!');
     }
 
-   public function change(Request $request)
-    {
-        $request->validate([
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:6|confirmed',
-        ]);
-
-
-        $user = DB::table('user_account')
-                  ->where('email', $request->email)
-                  ->where('username', $request->username)
-                  ->first();
-
-        if (!$user) {
-            return back()->withErrors(['error' => 'No matching user found']);
-        }
-
-
-        DB::table('user_account')
-            ->where('email', $request->email)
-            ->where('username', $request->username)
-            ->update(['password' => Hash::make($request->password)]);
-
-        return redirect()->route('user.dashboard')->with('success', 'Your password has been updated successfully.');
-    }
-
     public function completeOrder($id)
     {
         $transaction = DB::table('transaction')->where('transaction_id', $id)->first();

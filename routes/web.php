@@ -80,7 +80,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/dashboard', [UserController::class, 'user_dashboard'])->name('user.dashboard');
         Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
         Route::post('/user/update-popup/{id}', [UserController::class, 'updateProfilePopup'])->name('user.updatePopup');
-        Route::post('/user/update-password', [UserController::class, 'change'])->name('user.change');
         Route::get('/user/transaction/{id}', [UserController::class, 'transactionHistory'])->name('user.transactionHistory');
         Route::post('/user/transaction/complete/{id}', [UserController::class, 'completeOrder'])->name('user.completeOrder');
         Route::delete('/user/account', [UserController::class, 'destroyAccount'])->name('user.account.destroy');
