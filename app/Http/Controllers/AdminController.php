@@ -101,47 +101,82 @@ class AdminController extends Controller
     return view('admin_side.handle_users', compact('handleusers'));
     }
 
-    public function admin_handleorders()
-{
-    // Summary counts for dashboard cards
-    $pendingOrder = Transaction::where('status', 'Pending')->count();
-    $completed    = Transaction::where('status', 'Completed')->count();
+    public function admin_handleorders(Request $request)
+    {
+        // Dashboard cards
+        $pendingOrder = Transaction::where('status', 'Pending')->count();
+        $completed    = Transaction::where('status', 'Completed')->count();
 
-    // Fetch detailed order list sorted by newest date
-    $orders = DB::table('transaction as t')
-        ->join('orders as o',           't.transaction_id', '=', 'o.transaction_id')
-        ->join('cart_item as ci',       'o.cart_item_ID',    '=', 'ci.cart_item_ID')
-        ->join('product_details as pd', 'ci.product_details_ID', '=', 'pd.product_details_ID')
-        ->join('product as p',          'pd.product_ID',     '=', 'p.product_ID')
-        ->join('customer as c',         'ci.customer_ID',    '=', 'c.customer_ID')
-        ->join('shipping as s',         'o.shipping_ID',     '=', 's.shipping_ID')
-        ->select([
-            't.transaction_token',
-            DB::raw("CONCAT(c.firstname, ' ', c.lastname) AS customer_name"),
-            't.date_added',
-            't.status',
-            DB::raw(
-                'SUM(ci.quantity * p.price)'
-                . ' + (50 + CASE WHEN s.shipping_method = "Premium" THEN 50 ELSE 0 END)'
-                . ' AS total_price'
-            )
-        ])
-        ->groupBy(
-            't.transaction_token',
-            'customer_name',
-            't.date_added',
-            't.status',
-            's.shipping_method'
-        )
-        ->orderBy('t.date_added', 'desc') // Show newest orders first
-        ->get();
+        // Build base query
+        $q = DB::table('transaction as t')
+            ->join('orders as o',           't.transaction_id', '=', 'o.transaction_id')
+            ->join('cart_item as ci',       'o.cart_item_ID',    '=', 'ci.cart_item_ID')
+            ->join('product_details as pd', 'ci.product_details_ID', '=', 'pd.product_details_ID')
+            ->join('product as p',          'pd.product_ID',     '=', 'p.product_ID')
+            ->join('customer as c',         'ci.customer_ID',    '=', 'c.customer_ID')
+            ->join('shipping as s',         'o.shipping_ID',     '=', 's.shipping_ID')
+            ->select([
+                't.transaction_token',
+                DB::raw("CONCAT(c.firstname, ' ', c.lastname) AS customer_name"),
+                't.date_added',
+                't.status',
+                DB::raw(
+                    'SUM(ci.quantity * p.price)'
+                    . ' + (50 + CASE WHEN s.shipping_method = "Premium" THEN 50 ELSE 0 END)'
+                    . ' AS total_price'
+                )
+            ])
+            ->groupBy(
+                't.transaction_token',
+                'customer_name',
+                't.date_added',
+                't.status',
+                's.shipping_method'
+            );
 
-    return view('admin_side.handle_orders', compact(
-        'pendingOrder',
-        'completed',
-        'orders'
-    ));
-}
+        // 1) Keyword search
+        if ($search = $request->input('search')) {
+            $q->havingRaw('(customer_name LIKE ? OR t.transaction_token LIKE ?)', ["%{$search}%", "%{$search}%"]);
+        }
+
+        // 2) Status filter
+        if ($status = $request->input('status')) {
+            $q->having('t.status', '=', $status);
+        }
+
+        // 3) Sorting
+        switch ($request->input('sort')) {
+            case 'date_asc':
+                $q->orderBy('t.date_added', 'asc');
+                break;
+            case 'date_desc':
+                $q->orderBy('t.date_added', 'desc');
+                break;
+            case 'name_asc':
+                $q->orderBy('customer_name', 'asc');
+                break;
+            case 'name_desc':
+                $q->orderBy('customer_name', 'desc');
+                break;
+            case 'price_asc':
+                $q->orderBy('total_price', 'asc');
+                break;
+            case 'price_desc':
+                $q->orderBy('total_price', 'desc');
+                break;
+            default:
+                // default newest first
+                $q->orderBy('t.date_added', 'desc');
+        }
+
+        $orders = $q->get();
+
+        return view('admin_side.handle_orders', compact(
+            'pendingOrder',
+            'completed',
+            'orders'
+        ));
+    }
 
     public function storeProduct(Request $request)
     {
