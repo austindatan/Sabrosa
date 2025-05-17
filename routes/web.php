@@ -16,7 +16,7 @@ use App\Http\Controllers\{
     OwnerDashboardController,
     AdminController,
     UserController,
-    ManageUserController
+    ManageUserController,
 };
 
 Route::get('/', [ProductController::class, 'showHome'])->name('home');
@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/user/update-password', [UserController::class, 'change'])->name('user.change');
         Route::get('/user/transaction/{id}', [UserController::class, 'transactionHistory'])->name('user.transactionHistory');
         Route::post('/user/transaction/complete/{id}', [UserController::class, 'completeOrder'])->name('user.completeOrder');
+        Route::delete('/user/account', [UserController::class, 'destroyAccount'])->name('user.account.destroy');
     });
 
     Route::middleware('checkrole:admin')->group(function () {

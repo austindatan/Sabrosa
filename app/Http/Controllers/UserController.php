@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductDetail;
 use App\Models\EmployeeDetail;
 use App\Models\Customer;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Transaction; 
 use App\Models\Order;
@@ -176,7 +177,24 @@ class UserController extends Controller
         'shippingFee',
         'paymentMethod'
     ));
-}
+    }
 
+    public function destroyAccount(Request $request)
+    {
+        $user = Auth::user(); // This is an instance of the User model
+
+        // First, delete the related customer
+        Customer::where('user_account_ID', $user->user_account_ID)->delete();
+
+        // Log out and invalidate session
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Then delete the user account itself
+        $user->delete();
+
+        return redirect()->route('home')->with('status', 'Your account has been successfully deleted.');
+    }
 
 }

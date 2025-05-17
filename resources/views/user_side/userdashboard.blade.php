@@ -211,13 +211,23 @@
   </div>
 
   <!-- Delete Account Popup -->
-  <div id="deletePopup" class="fixed inset-0 flex items-center justify-center hidden z-50">
+  <div id="deletePopup" class="fixed inset-0 flex items-center justify-center hidden z-50 bg-black bg-opacity-50">
     <div class="bg-white border-2 border-[#E55182] rounded-lg p-6 w-96 shadow-lg text-center">
       <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete your account?</h3>
-      <div class="flex justify-center gap-4">
-        <button onclick="confirmDelete()" class="bg-red-500 text-white px-4 py-2 rounded-md">Yes</button>
-        <button onclick="closeDeletePopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md">No</button>
-      </div>
+      
+      <form id="deleteAccountForm" method="POST" action="{{ route('user.account.destroy') }}">
+        @csrf
+        @method('DELETE')
+        
+        <div class="flex justify-center gap-4">
+          <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+            Yes
+          </button>
+          <button type="button" onclick="closeDeletePopup()" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+            No
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
