@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Models\Category;
 use App\Models\Store;
+use App\Models\CartItem;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
@@ -99,9 +101,47 @@ class AdminController extends Controller
     return view('admin_side.handle_users', compact('handleusers'));
     }
 
-    public function admin_handleorders() {
-        return view('admin_side.handle_orders');
-    }
+    public function admin_handleorders()
+{
+    // Summary counts for dashboard cards
+    $pendingOrder = Transaction::where('status', 'Pending')->count();
+    $completed    = Transaction::where('status', 'Completed')->count();
+
+    // Fetch detailed order list sorted by newest date
+    $orders = DB::table('transaction as t')
+        ->join('orders as o',           't.transaction_id', '=', 'o.transaction_id')
+        ->join('cart_item as ci',       'o.cart_item_ID',    '=', 'ci.cart_item_ID')
+        ->join('product_details as pd', 'ci.product_details_ID', '=', 'pd.product_details_ID')
+        ->join('product as p',          'pd.product_ID',     '=', 'p.product_ID')
+        ->join('customer as c',         'ci.customer_ID',    '=', 'c.customer_ID')
+        ->join('shipping as s',         'o.shipping_ID',     '=', 's.shipping_ID')
+        ->select([
+            't.transaction_token',
+            DB::raw("CONCAT(c.firstname, ' ', c.lastname) AS customer_name"),
+            't.date_added',
+            't.status',
+            DB::raw(
+                'SUM(ci.quantity * p.price)'
+                . ' + (50 + CASE WHEN s.shipping_method = "Premium" THEN 50 ELSE 0 END)'
+                . ' AS total_price'
+            )
+        ])
+        ->groupBy(
+            't.transaction_token',
+            'customer_name',
+            't.date_added',
+            't.status',
+            's.shipping_method'
+        )
+        ->orderBy('t.date_added', 'desc') // Show newest orders first
+        ->get();
+
+    return view('admin_side.handle_orders', compact(
+        'pendingOrder',
+        'completed',
+        'orders'
+    ));
+}
 
     public function storeProduct(Request $request)
     {
@@ -261,5 +301,7 @@ class AdminController extends Controller
 
         return redirect()->route('admin.productlist')->with('success', 'Product deleted successfully.');
     }
+
+
 }
 

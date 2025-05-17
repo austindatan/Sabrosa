@@ -13,6 +13,15 @@ class Transaction extends Model
 
     public $timestamps = false;
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'transaction_id');
+    }
+
+    public function customer()
+    {
+        return $this->hasOneThrough(Customer::class, Order::class, 'transaction_id', 'customer_ID', 'transaction_id', 'customer_ID');
+    }
 
 }
 
